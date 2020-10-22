@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf524d64-562b-4165-9c2b-3f3818088f23" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/polling.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdministratorMeetings.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdministratorMeetings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Advertising.html" beforeDir="false" afterPath="$PROJECT_DIR$/Advertising.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Callofcontracts.html" beforeDir="false" afterPath="$PROJECT_DIR$/Callofcontracts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ContractsAwarded.html" beforeDir="false" afterPath="$PROJECT_DIR$/ContractsAwarded.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EmailSystem.html" beforeDir="false" afterPath="$PROJECT_DIR$/EmailSystem.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Polling.html" beforeDir="false" afterPath="$PROJECT_DIR$/Polling.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OwnersConcerns.html" beforeDir="false" afterPath="$PROJECT_DIR$/OwnersConcerns.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +47,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603398799610</updated>
-      <workItem from="1603398832748" duration="2195000" />
+      <workItem from="1603398832748" duration="3319000" />
     </task>
     <servers />
   </component>
