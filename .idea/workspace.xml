@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cf524d64-562b-4165-9c2b-3f3818088f23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/polling.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdministratorMeetings.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdministratorMeetings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Advertising.html" beforeDir="false" afterPath="$PROJECT_DIR$/Advertising.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Callofcontracts.html" beforeDir="false" afterPath="$PROJECT_DIR$/Callofcontracts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ContractsAwarded.html" beforeDir="false" afterPath="$PROJECT_DIR$/ContractsAwarded.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmailSystem.html" beforeDir="false" afterPath="$PROJECT_DIR$/EmailSystem.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Polling.html" beforeDir="false" afterPath="$PROJECT_DIR$/Polling.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jFTMkxeSmyVy8alnu2lKUtDvqs" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf524d64-562b-4165-9c2b-3f3818088f23" name="Default Changelist" comment="" />
+      <created>1603398799610</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603398799610</updated>
+      <workItem from="1603398832748" duration="2195000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1603398833087">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1603398833087" />
+  </component>
+</project>
