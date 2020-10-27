@@ -20,14 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf524d64-562b-4165-9c2b-3f3818088f23" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/choose_groups.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/create_delete_edit_group.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/group.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/poll_result.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/choose_groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/choose_groups.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_delete_edit_group.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603398799610</updated>
       <workItem from="1603398832748" duration="4752000" />
-      <workItem from="1603683699612" duration="3224000" />
+      <workItem from="1603683699612" duration="6224000" />
     </task>
     <servers />
   </component>
@@ -103,10 +98,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="390" y="7" key="#PHP/0.0.1366.728@0.0.1366.728" timestamp="1603683787762" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603759328279">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1603759328279" />
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1603689967876">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1603689967876" />
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1603759216278">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1603759216278" />
     <state x="184" y="9" key="SettingsEditor" timestamp="1603690064147">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
