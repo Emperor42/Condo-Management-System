@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf524d64-562b-4165-9c2b-3f3818088f23" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Groups/choose_groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/Groups/choose_groups.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Groups/creategroup.html" beforeDir="false" afterPath="$PROJECT_DIR$/Groups/creategroup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Groups/editremovegroups.html" beforeDir="false" afterPath="$PROJECT_DIR$/Groups/editremovegroups.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603398799610</updated>
       <workItem from="1603398832748" duration="4752000" />
-      <workItem from="1603683699612" duration="7407000" />
+      <workItem from="1603683699612" duration="7876000" />
     </task>
     <servers />
   </component>
