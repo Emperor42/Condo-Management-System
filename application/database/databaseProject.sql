@@ -10,7 +10,7 @@ age int,
 email varchar(255),
 phone varchar(10),
 entityType int,
-group boolean,
+user_group boolean,
 pwrd varchar(255) NOT NULL,
 PRIMARY KEY(eid)
 );
