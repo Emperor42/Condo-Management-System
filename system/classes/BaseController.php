@@ -3,6 +3,12 @@
 class BaseController
 {
 
+    public function __construct()
+    {
+        //Loads helper class to
+        $this->helper("link");
+    }
+
     public function view($viewName, $data = [])
     {
 
@@ -61,8 +67,6 @@ class BaseController
     // Set session
     public function setSession($sessionName, $sessionValue)
     {
-
-
         if (!empty($sessionName) && !empty($sessionValue)) {
             $_SESSION[$sessionName] = $sessionValue;
         }
@@ -129,9 +133,8 @@ class BaseController
 
     public function redirect($path)
     {
-
         header("location:" . BASEURL . "/" . $path);
-
+       // die();
     }
 }
 
