@@ -22,9 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +56,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -113,6 +111,7 @@
       <workItem from="1603904197032" duration="13667000" />
       <workItem from="1603919671297" duration="8871000" />
       <workItem from="1604097281132" duration="26404000" />
+      <workItem from="1605034282858" duration="15000" />
     </task>
     <servers />
   </component>
@@ -151,10 +150,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1603897959111" />
-    <state x="489" y="148" key="FileChooserDialogImpl" timestamp="1603919250088">
+    <state x="489" y="148" key="FileChooserDialogImpl" timestamp="1605034298169">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="489" y="148" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1603919250088" />
+    <state x="489" y="148" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605034298169" />
     <state x="550" y="167" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1603771199445" />
     <state width="1323" height="223" key="GridCell.Tab.0.bottom" timestamp="1603914217568">
       <screen x="0" y="0" width="1366" height="728" />
