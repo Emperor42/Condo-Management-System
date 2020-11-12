@@ -13,7 +13,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-10">
-            <?php include "components/editUserForm.php"; ?>
+            <?php include "components/editGroupForm.php"; ?>
         </div>
         <!-- Close col-md-5 -->
     </div>
