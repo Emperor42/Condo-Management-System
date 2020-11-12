@@ -24,7 +24,7 @@ class userPost extends BaseController
 
     public function wall()
     {
-        $this->view('wall');
+        $this->view('main/wall');
     }
 
     /**************************************************************/
@@ -53,7 +53,7 @@ class userPost extends BaseController
             :
             $this->setFlash('failure', "Problem deleting $userId");
 
-        $this->redirect('post/wall');
+        $this->redirect('main/wall');
     }
 
     public function changePostRequest()
@@ -69,7 +69,7 @@ class userPost extends BaseController
                 :
                 $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"])));
 
-            $this->redirect('post/wall');
+            $this->redirect('main/wall');
         }
 
     }
@@ -150,7 +150,7 @@ class userPost extends BaseController
                 $this->setFlash("Post Sent!"):
                 $this->setFlash('Post Not Sent!');
 
-            $this->redirect('post/wall');
+            $this->redirect('main/wall');
         }
     }
 }
