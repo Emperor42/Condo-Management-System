@@ -10,10 +10,12 @@
 </head>
 <body>
 <?php include "components/admin-nav.php"; ?>
+<?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-10">
-            <?php include "components/editUserForm.php"; ?>
+        <div class="col-md-11">
+            <h3>Edit/Delete User</h3>
+            <?php include "components/datatable.php"; ?>
         </div>
         <!-- Close col-md-5 -->
     </div>
