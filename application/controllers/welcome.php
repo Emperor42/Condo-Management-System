@@ -1,11 +1,15 @@
 <?php
 
-class welcome
+class welcome extends BaseController
 {
 
     public function index()
     {
-        echo "welcome default controller";
+        if(!isset($_COOKIE['loggedUser'])){
+            $this->view('login', $data);
+        } else{
+            echo "A USER HAS BEEN SET ALREADY!";
+        }
     }
 }
 
