@@ -30,6 +30,13 @@ class main extends BaseController
         $this->view('wall', $data, $userModel);
     }
 
+    public function login(){
+        //temp ffor testing
+        //$this->view('login');
+        $this->wall();
+    }
+
+    //need to split the two of these into get requests and such, will make a contacts page soon
     public function conversation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {

@@ -78,7 +78,7 @@
                 :
                 $this->setFlash('failure', "Problem deleting $userId");
 
-            $this->redirect('user/EditGroups');
+            $this->redirect('group/EditGroups');
         }
 
     }

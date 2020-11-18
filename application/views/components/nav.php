@@ -16,10 +16,26 @@
                 <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">SignUp</a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/user/register">New User</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Guest</a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/user/editOrRemove">Edit Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo BASEURL; ?>/group/EditGroups">Edit Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo BASEURL; ?>/main/wall">Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo BASEURL; ?>/main/events">Events</a>
+            </li>
+            <!--NOT YET IMPLEMENTED!-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contacts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Manage Property</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
