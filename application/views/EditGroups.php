@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit User</title>
     <?php include "components/header.php" ?>
-    <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
+    <?php linkCSS("assets/css/datatable.bootstrap4.min.css"); ?>
 </head>
 <body>
 <?php include "components/admin-nav.php"; ?>
@@ -14,8 +14,8 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-11">
-            <h3>Edit/Delete User</h3>
-            <?php include "components/datatable.php"; ?>
+            <h3>Edit/Delete Groups</h3
+            <?php include "components/group_table.php"; ?>
         </div>
         <!-- Close col-md-5 -->
     </div>
