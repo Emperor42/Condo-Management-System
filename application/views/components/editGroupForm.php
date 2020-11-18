@@ -20,11 +20,7 @@
         <input data-toggle="tooltip" title="Email" type="email" name="email"
                class="form-control" placeholder="Email..."
                value="<?php echo $data['data']->email; ?>" required>
-
-        <input data-toggle="tooltip" title="GroupOwner" type="text" name="groupOwner"
-               class="form-control" placeholder="Group Owner..."
-               value="<?php echo $data['data']->groupOwner; ?>" required>
-
+        s
 
         <input data-toggle="tooltip" title="Password" type="text" name="pwrd"
                class="form-control" placeholder="Create new password..."

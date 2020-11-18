@@ -22,6 +22,7 @@ class rout
 
         // Include controller
         require_once "../application/controllers/" . $this->controller . ".php";
+
         // Instantiate controller
         $this->controller = new $this->controller;
 
