@@ -22,11 +22,16 @@ class user extends BaseController
     /*                    VIEW REQUESTS                           */
     /**************************************************************/
 
+    /**
+     * Returns register view
+     */
     public function register()
     {
         $this->view('register');
     }
-
+    /**
+     * Returns editOrRemove view
+     */
     public function editOrRemove()
     {
         $data = $this->userModel->getUsers();
