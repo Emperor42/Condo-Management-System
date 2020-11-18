@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit User</title>
     <?php include "components/header.php" ?>
-    <?php linkCSS("assets/css/datatable.bootstrap4.min.css"); ?>
+    <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
 <?php include "components/admin-nav.php"; ?>
