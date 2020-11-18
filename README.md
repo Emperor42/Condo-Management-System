@@ -35,3 +35,9 @@ Xampp setup
 6- open the xampp folder —> show in finder —> go to htcdocs folder and create a folder name comp353CONsystem 
 
 7- clone your branch in that folder “ comp353CONsystem ” and you are good :) 
+
+PLEASE NOTE: FOLLOWING BRANCHES MERGED AND COMMITTED TO REMOTE DEVELOP
+-matthew
+-khadija
+-tiffany
+-develop (The current on remote branch)

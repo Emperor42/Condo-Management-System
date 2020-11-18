@@ -34,7 +34,7 @@
     <!-- Close form-group -->
     <div class="form-group">
         <input type="submit" name="Update" class="btn btn-primary" value="Update" formaction="<?php echo BASEURL;?>/user/updateUserRequest">
-        <input type="submit" name="Cancel" class="btn btn-danger" value="Cancel" formaction="<?php echo BASEURL;?>/user/editOrRemove">
+        <input type="submit" name="Cancel" class="btn btn-danger" value="Cancel" formaction="<?php echo BASEURL;?>/user/editGroup">
     </div>
     <!-- Close form-group -->
 
