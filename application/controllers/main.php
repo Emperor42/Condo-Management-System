@@ -26,14 +26,18 @@ class main extends BaseController
 
     public function wall()
     {
-        $data = $postModel->messagesForUser($_COOKIE['loggedUser']);
-        $this->view('wall', $data, $userModel);
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_COOKIE['loggedUser'])){
+                $this->redirect('main/login');
+        }
+        $data = $this->postModel->messagesForUser($_COOKIE['loggedUser']);
+        $this->view('wall', $data, $this->userModel);
     }
 
     public function login(){
         //temp ffor testing
-        //$this->view('login');
-        $this->wall();
+        $this->view('login');
+        //$this->wall();
     }
 
     //need to split the two of these into get requests and such, will make a contacts page soon
@@ -47,8 +51,8 @@ class main extends BaseController
     }
 
     public function events(){
-        $data = $postModel->eventsForUser($_COOKIE['loggedUser']);
-        $this->view('events', $data, $userModel);
+        $data = $this->postModel->eventsForUser($_COOKIE['loggedUser']);
+        $this->view('events', $data, $this->userModel);
     }
 
     /**************************************************************/

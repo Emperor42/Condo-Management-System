@@ -8,7 +8,7 @@
     <?php include "components/header.php" ?>
 </head>
 <body>
-<?php include "components/admin-nav.php"; ?>
+<?php include "components/nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">

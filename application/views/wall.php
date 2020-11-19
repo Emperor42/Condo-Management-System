@@ -9,12 +9,13 @@
     <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
-    <?php include "components/admin-nav.php"; ?>
+    <?php include "components/nav.php"; ?>
     <?php include "components/flashMessage.php"; ?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-11">
             <div id="wall">
+                <?php include "components/newUserPost.php";?>
                     <?php if(!empty($data)):?>
                         <?php foreach($data as $postData): ?>
                             <?php if($postData->msgSubject=="POST")://create a new post on the wall?>
@@ -27,7 +28,7 @@
                                         ele.innerHTML = ele.innerHTML + <?php include "components/wallPost.php"; ?>;//append the html to the tab required
                                     }
                                 </script>
-                            <?php endif;?> 
+                            <?php endif;?>
                         <?php endforeach;?>
                     <?php endif; ?>
                 </div>

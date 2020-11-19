@@ -9,7 +9,7 @@
     <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
-<?php include "components/admin-nav.php"; ?>
+<?php include "components/nav.php"; ?>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-10">
