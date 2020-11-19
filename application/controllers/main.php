@@ -43,6 +43,10 @@ class main extends BaseController
     //need to split the two of these into get requests and such, will make a contacts page soon
     public function conversation()
     {
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_COOKIE['loggedUser'])){
+            $this->redirect('main/login');
+    }
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $other = (int)htmlspecialchars($_GET["user"]);
             $data = $this->postModel->conversationForUsers($_COOKIE['loggedUser'], $other);
@@ -51,6 +55,10 @@ class main extends BaseController
     }
 
     public function events(){
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_COOKIE['loggedUser'])){
+            $this->redirect('main/login');
+    }
         $data = $this->postModel->eventsForUser($_COOKIE['loggedUser']);
         $this->view('events', $data, $this->userModel);
     }
@@ -58,5 +66,19 @@ class main extends BaseController
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
+    public function loginForm()
+    {
+
+        // Value validation happens at client side, so no need to check for blanks here
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            //check if the user password is correct
+            $u= $this->input($_POST["uname"]);
+            $p = $this->input($_POST["psw"]);
+            if($this->userModel->checkUser($u,$p)){
+                setcookie("loggedUser", $this->userModel->getEID($u,$p), time()+3600);
+            }
+        }
+    }
+
 }
 ?>
