@@ -75,9 +75,12 @@ class main extends BaseController
             $u= $this->input($_POST["uname"]);
             $p = $this->input($_POST["psw"]);
             if($this->userModel->checkUser($u,$p)){
-                setcookie("loggedUser", $this->userModel->getEID($u,$p), time()+3600);
+                setcookie("loggedUser", strval($this->userModel->getEID($u,$p)->eid), time()+3600);
+                $this->redirect('main/wall');
             }
         }
+        $this->setFlash('failure', "Failed to Log In ");
+        $this->redirect('main/login');
     }
 
 }
