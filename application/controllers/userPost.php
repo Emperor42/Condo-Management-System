@@ -61,13 +61,14 @@ class userPost extends BaseController
         // Value validation happens at client side, so no need to check for blanks here
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $this->postModel->updatePost(
+            $this->postModel->updateMessage(
                 $this->input($_POST["mid"]),
-                $this->input($_POST["msgText"])
+                $this->input($_POST["msgText"]),
+                )
                 ?
                 $this->setFlash('success', 'User' . $this->input($_POST["userId"]) . " updated successfully!")
                 :
-                $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"])));
+                $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"]));
 
             $this->redirect('main/wall');
         }

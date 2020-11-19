@@ -5,7 +5,7 @@
  */
 class main extends BaseController
 {
-    private $userModel;
+    public $userModel;
     private $postModel;
 
     public function __construct()

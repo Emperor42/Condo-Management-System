@@ -126,7 +126,7 @@ class postModel extends databaseService
     function updateMessage($mid, $msgText)
     {
         if ($this->Query("UPDATE messages SET
-        ,msgText = ?
+        msgText = ?
         WHERE mid = ?", [ $msgText, $mid])) {
             return true;
         } else {
@@ -164,9 +164,9 @@ class postModel extends databaseService
         OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
         OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
         OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
-        OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?)
+        OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?) ORDER BY mid DESC
         ", [$userId,$userId,$userId,$userId,$userId,$userId])) {
-            return $this->fetch();
+            return $this->fetchAll();
         }
     }
 
