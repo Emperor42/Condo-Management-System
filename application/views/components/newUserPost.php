@@ -1,6 +1,6 @@
 <div id="newPost" class="postMain"> 
 <h3>Say Something</h3>
-<form action="<?php echo BASEURL; ?>/userPost/send" method="post" 
+<form action="<?php echo BASEURL; ?>/userPost/registerPostRequest" method="post" 
 enctype="multipart/form-data">
   <input name="replyTo" id="newPostReplyTo" type="hidden" value="-1">
   <input name="msgTo" id="newPostMsgTo" type="hidden" value="-1">

@@ -68,7 +68,6 @@ class main extends BaseController
     /**************************************************************/
     public function loginForm()
     {
-
         // Value validation happens at client side, so no need to check for blanks here
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //check if the user password is correct
@@ -77,9 +76,19 @@ class main extends BaseController
             if($this->userModel->checkUser($u,$p)){
                 setcookie("loggedUser", strval($this->userModel->getEID($u,$p)->eid), time()+3600);
                 $this->redirect('main/wall');
+            } else {
+                $this->setFlash('failure', "Failed to Log In ");
+                $this->redirect('main/login');
             }
         }
-        $this->setFlash('failure', "Failed to Log In ");
+        $this->setFlash('success', "WELCOME!");
+    }
+
+    public function logout(){
+        if (isset($_COOKIE['loggedUser'])){
+            setcookie("loggedUser", "", time() - 3600);
+        }
+        $this->setFlash('success', "You are now logged out!");
         $this->redirect('main/login');
     }
 

@@ -41,7 +41,7 @@
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="<?php echo BASEURL; ?>/main/logout">Logout</a>
                 </li>
             </ul>
         </form>
