@@ -25,13 +25,24 @@
         /**************************************************************/
 
         /**
-         * Returns editGroup view
+         * Returns manageGroups view
          */
-        public function manageGroups($ownerId)
+        public function manageGroups()
         {
+            //TODO: Get owner id from using session info and UserModel.
+            // Hard Coding ownerId for now as admin
+            $ownerId = 789;
             //TODO hard coding Owner ID.. To be changed later
             $data = $this->getGroups($ownerId);
             $this->view('manageGroups',$data);
+        }
+
+        /**
+         * Returns createGroup view
+         */
+        public function createGroup()
+        {
+            $this->view('createGroup');
         }
 
         /**
@@ -61,6 +72,40 @@
         /*                    ACTION REQUESTS                         */
         /**************************************************************/
 
+
+        public function deleteGroupRequest($groupId)
+        {
+            $this->groupModel->deleteGroup($groupId)
+                ?
+                $this->setFlash('success', 'Group [' . $groupId . "] deleted successfully!")
+                :
+                $this->setFlash('failure', "Problem deleting group [" . $groupId . "] ");
+
+            $this->redirect('group/manageGroups');
+        }
+
+        public function createGroupRequest()
+        {
+            // Value validation happens at client side, so no need to check for blanks here
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+                $this->groupModel->insertGroup(
+                    $this->input($_POST["groupName"]),
+                    $this->input($_POST["groupDescription"]))
+                    ?
+                    $this->setFlash('success', 'Group' . $this->input($_POST["groupName"]) . " created successfully!")
+                    :
+                    $this->setFlash('failure', "Problem creating group " . $this->input($_POST["groupName"]));
+
+                $this->redirect('group/manageGroups');
+            }
+
+        }
+
+        /** Get groups pertaining to an owner id
+         * @param $ownerId
+         * @return mixed
+         */
         public function getGroups($ownerId)
         {
             /*Check if the owner is also an admin.

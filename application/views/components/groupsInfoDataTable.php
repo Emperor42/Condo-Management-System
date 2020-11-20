@@ -17,9 +17,9 @@
                 <td><?php echo $userData->groupId; ?></td>
                 <td><?php echo $userData->groupName; ?></td>
                 <td><?php echo $userData->groupDescription; ?></td>
-                <td><a href="<?php echo BASEURL; ?>/user/editUserRequest/<?php echo $userData->userId; ?>"
-                       class="btn-editRemove btn-warning">Edit</a></td>
-                <td><a href="<?php echo BASEURL; ?>/user/deleteUserRequest/<?php echo $userData->userId; ?>"
+                <td><a href="<?php echo BASEURL; ?>/group/groupDetails/<?php echo $userData->groupId; ?>"
+                       class="btn-editRemove btn-primary">Details</a></td>
+                <td><a href="<?php echo BASEURL; ?>/group/deleteGroupRequest/<?php echo $userData->groupId; ?>"
                        class="btn-editRemove btn-danger">Delete</a></td>
 
             </tr>

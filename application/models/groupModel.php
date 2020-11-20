@@ -2,6 +2,15 @@
     class groupModel extends databaseService
     {
 
+        function insertGroup($groupName, $groupDescription){
+            if ($this->Query("INSERT INTO groups
+            VALUES(?,?, ?)", [NULL,$groupName, $groupDescription])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         /**
          * @param $ownerId
          * @param $userId
@@ -43,8 +52,8 @@
         /**
          * @param $ownerId : User id for the user to be deleted
          */
-        function deleteGroup($ownerId){
-            return $this->Query("DELETE FROM Groups WHERE ownerId = ?", [$ownerId]);
+        function deleteGroup($groupId){
+            return $this->Query("DELETE FROM groups WHERE groupId = ?", [$groupId]);
         }
 
         /**

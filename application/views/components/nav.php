@@ -22,7 +22,7 @@
                 <a class="nav-link" href="<?php echo BASEURL; ?>/user/editOrRemove">Edit Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo BASEURL; ?>/group/EditGroups">Edit Groups</a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/group/manageGroups">Manage Groups</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo BASEURL; ?>/main/wall">Posts</a>
