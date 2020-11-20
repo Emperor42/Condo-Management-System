@@ -64,3 +64,26 @@ FOREIGN KEY (tid) REFERENCES entity(eid)
 );
 
 #show tables;
+
+# Group table to store info about the group
+CREATE TABLE groups(
+groupId int NOT NULL AUTO_INCREMENT,
+groupName varchar(255),
+groupDescription varchar(255),
+PRIMARY KEY(gid)
+);
+
+#TEST Data
+INSERT INTO CONMANSYSTEM.groups VALUES(null, 'Friends', 'Group for Friends');
+INSERT INTO CONMANSYSTEM.groups VALUES(null, 'Family', 'Group for Family');
+INSERT INTO CONMANSYSTEM.groups VALUES(null, 'Colleagues', 'Group for Colleagues');
+
+#Group Membership
+CREATE TABLE groupMembership(
+groupId int NOT NULL,
+ownerId int NOT NULL,
+userId  int NOT NULL,
+FOREIGN KEY (ownerId) REFERENCES entity(eid) ON DELETE CASCADE,
+FOREIGN KEY (userId) REFERENCES entity(eid) ON DELETE CASCADE,
+FOREIGN KEY (groupId) REFERENCES groups(groupId) ON DELETE CASCADE
+);

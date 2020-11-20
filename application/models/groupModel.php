@@ -52,23 +52,19 @@
          */
         function getGroupList($ownerId)
         {
-            if ($this->Query("SELECT g.* FROM Groups g INNER JOIN entity e ON g.userId = e.userId WHERE g.ownerId=?", [$ownerId] )) {
+            if ($this->Query("SELECT g.* FROM groups g INNER JOIN entity e ON g.userId = e.userId WHERE g.ownerId=?", [$ownerId] )) {
                 return $this->fetchAll();
             }
         }
 
         /**
-         * @param $userId
-         * @return fetch : User with provded id
+         * @return fetch : Fetches all groups. To be used by an Admin
          */
-        /*
-         function getUser($userId)
-         {
-             if ($this->Query("SELECT * FROM entity WHERE userId = ?", [$userId])) {
-                 return $this->fetch();
-             }
-         }
-         */
-
+        function getAllGroups()
+        {
+            if ($this->Query("SELECT * FROM groups", [] )) {
+                return $this->fetchAll();
+            }
+        }
     }
 
