@@ -6,7 +6,7 @@
 define("HOST", "localhost");
 define("USER", "root");
 define("DATABASE", "CONMANSYSTEM");
-define("PASSWORD", "database");
+define("PASSWORD","");//define("PASSWORD", "database");
 
 // Base URL
 

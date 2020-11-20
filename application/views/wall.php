@@ -9,25 +9,31 @@
     <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
-    <?php include "components/admin-nav.php"; ?>
+    <?php include "components/nav.php"; ?>
     <?php include "components/flashMessage.php"; ?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-11">
             <div id="wall">
+                <?php include "components/newUserPost.php";?>
                     <?php if(!empty($data)):?>
-                        <?php foreach($data as $postData): ?>
+                        <?php foreach($data as $key=>$postData): ?>
                             <?php if($postData->msgSubject=="POST")://create a new post on the wall?>
                                 <?php include "components/wallPost.php"; ?>
                             <?php endif;?>
                             <?php if($postData->msgSubject=="COMMENT")://create a new post on the post to which its a comment?>
+                                <?php include "components/wallPost.php"?>
                                 <script>
-                                    window.onload = function(){
-                                        var ele = document.getElementById("m<?php echo $postData->mid?>Comments");//get the details elelment id with js
-                                        ele.innerHTML = ele.innerHTML + <?php include "components/wallPost.php"; ?>;//append the html to the tab required
-                                    }
+                                    window.addEventListener('load', function(){
+                                        var ele = document.getElementById("m<?php echo $postData->replyTo;?>Comments");//get the details elelment id with js
+                                        var target = document.getElementById("message<?php echo $postData->mid;?>");//get the target ellment
+                                        var mainWall = document.getElementById("wall");
+                                        //referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+                                        ele.appendChild(target);//add the child to the post
+                                        mainWall.removeChild(target);//remove the child from the wall
+                                    });
                                 </script>
-                            <?php endif;?> 
+                            <?php endif;?>
                         <?php endforeach;?>
                     <?php endif; ?>
                 </div>

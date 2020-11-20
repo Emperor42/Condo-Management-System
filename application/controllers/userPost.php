@@ -61,13 +61,14 @@ class userPost extends BaseController
         // Value validation happens at client side, so no need to check for blanks here
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $this->postModel->updatePost(
+            $this->postModel->updateMessage(
                 $this->input($_POST["mid"]),
-                $this->input($_POST["msgText"])
+                $this->input($_POST["msgText"]),
+                )
                 ?
                 $this->setFlash('success', 'User' . $this->input($_POST["userId"]) . " updated successfully!")
                 :
-                $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"])));
+                $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"]));
 
             $this->redirect('main/wall');
         }
@@ -78,7 +79,7 @@ class userPost extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
-            if (!empty($_POST("msgAttach"))){
+            if (!empty($_POST["msgAttach"])){
                 $target_dir = "uploads/". $_COOKIE['loggedUser'];
                 $target_file = $target_dir . basename($_FILES["msgAttach"]["name"]);
                 $uploadOk = 1;
@@ -138,17 +139,17 @@ class userPost extends BaseController
             // Value validation happens at client side, so no need to check for blanks here
        
 
-            $this->postModel->insertPost(
+            $this->postModel->insertMessage(
                 (int)$this->input($_POST["replyTo"]),
-                (int)$this->input($_POST["msgTO"]),
+                (int)$this->input($_POST["msgTo"]),
                 (int)$this->input($_POST["msgFrom"]),
                 $this->input($_POST["msgSubject"]),
                 $this->input($_POST["msgText"]),
                 $this->input($msgAttach),
                 )
                 ?
-                $this->setFlash("Post Sent!"):
-                $this->setFlash('Post Not Sent!');
+                $this->setFlash("success","Post Sent!"):
+                $this->setFlash("failure",'Post Not Sent!');
 
             $this->redirect('main/wall');
         }

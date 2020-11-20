@@ -5,7 +5,7 @@
  */
 class main extends BaseController
 {
-    private $userModel;
+    public $userModel;
     private $postModel;
 
     public function __construct()
@@ -26,19 +26,27 @@ class main extends BaseController
 
     public function wall()
     {
-        $data = $postModel->messagesForUser($_COOKIE['loggedUser']);
-        $this->view('wall', $data, $userModel);
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_COOKIE['loggedUser'])){
+                $this->redirect('main/login');
+        }
+        $data = $this->postModel->messagesForUser($_COOKIE['loggedUser']);
+        $this->view('wall', $data, $this->userModel);
     }
 
     public function login(){
         //temp ffor testing
-        //$this->view('login');
-        $this->wall();
+        $this->view('login');
+        //$this->wall();
     }
 
     //need to split the two of these into get requests and such, will make a contacts page soon
     public function conversation()
     {
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_COOKIE['loggedUser'])){
+            $this->redirect('main/login');
+    }
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $other = (int)htmlspecialchars($_GET["user"]);
             $data = $this->postModel->conversationForUsers($_COOKIE['loggedUser'], $other);
@@ -47,12 +55,42 @@ class main extends BaseController
     }
 
     public function events(){
-        $data = $postModel->eventsForUser($_COOKIE['loggedUser']);
-        $this->view('events', $data, $userModel);
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_COOKIE['loggedUser'])){
+            $this->redirect('main/login');
+    }
+        $data = $this->postModel->eventsForUser($_COOKIE['loggedUser']);
+        $this->view('events', $data, $this->userModel);
     }
 
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
+    public function loginForm()
+    {
+        // Value validation happens at client side, so no need to check for blanks here
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            //check if the user password is correct
+            $u= $this->input($_POST["uname"]);
+            $p = $this->input($_POST["psw"]);
+            if($this->userModel->checkUser($u,$p)){
+                setcookie("loggedUser", strval($this->userModel->getEID($u,$p)->eid), time()+3600);
+                $this->redirect('main/wall');
+            } else {
+                $this->setFlash('failure', "Failed to Log In ");
+                $this->redirect('main/login');
+            }
+        }
+        $this->setFlash('success', "WELCOME!");
+    }
+
+    public function logout(){
+        if (isset($_COOKIE['loggedUser'])){
+            setcookie("loggedUser", "", time() - 3600);
+        }
+        $this->setFlash('success', "You are now logged out!");
+        $this->redirect('main/login');
+    }
+
 }
 ?>

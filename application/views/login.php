@@ -11,7 +11,7 @@
 <body>
 
 <h1> Welcome to CON system or smthg like that</h1>
-<form action="login.php" method="post">
+<form action="<?php echo BASEURL; ?>/main/loginForm" method="post">
 
 <table>
   <tr>

@@ -82,4 +82,22 @@ class userModel extends databaseService
             return $this->fetch();
         }
     }
+
+    function getEID($userId, $pwd){
+        if ($this->Query("SELECT eid FROM entity WHERE userId = ? AND pwrd = ?", [$userId, $pwd])) {
+            return $this->fetch();
+        }
+    }
+
+    /**
+     * @param $userId
+     * @return fetch : User with provded id
+     */
+    function checkUser($userId, $pwd)
+    {
+        $userId = trim(strip_tags($userId));
+        $pwrd = trim(strip_tags($pwd));
+        return $this->Query("SELECT * FROM entity WHERE userId = ? AND pwrd = ?", [$userId, $pwd]);
+            
+    }
 }
