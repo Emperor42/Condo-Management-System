@@ -46,6 +46,17 @@
         }
 
         /**
+         * Returns groupDetails view
+         */
+        public function groupDetails($groupId)
+        {
+            $id = 4;
+            $data = $this->groupModel->getGroupDetails($groupId);
+            $this->view('groupDetails',$data );
+        }
+
+
+        /**
          * Returns editGroup view
          */
         public function editGroups()
