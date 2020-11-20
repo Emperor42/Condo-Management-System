@@ -16,6 +16,7 @@
         <div class="col-md-11">
             <h3>Edit/Delete Groups</h3
             <?php include "components/group_table.php"; ?>
+
         </div>
         <!-- Close col-md-5 -->
     </div>
@@ -26,6 +27,7 @@
 <script>
     $(document).ready(function () {
         $('#user_group').DataTable();
+
     });
 
 </script>

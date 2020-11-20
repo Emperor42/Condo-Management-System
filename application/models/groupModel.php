@@ -3,15 +3,8 @@
     {
 
         /**
+         * @param $ownerId
          * @param $userId
-         * @param $firstName
-         * @param $lastName
-         * @param $age
-         * @param $email
-         * @param $phone
-         * @param $entityType
-         * @param $userGroup
-         * @param $password
          * @return bool
          */
         function insertGroupOwner($ownerId){
@@ -42,15 +35,8 @@
 
 
         /**
-         * @param $userId
-         * @param $firstName
-         * @param $lastName
-         * @param $age
-         * @param $email
-         * @param $phone
-         * @param $entityType
-         * @param $userGroup
-         * @param $password
+         * @param $ownerId
+
          * @return bool
          */
 
@@ -66,7 +52,7 @@
          */
         function getGroupList($ownerId)
         {
-            if ($this->Query("SELECT e.* FROM Groups g INNER JOIN entity e ON g.userId = e.userId WHERE g.ownerId=?", [$ownerId] )) {
+            if ($this->Query("SELECT g.* FROM Groups g INNER JOIN entity e ON g.userId = e.userId WHERE g.ownerId=?", [$ownerId] )) {
                 return $this->fetchAll();
             }
         }
