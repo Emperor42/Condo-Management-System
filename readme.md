@@ -36,6 +36,8 @@ Xampp setup
 
 7- clone your branch in that folder “ comp353CONsystem ” and you are good :) 
 
+NOTE FOR FILE UPLOAD: You may need to change some directory permissions on your own machine to allow for file uploads to work, only needs to be done once.
+
 NOTES:
 -PLEASE DON'T DELETE FILES UNLESS WE ARE ACTIVLY HAVING A MEETING
 -CREATE FILES OR PUSH TO SEPERATE BRANCH IF YOU THINK THERE WILL BE A BIG CHANGE
