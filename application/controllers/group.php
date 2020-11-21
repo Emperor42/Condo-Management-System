@@ -125,14 +125,16 @@
 
             $user = $this->userModel->getUser($ownerId);
             $user = (Array)$user;
-            //echo $user["entityType"];
+            //echo $user["entityType"]; //uc
 
             //TODO: Hard coding 123 as an admin. To be decided later on
-            if($user["entityType"] == 123){
+            if($user!=null && !empty($user["entityType"]) && $user["entityType"] == 123){
                // print_r($this->groupModel->getAllGroups());
                 return $this->groupModel->getAllGroups();
             }else{
-                return $this->groupModel->getGroupList($ownerId);
+                //return $this->groupModel->getGroupList($ownerId);
+                return $this->groupModel->getGroupDetails($ownerId);
+                
                 //print_r($this->groupModel->getGroupList($ownerId));
             }
 

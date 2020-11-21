@@ -70,7 +70,7 @@ class groupModel extends databaseService
         if ($this->Query("SELECT gm.ownerId, e.userId, e.firstName, e.lastName, e.email FROM CONMANSYSTEM.entity e
                                 INNER JOIN CONMANSYSTEM.groupMembership gm
                                 ON e.userId = gm.userId
-                                WHERE gm.gid = ?", [$groupId])) {
+                                WHERE gm.groupId = ?", [$groupId])) {
             return $this->fetchAll();
         }
     }
