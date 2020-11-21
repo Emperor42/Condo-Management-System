@@ -1,10 +1,11 @@
 <?php if(!empty($postData)):?>
     <div id="message<?php echo $postData->mid;?>" class="card" style="width:400px">
-        <?php if($postData->msgAttach!=""):?>
-            <img class="card-img-bottom" src="<?php echo $postData->msgAttach; ?>" alt="Card image">
-        <?php endif; ?>
+        
         <div class="card-body">
             <h4 class="card-title"><?php echo $this->userModel->getUser($postData->msgFrom)."->".$this->userModel->getUser($postData->msgTo); ?></h4><!--This should convert the user id number into a name-->
+            <?php if($postData->msgAttach!=""):?>
+            <img class="card-img-bottom" src="<?php echo $postData->msgAttach; ?>" alt="Card image">
+            <?php endif; ?>
             <p class="card-text"><?php echo $postData->msgText;?></p>
             <!-- Button to Open the Modal, uses mid to ensure that a uniue modal value is generated -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyModal<?php echo $postData->mid;?>">Comment</button>
