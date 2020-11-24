@@ -1,5 +1,6 @@
 CREATE database CONMANSYSTEM;
 #an entity can be a user or group of some type
+#must be validated in the front end if it needs a password
 
 CREATE TABLE entity(
 eid int NOT NULL AUTO_INCREMENT,
@@ -20,9 +21,9 @@ CREATE TABLE messages(
 mid int NOT NULL AUTO_INCREMENT,
 replyTO int,
 msgTo int,
-FOREIGN KEY (msgTo) REFERENCES entity(eid),
+FOREIGN KEY (msgTo) REFERENCES entity(eid) ON DELETE CASCADE,
 msgFrom int,
-FOREIGN KEY (msgFrom) REFERENCES entity(eid),
+FOREIGN KEY (msgFrom) REFERENCES entity(eid) ON DELETE CASCADE,
 msgSubject varchar(255),
 msgText varchar(2550),
 msgAttach varchar(2250),
@@ -40,8 +41,8 @@ PRIMARY KEY(pid)
 CREATE TABLE manager(
 eid int,
 pid int,
-FOREIGN KEY (eid) REFERENCES entity(eid),
-FOREIGN KEY (pid) REFERENCES property(pid)
+FOREIGN KEY (eid) REFERENCES entity(eid) ON DELETE CASCADE,
+FOREIGN KEY (pid) REFERENCES property(pid) ON DELETE CASCADE
 );
 
 #the property is owned by an entity
@@ -49,41 +50,27 @@ CREATE TABLE own(
 eid int,
 pid int,
 myShare int,
-FOREIGN KEY (eid) REFERENCES entity(eid),
-FOREIGN KEY (pid) REFERENCES property(pid)
+FOREIGN KEY (eid) REFERENCES entity(eid) ON DELETE CASCADE,
+FOREIGN KEY (pid) REFERENCES property(pid) ON DELETE CASCADE
 );
 
 #relation has a specific relationship between entites
 CREATE TABLE relate(
-relType int,
+relType int NOT NULL,
 relSup int,
 eid int,
 tid int,
-FOREIGN KEY (eid) REFERENCES entity(eid),
-FOREIGN KEY (tid) REFERENCES entity(eid)
+FOREIGN KEY (eid) REFERENCES entity(eid) ON DELETE CASCADE,
+FOREIGN KEY (tid) REFERENCES entity(eid) ON DELETE CASCADE
 );
 
 #show tables;
 
 # Group table to store info about the group
 CREATE TABLE groups(
-groupId int NOT NULL AUTO_INCREMENT,
+groupId int NOT NULL,
+FOREIGN KEY (groupId) REFERENCES entity(eid) ON DELETE CASCADE,
 groupName varchar(255),
 groupDescription varchar(255),
-PRIMARY KEY(gid)
-);
-
-#TEST Data
-INSERT INTO CONMANSYSTEM.groups VALUES(null, 'Friends', 'Group for Friends');
-INSERT INTO CONMANSYSTEM.groups VALUES(null, 'Family', 'Group for Family');
-INSERT INTO CONMANSYSTEM.groups VALUES(null, 'Colleagues', 'Group for Colleagues');
-
-#Group Membership
-CREATE TABLE groupMembership(
-groupId int NOT NULL,
-ownerId int NOT NULL,
-userId  int NOT NULL,
-FOREIGN KEY (ownerId) REFERENCES entity(eid) ON DELETE CASCADE,
-FOREIGN KEY (userId) REFERENCES entity(eid) ON DELETE CASCADE,
-FOREIGN KEY (groupId) REFERENCES groups(groupId) ON DELETE CASCADE
+PRIMARY KEY(groupId)
 );

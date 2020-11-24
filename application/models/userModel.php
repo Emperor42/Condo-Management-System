@@ -67,7 +67,7 @@ class userModel extends databaseService
      */
     function getUsers()
     {
-        if ($this->Query("SELECT * FROM entity", [])) {
+        if ($this->Query("SELECT * FROM entity WHERE user_group = ? AND userId != ?", [false, 0])) {
             return $this->fetchAll();
         }
     }
@@ -84,7 +84,7 @@ class userModel extends databaseService
     }
 
     function getEID($userId, $pwd){
-        if ($this->Query("SELECT eid FROM entity WHERE userId = ? AND pwrd = ?", [$userId, $pwd])) {
+        if ($this->Query("SELECT eid, userId, firstName, lastName FROM entity WHERE user_group != ? AND userId = ? AND pwrd = ?", [true, $userId, $pwd])) {
             return $this->fetch();
         }
     }

@@ -13,7 +13,7 @@
                 <summary>Show Comments...</summary>
             </details>
             <!--Show edit button iff I poste this post-->
-            <?php if($_COOKIE['loggedUser']==(int)$postData->msgFrom):?>
+            <?php if($_SESSION['loggedUser']==(int)$postData->msgFrom):?>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $postData->mid;?>">Edit Text</button>
                 <!--Show edit button iff I poste this post-->
                 <!--Modal POPUP-->
@@ -59,7 +59,7 @@
                         <div class="modal-body">
                             <input name="replyTo" formid="replyForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $postData->mid;?>">
                             <input name="msgTo" formid="replyForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $postData->msgFrom;?>">
-                            <input name="msgFrom" formid="replyForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $_COOKIE['loggedUser'];?>">
+                            <input name="msgFrom" formid="replyForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
                             <input name="msgSubject" formid="replyForm<?php echo $postData->mid;?>" type="hidden" value="COMMENT">
                             <p>Say Something: </p>
                             <input type="text" formid="replyForm<?php echo $postData->mid;?>" name="msgText" value="">

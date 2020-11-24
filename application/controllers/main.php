@@ -27,10 +27,10 @@ class main extends BaseController
     public function wall()
     {
         //switch to the login page if he loggedUser is not set
-        if (!isset($_COOKIE['loggedUser'])){
+        if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
-        $data = $this->postModel->messagesForUser($_COOKIE['loggedUser']);
+        $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
         $this->view('wall', $data, $this->userModel);
     }
 
@@ -44,22 +44,22 @@ class main extends BaseController
     public function conversation()
     {
         //switch to the login page if he loggedUser is not set
-        if (!isset($_COOKIE['loggedUser'])){
+        if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
-    }
+        }
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $other = (int)htmlspecialchars($_GET["user"]);
-            $data = $this->postModel->conversationForUsers($_COOKIE['loggedUser'], $other);
+            $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
             $this->view('conversation', $data);
         }
     }
 
     public function events(){
         //switch to the login page if he loggedUser is not set
-        if (!isset($_COOKIE['loggedUser'])){
+        if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
     }
-        $data = $this->postModel->eventsForUser($_COOKIE['loggedUser']);
+        $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
         $this->view('events', $data, $this->userModel);
     }
 
@@ -74,7 +74,8 @@ class main extends BaseController
             $u= $this->input($_POST["uname"]);
             $p = $this->input($_POST["psw"]);
             if($this->userModel->checkUser($u,$p)){
-                setcookie("loggedUser", strval($this->userModel->getEID($u,$p)->eid), time()+3600);
+                $_SESSION["loggedUser"]= strval($this->userModel->getEID($u,$p)->eid);
+                $_SESSION["loggedName"]= strval($this->userModel->getEID($u,$p)->firstName)." ".strval($this->userModel->getEID($u,$p)->firstName)." ".strval($this->userModel->getEID($u,$p)->lastName)." (".strval($this->userModel->getEID($u,$p)->userId).")";
                 $this->redirect('main/wall');
             } else {
                 $this->setFlash('failure', "Failed to Log In ");
@@ -85,8 +86,10 @@ class main extends BaseController
     }
 
     public function logout(){
-        if (isset($_COOKIE['loggedUser'])){
-            setcookie("loggedUser", "", time() - 3600);
+        if (isset($_SESSION['loggedUser'])){
+            $_SESSION["loggedUser"]= "";
+            $_SESSION["loggedName"]= "";
+                
         }
         $this->setFlash('success', "You are now logged out!");
         $this->redirect('main/login');

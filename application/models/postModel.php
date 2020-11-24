@@ -154,19 +154,29 @@ class postModel extends databaseService
 
     /**
      * @param $userId
-     * @return fetch : User with provded id to pull messages from this person
+     * @return fetch : User with provded id to pull messages from this person (sjows posts to public and from admin)
      */
     function messagesForUser($userId)
     {
-        if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
-        WHERE msgTo = ? 
-        OR msgFrom = ? 
-        OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
-        OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
-        OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
-        OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?) ORDER BY mid DESC
-        ", [$userId,$userId,$userId,$userId,$userId,$userId])) {
-            return $this->fetchAll();
+        if ((int)$_SESSION['loggedUser']==0){
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+             ORDER BY mid DESC
+            ", [])) {
+                return $this->fetchAll();
+            }
+        } else {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            WHERE (msgTo = ? 
+            OR msgFrom = ? 
+            OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
+            OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
+            OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
+            OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
+            OR msgTo = ? 
+            OR msgFrom = ? ORDER BY mid DESC
+            ", [$userId,$userId,$userId,$userId,$userId,$userId,-1, 0])) {
+                return $this->fetchAll();
+            }
         }
     }
 

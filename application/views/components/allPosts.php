@@ -78,7 +78,7 @@ function loadMessages() {
 enctype="multipart/form-data">
   <input name="replyTo" id="newPostReplyTo" type="hidden" value="-1">
   <input name="msgTo" id="newPostMsgTo" type="hidden" value="-1">
-  <input name="msgFrom" id="newPostMsgFrom" type="hidden" value="<?php echo $_COOKIE['loggedUser'];?>">
+  <input name="msgFrom" id="newPostMsgFrom" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
   <input name="msgSubject" id="newPostMsgSubject" type="hidden" value="POST">
   <label for="newPostMsgText">Say Something To The Group: </label>
   <input type="text" id="newPostMsgText" name="msgText" value="">
