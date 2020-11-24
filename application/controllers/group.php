@@ -29,12 +29,13 @@
          */
         public function manageGroups()
         {
-            //TODO: Get owner id from using session info and UserModel.
-            // Hard Coding ownerId for now as admin
-            $ownerId = 789;
-            //TODO hard coding Owner ID.. To be changed later
-            $data = $this->getGroups($ownerId);
-            $this->view('manageGroups',$data);
+            //switch to the login page if he loggedUser is not set
+            if (isset($_SESSION['loggedUser'])){
+                $data = $this->getGroups((int)$_SESSION['loggedUser']);
+                $this->view('manageGroups',$data);
+            } else {
+                $this->redirect('main/login');
+            }
         }
 
         /**
@@ -50,9 +51,8 @@
          */
         public function groupDetails($groupId)
         {
-            $id = 4;
-            $data = $this->groupModel->getGroupDetails($groupId);
-            $this->view('groupDetails',$data );
+                $data = $this->groupModel->getGroupDetails($groupId);
+                $this->view('groupDetails',$data);
         }
 
 
@@ -62,8 +62,13 @@
         public function editGroups()
         {
             //TODO hard coding Owner ID.. To be changed later
-            $data = $this->groupModel->getGroupList(1);
-            $this->view('EditGroups',$data);
+            if(isset($_SESSION['loggedUser'])){
+                $ownerId = (int)$_SESSION['loggedUser'];
+                $data = $this->groupModel->getGroupList($ownerId);
+                $this->view('EditGroups',$data);
+            } else {
+                $this->redirect('main/login');
+            }
            // return $data;
         }
         /**
@@ -128,34 +133,16 @@
             //echo $user["entityType"]; //uc
 
             //TODO: Hard coding 123 as an admin. To be decided later on
-            if($user!=null && !empty($user["entityType"]) && $user["entityType"] == 123){
+            if((int)$_SESSION['loggedUser']==0){
                // print_r($this->groupModel->getAllGroups());
                 return $this->groupModel->getAllGroups();
             }else{
                 //return $this->groupModel->getGroupList($ownerId);
                 return $this->groupModel->getGroupDetails($ownerId);
+                //return $this->groupModel->getAllGroups();
                 
                 //print_r($this->groupModel->getGroupList($ownerId));
             }
-
-          //  echo gettype($user);
-            //print_r($user);
-
-          //  $user = (Array)$user;
-          //  echo gettype($user);
-           // return $user[1];
-           // print_r(array_values($user));
-
-
-
-           /* $dataRow = $this->groupModel->insertGroupOwner($ownerId);
-            $data = [
-                'data'=>$dataRow,
-                'nameError' => '',
-                'priceError' => '',
-                'qualityError' => ''
-            ];
-            $this->view('AddedOwner', $data);*/
         }
 
         public function addOwnerOfGroup($ownerId)

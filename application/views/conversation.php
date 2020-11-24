@@ -24,10 +24,10 @@
             <!--Below is where the actual conversation willbe loaded using data from php-->
             <?php if(!empty($data)):?>
                 <?php foreach($data as $msgData): ?>
-                    <?php if((int)$msgData->msgFrom == $_COOKIE['loggedUser']):?>
+                    <?php if((int)$msgData->msgFrom == $_SESSION['loggedUser']):?>
                         <span class="badge badge-pill badge-primary sendMessage">Primary</span>
                     <?php endif; ?>
-                    <?php if((int)$msgData->msgTo == $_COOKIE['loggedUser']):?>
+                    <?php if((int)$msgData->msgTo == $_SESSION['loggedUser']):?>
                         <span class="badge badge-pill badge-primary recieveMessage">Primary</span>
                     <?php endif; ?>
                 <?php endforeach;?>
@@ -40,7 +40,7 @@
         <form id="conForm" action="<?php echo BASEURL; ?>/userPost/registerPostRequest" method="post" enctype="multipart/form-data">
             <input name="replyTo" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="-1">
             <input name="msgTo" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $otherUser;?>">
-            <input name="msgFrom" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $_COOKIE['loggedUser'];?>">
+            <input name="msgFrom" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
             <input name="msgSubject" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="PM">
             <p>Say Something: </p>
             <input type="text" formid="conForm<?php echo $postData->mid;?>" name="msgText" value="">

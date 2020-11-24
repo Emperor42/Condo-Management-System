@@ -1,9 +1,9 @@
 <?php
 $eid = 0;
 $counter = 0;
-if(isset($_COOKIE[$loggedUser])) {
+if(isset($_SESSION[$loggedUser])) {
   //we can work with the given values
-  $eid = (int)$_COOKIE[$loggedUser];
+  $eid = (int)$_SESSION[$loggedUser];
   //for generation of my tables
   echo "<table style='border: solid 1px black;'>";
   echo "<tr><th>User Id</th><th>Name</th><th>Coname</th><th>Age</th><th>Phone</th><th>Email</th><th>CUT?</th></tr>";
