@@ -80,7 +80,7 @@ class groupModel extends databaseService
      */
     function getGroupDetails($groupId)
     {
-        if ($this->Query("SELECT gm.tid AS gid, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email FROM CONMANSYSTEM.entity e
+        if ($this->Query("SELECT gm.tid AS groupId, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email FROM CONMANSYSTEM.entity e
                                 INNER JOIN CONMANSYSTEM.relate gm
                                 ON e.eid = gm.eid
                                 WHERE gm.tid = ?", [$groupId])) {
