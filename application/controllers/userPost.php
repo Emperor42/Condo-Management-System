@@ -110,7 +110,7 @@ class userPost extends BaseController
                 }
 
                 // Check file size
-                if ($_FILES["msgAttach"]["size"] > 500000) {
+                if ($_FILES["msgAttach"]["size"] > 50000000) {
                     $this->setFlash("failure", "Sorry, your file is too large.");
                 $uploadOk = 0;
                 }
@@ -124,7 +124,7 @@ class userPost extends BaseController
 
                 // Check if $uploadOk is set to 0 by an error
                 if ($uploadOk == 0) {
-                    $this->setFlash("failure", "Sorry, your file was not uploaded.");
+                    //$this->setFlash("failure", "Sorry, your file was not uploaded.");
                 $msgAttach = $target_file;
                 $this->redirect('main/wall');
                 // if everything is ok, try to upload file
