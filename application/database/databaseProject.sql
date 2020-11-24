@@ -74,3 +74,6 @@ groupName varchar(255),
 groupDescription varchar(255),
 PRIMARY KEY(groupId)
 );
+
+INSERT INTO entity (eid, userId, pwrd) VALUES (-1, 'PUBLIC', '');
+INSERT INTO entity (eid, userId, pwrd) VALUES (0, 'admin', 'admin');
