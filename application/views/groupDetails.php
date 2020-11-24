@@ -17,9 +17,8 @@
     <div class="row">
         <div class="col-md-11">
             <h3>Group Details
-                <a href="<?php echo BASEURL; ?>/group/addUser"
+                <a href="<?php echo BASEURL; ?>/group/addUser/<?php echo reset($data)->gid; ?>"
                    class="btn-editRemove btn-primary">Add New User</a>
-
             </h3>
 
             <?php include "components/groupDetailsDT.php"; ?>

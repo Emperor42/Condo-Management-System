@@ -45,10 +45,10 @@
         {
             $this->view('createGroup');
         }
-        public function addUser(){
-            $data = $this->userModel->getUsers();
-            $this->view('userListForGroup', $data);
-            return groupId;
+        public function addUser($gid){
+          //  $data = $this->userModel->getUsers($gid);
+            //$this->view('userListForGroup', $data);
+            echo $gid;
         }
 
         /**
@@ -57,7 +57,11 @@
         public function groupDetails($groupId)
         {
                 $data = $this->groupModel->getGroupDetails($groupId);
-                $this->view('groupDetails',$data,$groupId);
+                $this->view('groupDetails',$data);
+            //echo $groupId;
+            //print_r($data);
+           // echo gettype($data);
+            //echo reset($data)->gid;
         }
 
 

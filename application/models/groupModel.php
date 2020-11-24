@@ -54,7 +54,7 @@ class groupModel extends databaseService
     function deleteUserFromGroup($gid, $userId)
     {
         if ($this->Query("DELETE FROM relate 
-            WHERE relType = 3 AND relSup = 0 AND eid=? AND tid = ?", [$userId,$gid])) {
+            WHERE eid=? AND tid = ?", [$userId,$gid])) {
             return true;
         } else {
             return false;
@@ -80,7 +80,7 @@ class groupModel extends databaseService
      */
     function getGroupDetails($groupId)
     {
-        if ($this->Query("SELECT gm.tid, e.eid, e.userId, e.firstName, e.lastName, e.email FROM CONMANSYSTEM.entity e
+        if ($this->Query("SELECT gm.tid AS gid, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email FROM CONMANSYSTEM.entity e
                                 INNER JOIN CONMANSYSTEM.relate gm
                                 ON e.eid = gm.eid
                                 WHERE gm.tid = ?", [$groupId])) {

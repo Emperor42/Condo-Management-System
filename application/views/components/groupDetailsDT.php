@@ -20,7 +20,7 @@
                 <td><?php echo $userData->firstName; ?></td>
                 <td><?php echo $userData->lastName; ?></td>
                 <td><?php echo $userData->email; ?></td>
-                <td><a href="<?php echo BASEURL; ?>/group/deleteGroupRequest/<?php echo $userData->groupId; ?>"
+                <td><a href="<?php echo BASEURL; ?>/group/deleteGroupRequest/<?php echo $userData->userId, $userData->gid; ?>"
                        class="btn-editRemove btn-danger">Delete</a></td>
             </tr>
 
