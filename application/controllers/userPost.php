@@ -53,7 +53,7 @@ class userPost extends BaseController
             :
             $this->setFlash('failure', "Problem deleting $userId");
 
-        $this->redirect('main/wall');
+        $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function changePostRequest()
@@ -70,7 +70,7 @@ class userPost extends BaseController
                 :
                 $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"]));
 
-            $this->redirect('main/wall');
+            $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
     }
@@ -153,12 +153,12 @@ class userPost extends BaseController
                 $this->input($_POST["msgSubject"]),
                 $this->input($_POST["msgText"]),
                 $this->input($msgAttach),
-            );
-                //?
-                //$this->setFlash("success","Post Sent!"):
-                //$this->setFlash("failure",'Post Not Sent!');
+            )
+                ?
+                $this->setFlash("success","Post Sent!"):
+                $this->setFlash("failure",'Post Not Sent!');
 
-            $this->redirect('main/wall');
+            $this->redirect($_SERVER['HTTP_REFERER']);
         }
     }
 }

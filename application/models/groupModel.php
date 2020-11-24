@@ -36,7 +36,7 @@ class groupModel extends databaseService
 
     function insertUserToGroup($gid, $userId)
     {
-        if ($this->Query("INSERT INTO entity (relType, relSup, eid, tid)
+        if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid)
             VALUES(?,?,?,?)", [3,0,$userId,$gid])) {
             return true;
         } else {

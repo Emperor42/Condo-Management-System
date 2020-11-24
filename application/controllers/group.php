@@ -118,6 +118,28 @@
 
         }
 
+        public function selfAddToGroup($groupId){
+            if(isset($_SESSION['loggedUser'])){
+                $ownerId = (int)$_SESSION['loggedUser'];
+                //return addUserToGroup($groupId, $ownerId);
+                $this->groupModel->insertUserToGroup($groupId,$ownerId);
+                /*$data = [
+
+                    'data' => $dataRow,
+                    'nameError' => '',
+                    'priceError' => '',
+                    'qualityError' => ''
+
+                ];*/
+                //$this->view('AddedUser', $data);
+                $this->setFlash('success', 'A request to add yourself has been made to the group!');
+                $this->redirect('group/manageGroups');
+            } else {
+                $this->redirect('main/login');
+            }
+            
+        }
+
         /** Get groups pertaining to an owner id
          * @param $ownerId
          * @return mixed
