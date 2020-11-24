@@ -6,13 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Create new account </title>
     <?php include "components/header.php" ?>
-    <?php 
-        $otherUser = (int)htmlspecialchars($_GET["user"]);
-        if(!is_numeric($otherUser)){
-            $this->setFlash('failure', "User Error ");
-            $this->redirect('userPost/wall');//reduirect if the value is not numeris (something is wrong with the get)
-        }
-    ?>
 </head>
 <body>
 <?php include "components/nav.php"; ?>

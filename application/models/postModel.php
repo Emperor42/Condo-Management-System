@@ -196,6 +196,25 @@ class postModel extends databaseService
         }
     }
 
+    /**
+     * Allows all messages with subject PM if the user has a relation to the group
+     * @param $userIdA
+     * @param $userIdB
+     * @return fetch : User with provded id to pull messages from this conversation
+     */
+    function conversationForGroup($user, $group)
+    {
+        if ($this->Query("SELECT DISTINCT * FROM relate 
+        WHERE (tid=? AND eid=?) OR (tid=? AND eid=?)", [$group,$user,$user, $group])){
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            WHERE msgSubject='PM' AND ((msgTo = ?)
+            OR (msgFrom = ?))
+            ORDER BY mid ASC", [$group, $group])) {
+                return $this->fetch();
+            }
+        }
+    }
+
      /**
      * @param $userId
      * @return fetch : User with provded id to pull messages from this person

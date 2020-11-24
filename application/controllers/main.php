@@ -41,18 +41,27 @@ class main extends BaseController
     }
 
     //need to split the two of these into get requests and such, will make a contacts page soon
-    public function conversation()
+    public function conversation($other)
     {
         //switch to the login page if he loggedUser is not set
         if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $other = (int)htmlspecialchars($_GET["user"]);
-            $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
-            $this->view('conversation', $data);
-        }
+        $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
+        $this->view('conversation', $data);
     }
+
+    //need to split the two of these into get requests and such, will make a contacts page soon
+    public function conversationGroup($other)
+    {
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_SESSION['loggedUser'])){
+            $this->redirect('main/login');
+        }
+        $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
+        $this->view('conversation', $data);
+    }
+
 
     public function events(){
         //switch to the login page if he loggedUser is not set
