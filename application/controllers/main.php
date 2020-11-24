@@ -48,6 +48,7 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
+        $_SESSION['talkTo'] = $other;
         $this->view('conversation', $data);
     }
 
@@ -59,6 +60,7 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
+        $_SESSION['talkTo'] = $other;
         $this->view('conversation', $data);
     }
 

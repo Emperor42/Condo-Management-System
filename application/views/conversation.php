@@ -16,12 +16,14 @@
             <?php include "components/flashMessage.php"; ?>
             <!--Below is where the actual conversation willbe loaded using data from php-->
             <?php if(!empty($data)):?>
-                <?php foreach($data as $msgData): ?>
-                    <?php if((int)$msgData->msgFrom == $_SESSION['loggedUser']):?>
-                        <span class="badge badge-pill badge-primary sendMessage">Primary</span>
-                    <?php endif; ?>
-                    <?php if((int)$msgData->msgTo == $_SESSION['loggedUser']):?>
-                        <span class="badge badge-pill badge-primary recieveMessage">Primary</span>
+                <?php foreach ($data as $msgData): ?>
+                    <?php if (!empty($msgData) && $msgData!=null):?>
+                        <?php if($msgData->msgFrom == $_SESSION['loggedUser']):?>
+                            <h1 class="sendMessage"><span class="badge jumbo badge-pill badge-primary"><?php echo $msgData->msgText; ?></span></h1><br>
+                        <?php endif;?>
+                        <?php if($msgData->msgFrom != $_SESSION['loggedUser']):?>
+                            <h1 class="recieveMessage"><span class="badge jumbo badge-pill badge-secondary"><?php echo $msgData->msgText; ?></span></h1><br>
+                        <?php endif;?>
                     <?php endif; ?>
                 <?php endforeach;?>
             <?php endif; ?>
@@ -30,16 +32,16 @@
     </div>
     <!-- Close row -->
     <div>
-        <form id="conForm" action="<?php echo BASEURL; ?>/userPost/registerPostRequest" method="post" enctype="multipart/form-data">
-            <input name="replyTo" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="-1">
-            <input name="msgTo" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $otherUser;?>">
-            <input name="msgFrom" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
-            <input name="msgSubject" formid="conForm<?php echo $postData->mid;?>" type="hidden" value="PM">
+        <form id="conForm" action="<?php echo BASEURL; ?>/userPost/registerPMRequest/<?php echo $_SESSION['talkTo'];?>" method="post" enctype="multipart/form-data">
+            <input name="replyTo" formid="conForm" type="hidden" value="-1">
+            <input name="msgTo" formid="conForm" type="hidden" value="<?php echo $_SESSION['talkTo'];?>">
+            <input name="msgFrom" formid="conForm" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+            <input name="msgSubject" formid="conForm" type="hidden" value="PM">
             <p>Say Something: </p>
-            <input type="text" formid="conForm<?php echo $postData->mid;?>" name="msgText" value="">
+            <input type="text" formid="conForm" name="msgText" value="">
             <details class="card">
                 <summary>Upload an Image: </summary>
-                <input type="file" name="msgAttach"formid="conForm<?php echo $postData->mid;?>">
+                <input type="file" name="msgAttach"formid="conForm">
             </details>
             <input class="btn btn-danger" type="reset" value="Clear Post">
             <input class="btn btn-success" type="submit" value="Submit">

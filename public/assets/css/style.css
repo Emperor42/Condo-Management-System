@@ -1,3 +1,13 @@
 .error {
     color: red;
 }
+
+.sendMessage{
+    text-align: right;
+    right:0px;
+}
+
+.recieveMessage{
+    left:0px;
+    text-align: left;
+}

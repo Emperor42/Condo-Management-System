@@ -192,7 +192,7 @@ class postModel extends databaseService
         WHERE msgSubject='PM' AND ((msgTo = ? AND msgFrom = ?)
         OR (msgTo = ? AND msgFrom = ?))
         ORDER BY mid ASC", [$userIdA, $userIdB, $userIdB, $userIdA])) {
-            return $this->fetch();
+            return $this->fetchAll();
         }
     }
 
@@ -210,7 +210,7 @@ class postModel extends databaseService
             WHERE msgSubject='PM' AND ((msgTo = ?)
             OR (msgFrom = ?))
             ORDER BY mid ASC", [$group, $group])) {
-                return $this->fetch();
+                return $this->fetchAll();
             }
         }
     }
