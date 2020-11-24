@@ -45,6 +45,11 @@
         {
             $this->view('createGroup');
         }
+        public function addUser(){
+            $data = $this->userModel->getUsers();
+            $this->view('userListForGroup', $data);
+            return groupId;
+        }
 
         /**
          * Returns groupDetails view
@@ -52,7 +57,7 @@
         public function groupDetails($groupId)
         {
                 $data = $this->groupModel->getGroupDetails($groupId);
-                $this->view('groupDetails',$data);
+                $this->view('groupDetails',$data,$groupId);
         }
 
 
@@ -98,6 +103,17 @@
                 $this->setFlash('failure', "Problem deleting group [" . $groupId . "] ");
 
             $this->redirect('group/manageGroups');
+        }
+
+        public function addMemberToGroup($groupId, $user_id){
+        if($this->groupModel->checkNonMemberUser($groupId) != $user_id){
+
+            $this->Query("INSERT INTO groupMembership ($groupId, $user_id) VALUES(?,?)", [$groupId, $user_id])
+            ?
+            $this->setFlash('success', "User is added." )
+            :
+            $this->setFlash('failure', "User Already exists." );
+        }
         }
 
         public function createGroupRequest()
@@ -179,9 +195,9 @@
             $this->view('AddedOwner', $data);
         }
 
-        public function addUserToGroup($ownerId, $userId)
+        public function addUserToGroup()
         {
-            $dataRow = $this->groupModel->insertUserToGroup($ownerId, $userId);
+            $dataRow = $this->groupModel->insertUserToGroup();
             $data = [
 
                 'data' => $dataRow,

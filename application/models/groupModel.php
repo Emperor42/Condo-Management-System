@@ -43,11 +43,18 @@ class groupModel extends databaseService
             return false;
         }
     }
+    function checkNonMemberUser($groupId)
+    {
+        if ($this->Query("SELECT * FROM entity e WHERE e.eid NOT IN (SELECT eid FROM groupMembership m WHERE m.gid=$groupId)")) {
+        }
+        return $this->fetchAll();
+    }
+
 
     function deleteUserFromGroup($gid, $userId)
     {
         if ($this->Query("DELETE FROM relate 
-            WHERE eid=? AND tid = ?", [$userId,$gid])) {
+            WHERE relType = 3 AND relSup = 0 AND eid=? AND tid = ?", [$userId,$gid])) {
             return true;
         } else {
             return false;
