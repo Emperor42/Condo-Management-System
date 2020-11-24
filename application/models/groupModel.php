@@ -9,7 +9,11 @@ class groupModel extends databaseService
             if ($this->Query("SELECT eid FROM entity WHERE userId = ? AND user_group = ?", [$groupName,true])) {
                 $made = $this->fetch();
                 if ($this->Query("INSERT INTO groups VALUES(?,?,?)", [$made->eid, $groupName, $groupDescription])) {
-                    return true;
+                    if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid) VALUES(?,?,?,?)", [0,0,0,$made->eid])) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
@@ -45,7 +49,7 @@ class groupModel extends databaseService
     }
     function checkNonMemberUser($groupId)
     {
-        if ($this->Query("SELECT * FROM entity e WHERE e.eid NOT IN (SELECT eid FROM groupMembership m WHERE m.gid=$groupId)")) {
+        if ($this->Query("SELECT * FROM entity e WHERE e.eid NOT IN (SELECT eid FROM relate m WHERE m.tid=?)", [$groupId])) {
         }
         return $this->fetchAll();
     }
@@ -80,10 +84,13 @@ class groupModel extends databaseService
      */
     function getGroupDetails($groupId)
     {
-        if ($this->Query("SELECT gm.tid AS groupId, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email FROM CONMANSYSTEM.entity e
+        /*if ($this->Query("SELECT DISTINCT gm.tid AS groupId, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email FROM (CONMANSYSTEM.entity e
                                 INNER JOIN CONMANSYSTEM.relate gm
-                                ON e.eid = gm.eid
-                                WHERE gm.tid = ?", [$groupId])) {
+                                ON e.eid = gm.eid)
+                                WHERE gm.tid = ?", [$groupId])) {*/
+        if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
+        FROM entity e INNER JOIN relate r
+        ON e.eid = r.eid WHERE r.tid = ? ", [$groupId])){
             return $this->fetchAll();
         }
     }
@@ -93,7 +100,7 @@ class groupModel extends databaseService
      */
     function getAllGroups()
     {
-        if ($this->Query("SELECT * FROM groups", [])) {
+        if ($this->Query("SELECT DISTINCT * FROM groups", [])) {
             return $this->fetchAll();
         }
     }

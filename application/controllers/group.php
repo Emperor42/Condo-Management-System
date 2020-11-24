@@ -45,10 +45,17 @@
         {
             $this->view('createGroup');
         }
+        
+
         public function addUser($gid){
-          //  $data = $this->userModel->getUsers($gid);
+            //$data = $this->userModel->getUsers($gid);
             //$this->view('userListForGroup', $data);
-            echo $gid;
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $groupId = $_POST['gid'];
+                $user_id = $_POST['uid'];
+                $this->addMemberToGroup($groupId, $user_id);
+            }
+            $this->redirect('group/groupDetails/'.$gid);
         }
 
         /**
@@ -56,12 +63,9 @@
          */
         public function groupDetails($groupId)
         {
-                $data = $this->groupModel->getGroupDetails($groupId);
-                $this->view('groupDetails',$data);
-            //echo $groupId;
-            //print_r($data);
-           // echo gettype($data);
-            //echo reset($data)->gid;
+            $data = $this->groupModel->getGroupDetails($groupId);
+            $gid = $groupId;
+            $this->view('groupDetails', $data, $gid);//guarentees that group id is present even if the group has no memebers
         }
 
 
@@ -110,14 +114,17 @@
         }
 
         public function addMemberToGroup($groupId, $user_id){
-        if($this->groupModel->checkNonMemberUser($groupId) != $user_id){
-
-            $this->Query("INSERT INTO groupMembership ($groupId, $user_id) VALUES(?,?)", [$groupId, $user_id])
-            ?
-            $this->setFlash('success', "User is added." )
-            :
-            $this->setFlash('failure', "User Already exists." );
-        }
+            if(isset($_SESSION['loggedUser'])){
+                //$gid, $userId
+                if($this->groupModel->checkNonMemberUser($groupId) != $user_id){
+                    $this->groupModel->insertUserToGroup($groupId,$user_id);
+                    $this->setFlash('success', "User is added." );
+                    $this->redirect('group/manageGroups');
+                } else {
+                    $this->redirect('main/login');
+                }
+            }
+            //$gid, $userId
         }
 
         public function createGroupRequest()
@@ -141,22 +148,13 @@
         public function selfAddToGroup($groupId){
             if(isset($_SESSION['loggedUser'])){
                 $ownerId = (int)$_SESSION['loggedUser'];
-                //return addUserToGroup($groupId, $ownerId);
                 $this->groupModel->insertUserToGroup($groupId,$ownerId);
-                /*$data = [
-
-                    'data' => $dataRow,
-                    'nameError' => '',
-                    'priceError' => '',
-                    'qualityError' => ''
-
-                ];*/
-                //$this->view('AddedUser', $data);
                 $this->setFlash('success', 'A request to add yourself has been made to the group!');
                 $this->redirect('group/manageGroups');
             } else {
                 $this->redirect('main/login');
             }
+            //$gid, $userId
             
         }
 
@@ -199,31 +197,26 @@
             $this->view('AddedOwner', $data);
         }
 
-        public function addUserToGroup()
+        public function addUserToGroup($gid, $userId)
         {
-            $dataRow = $this->groupModel->insertUserToGroup();
-            $data = [
-
-                'data' => $dataRow,
-                'nameError' => '',
-                'priceError' => '',
-                'qualityError' => ''
-
-            ];
-            $this->view('AddedUser', $data);
+            if($this->groupModel->insertUserToGroup($gid, $userId)){
+                $this->setFlash('success', 'User added successfully to group' );
+            } else {
+                $this->setFlash('failure', 'User has not been added to group' );
+            }
+            //$this->view('AddedUser', $data);
+            $this->redirect('group/groupDetails/'.$gid);//custom redirect based on group
         }
 
         public function deleteUserFromGroup($ownerId,$userId)
         {
-            $this->groupModel->deleteUserFromGroup($ownerId, $userId)
-                ?
-                $this->setFlash('success', 'User' . " $userId deleted successfully from group" )
-                :
-                $this->setFlash('failure', "Problem deleting $userId");
-
-            $this->redirect('group/EditGroups');
+            if ($this->groupModel->deleteUserFromGroup($ownerId, $userId)){
+                $this->setFlash('success', 'User deleted successfully from group' );
+            } else {
+                $this->setFlash('failure', 'Problem deleting user from group');
+            }
+                $this->redirect('group/groupDetails/'.$ownerId);//custom redirect based on group
         }
-
     }
 
     ?>
