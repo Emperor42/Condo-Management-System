@@ -28,16 +28,22 @@ class groupModel extends databaseService
         }
     }
 
-    function insertUserToGroup($ownerId, $userId)
+    function insertUserToGroup($groupId, $userId)
     {
-        if ($this->Query("INSERT INTO Groups ($ownerId, $userId)
-            VALUES(?,?)", [$ownerId, $userId])) {
+        if ($this->Query("INSERT INTO Groups ($groupId, $userId)
+            VALUES(?,?)", [$groupId, $userId])) {
             return true;
         } else {
             return false;
         }
     }
-
+    function checkNonMemberUser($groupId)
+    {
+        if ($this->Query("SELECT * FROM entity e WHERE e.eid NOT IN (SELECT eid FROM groupMembership m WHERE m.gid=$groupId)")) {
+        }
+        return $this->fetchAll();
+    }
+    
     function deleteUserFromGroup($ownerId, $userId)
     {
         if ($this->Query("DELETE FROM Groups ($ownerId, $userId)
