@@ -24,7 +24,7 @@ class emailModel extends databaseService
     public function fetchInbox($user_Id){
         if ($this->Query("SELECT * FROM email em INNER JOIN entity en
             ON em.toEid = en.userId
-            WHERE em.toEid = ?", [$user_Id])) {
+            WHERE em.inboxDelete = 0 AND em.toEid = ?", [$user_Id])) {
             return $this->fetchAll();
         }
     }

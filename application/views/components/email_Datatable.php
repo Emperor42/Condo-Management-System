@@ -15,7 +15,7 @@
         <?php foreach ($data as $emailData): ?>
 
             <tr>
-                <td><?php echo $emailData->email; ?></td>
+                <td><?php echo $emailData->firstName . " " . $emailData->lastName; ?>  </td>
                 <td><a href=""> <?php echo $emailData->subject; ?></td>
                 <td><?php echo $emailData->createDate; ?></td>
                 <td><?php echo $emailData->emailStatus; ?></td>
