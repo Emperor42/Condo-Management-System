@@ -107,5 +107,73 @@ class main extends BaseController
         $this->redirect('main/login');
     }
 
+    public function startEvent(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $t=$this->input($_POST['eventGroup']);
+                $f=$this->input($_POST['eventStart']);
+                $n=$this->input($_POST['eventNamed']);
+                if ($this->postModel->createEvent($t,$f,$n)){
+                    $this->setFlash('success', "Your event has been created!");
+                } else {
+                    $this->setFlash('failure', "We could not create your event!");
+                }
+            }
+        }
+        $this->redirect('main/events');
+    }
+
+    public function addEventDetails(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['eventReply']);
+                $t=$this->input($_POST['eventGroup']);
+                $f=$this->input($_POST['eventStart']);
+                $date=strval($this->input($_POST['eventDate']));
+                $time=strval($this->input($_POST['eventTime']));
+                $area=strval($this->input($_POST['eventArea']));
+                if (empty($_POST['eventDate'])&& empty($_POST['eventTime']) && empty($_POST['eventArea'])){
+                    $this->setFlash('failure', "No details supplied!");//no details supplied
+                    $this->redirect('main/events');
+                }
+                if (!empty($_POST['eventDate'])) { 
+                    if( $this->postModel->createEventDate($n,$t,$f, $date)){
+                        $this->setFlash('success', "The details have been added to the event!");
+                    } else {
+                        $this->setFlash('failure', "We could not create your event location!");
+                    }
+                }
+                if (!empty($_POST['eventTime'])){
+                    if( $this->postModel->createEventTime($n,$t,$f, $time)){
+                        $this->setFlash('success', "The details have been added to the event!");
+                    } else {
+                        $this->setFlash('failure', "We could not create your event location!");
+                    }
+                }
+                if (!empty($_POST['eventArea'])) {
+                    if($this->postModel->createEventLocation($n,$t,$f, $area)){
+                        $this->setFlash('success', "The details have been added to the event!");
+                    } else {
+                        $this->setFlash('failure', "We could not create your event location!");
+                    }
+                }
+            }
+        }
+        $this->redirect('main/events');
+    }
+
+    public function toggleVote($event){
+        if (isset($_SESSION['loggedUser'])){
+            if ($this->postModel->createVote($_SESSION['loggedUser'], $event)){
+                $this->setFlash('success', 'The vote has been added');
+            } elseif ($this->postModel->deleteVote($_SESSION['loggedUser'], $event)) {
+                $this->setFlash('success', 'The vote has been removed'); 
+            } else {
+                $this->setFlash('failure', 'There was a problem voting');
+            }
+        }
+        $this->redirect('main/events');
+    }
+
 }
 ?>
