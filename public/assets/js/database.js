@@ -1,3 +1,4 @@
+
 //database.js script
 function getData(reqType, str) {
   var xhttp;

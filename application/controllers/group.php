@@ -1,5 +1,6 @@
     <?php
-
+    /*Khadija SUBTAIN-40040952*/
+    /*Matthew GIANCOLA-40019131*/
     /**
      * This controller will deal anything to do with group
      */
@@ -101,7 +102,10 @@
         /*                    ACTION REQUESTS                         */
         /**************************************************************/
 
-
+        /**
+         * @param $groupId
+         * will delete the group based on group Id
+         */
         public function deleteGroupRequest($groupId)
         {
             $this->groupModel->deleteGroup($groupId)
@@ -113,6 +117,12 @@
             $this->redirect('group/manageGroups');
         }
 
+        /**
+         * @param $groupId
+         * @param $user_id
+         * takes the group id and user id and add the member to the group
+         * where he is not already a part of that group
+         */
         public function addMemberToGroup($groupId, $user_id){
             if(isset($_SESSION['loggedUser'])){
                 //$gid, $userId
@@ -127,6 +137,10 @@
             //$gid, $userId
         }
 
+        /**
+         * for an admin to create to the group and flashes the
+         * message of success and failure based on creation of group
+         */
         public function createGroupRequest()
         {
             // Value validation happens at client side, so no need to check for blanks here
@@ -145,6 +159,9 @@
 
         }
 
+        /**
+         * @param $groupId
+         */
         public function selfAddToGroup($groupId){
             if(isset($_SESSION['loggedUser'])){
                 $ownerId = (int)$_SESSION['loggedUser'];
@@ -185,6 +202,10 @@
             }
         }
 
+        /**
+         * @param $ownerId
+         * takes the id of the user and add him/her as the owner of the group
+         */
         public function addOwnerOfGroup($ownerId)
         {
             $dataRow = $this->groupModel->insertGroupOwner($ownerId);
@@ -197,6 +218,11 @@
             $this->view('AddedOwner', $data);
         }
 
+        /**
+         * @param $gid
+         * @param $userId
+         *
+         */
         public function addUserToGroup($gid, $userId)
         {
             if($this->groupModel->insertUserToGroup($gid, $userId)){

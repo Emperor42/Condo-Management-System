@@ -1,6 +1,8 @@
 <?php
 /*Khadija SUBTAIN-40040952*/
-class userModel extends databaseService
+/*Matthew GIANCOLA-40019131*/
+
+class loginModel extends databaseService
 {
     /**
      * @param $userId
@@ -66,30 +68,8 @@ class userModel extends databaseService
      */
     function getUsers()
     {
-        if ($this->Query("SELECT * FROM entity WHERE user_group = ? AND userId != ?", [false, 0])) {
+        if ($this->Query("SELECT * FROM entity", [])) {
             return $this->fetchAll();
-        }
-    }
-
-    /**
-     * @param $userId
-     * @return fetch : User with provided id
-     */
-    function getUser($userId)
-    {
-        if ($this->Query("SELECT * FROM entity WHERE userId = ?", [$userId])) {
-            return $this->fetch();
-        }
-    }
-
-    /**
-     * @param $userId
-     * @param $pwd
-     * @return fetch
-     */
-    function getEID($userId, $pwd){
-        if ($this->Query("SELECT eid, userId, firstName, lastName FROM entity WHERE user_group != ? AND userId = ? AND pwrd = ?", [true, $userId, $pwd])) {
-            return $this->fetch();
         }
     }
 
@@ -97,11 +77,10 @@ class userModel extends databaseService
      * @param $userId
      * @return fetch : User with provded id
      */
-    function checkUser($userId, $pwd)
+    function getUser($userId)
     {
-        $userId = trim(strip_tags($userId));
-        $pwrd = trim(strip_tags($pwd));
-        return $this->Query("SELECT * FROM entity WHERE userId = ? AND pwrd = ?", [$userId, $pwd]);
-            
+        if ($this->Query("SELECT * FROM entity WHERE userId = ?", [$userId])) {
+            return $this->fetch();
+        }
     }
 }

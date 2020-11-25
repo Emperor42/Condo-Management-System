@@ -9,27 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home
-                    <span class="sr-only">(current)</span>
-                </a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/user/home">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo BASEURL; ?>/user/register">Create Group</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo BASEURL; ?>/user/register">Add User/Admin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo BASEURL; ?>/user/editOrRemove">Edit/Delete User</a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/email/inbox"> Email</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="<?php echo BASEURL; ?>/main/logout">Logout</a>
                 </li>
             </ul>
         </form>

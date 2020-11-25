@@ -1,18 +1,19 @@
 <?php
-/*Khadija SUBTAIN-40040952*/
-
+/**
+ * khadija Subtain-40040952
+ */
 /**
  * This controller will deal anything to do with user
  */
-class user extends BaseController
+class login extends BaseController
 {
-    private $userModel;
+    private $loginModel;
 
     public function __construct()
     {
         //Loads Base class constructor
         parent::__construct();
-        $this->userModel = $this->model('userModel');
+        $this->loginModel = $this->model('loginModel');
     }
 
     public function index()
@@ -22,39 +23,29 @@ class user extends BaseController
     /**************************************************************/
     /*                    VIEW REQUESTS                           */
     /**************************************************************/
-    /**
-     * main page of user
-     */
-    public function home(){
-        $this->view('UserHome');
-    }
 
     /**
      * Returns register view
      */
-    public function register()
+    public function login()
     {
-        $this->view('register');
+        $this->view('login');
     }
     /**
      * Returns editOrRemove view
      */
-    public function editOrRemove()
+    public function validateUser($user_id)
     {
-        $data = $this->userModel->getUsers();
-        $this->view('EditOrRemove', $data);
+        if($user_id == $this->loginModel->getUsers())
+        $data = $this->loginModel->getUsers();
+        // check if it exist of
+        $this->view('login', $data);
     }
-
 
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
 
-    /**
-     * @param $user_id
-     *  takes user ID, edits the information of user and returns the user
-     * edited information on EditUser
-     */
     public function editUserRequest($user_id)
     {
         $dataRow = $this->userModel->getUser($user_id);
@@ -69,11 +60,6 @@ class user extends BaseController
         $this->view('EditUser', $data);
     }
 
-    /**
-     * @param $userId
-     *  takes user ID, deletes the row with the information of user and returns the
-     * page where the user has been deleted and redirects the user to editOrRemove
-     */
     public function deleteUserRequest($userId)
     {
         $this->userModel->deleteUser($userId)
@@ -85,11 +71,6 @@ class user extends BaseController
         $this->redirect('user/editOrRemove');
     }
 
-    /**
-     * updates the user information and flashes the message with
-     * success and failure regarding the update of the information
-     * redirects the user to editOrRemove
-     */
     public function updateUserRequest()
     {
         $age = 2020;
@@ -118,10 +99,6 @@ class user extends BaseController
 
     }
 
-    /**
-     * Register user's information and flashes a message with
-     * successful or failed attempt and redirects the user to register page
-     */
     public function registerUserRequest()
     {
         $age = 2020;

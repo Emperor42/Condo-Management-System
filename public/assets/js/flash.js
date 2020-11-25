@@ -1,3 +1,4 @@
+/*Khadija SUBTAIN-40040952*/
 setTimeout(function() {
     let alert = document.querySelector(".alert-success");
     alert.remove();

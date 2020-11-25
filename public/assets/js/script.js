@@ -1,3 +1,4 @@
+/*Khadija SUBTAIN-40040952*/
 function openCity(evt, cityName) {
   // Declare all variables
   var i, tabcontent, tablinks;

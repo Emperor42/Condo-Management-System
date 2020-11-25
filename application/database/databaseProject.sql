@@ -1,3 +1,5 @@
+#Matthew GIANCOLA-40019131
+#Khadija SUBTAIN-40040952
 CREATE database CONMANSYSTEM;
 #an entity can be a user or group of some type
 #must be validated in the front end if it needs a password
@@ -77,3 +79,19 @@ PRIMARY KEY(groupId)
 
 INSERT INTO entity (eid, userId, pwrd) VALUES (-1, 'PUBLIC', '');
 INSERT INTO entity (eid, userId, pwrd) VALUES (0, 'admin', 'admin');
+
+#TODO triggers and refernce keys
+CREATE TABLE email(
+eid int NOT NULL AUTO_INCREMENT,
+fromEid int NOT NULL,
+toEid int NOT NULL,
+subject varchar(256),
+body varchar(1000),
+emailStatus varchar(256),
+createDate DATE,
+outboxDelete int NOT NULL,
+inboxDelete int NOT NULL,
+PRIMARY KEY(eid)
+);
+INSERT INTO email (eid, fromEid, toEid, subject, body, emailStatus, createDate, outboxDelete ,inboxDelete)
+ VALUES (null,1, 3, 'Re: Income Tax Spam', 'Your SIN has been compormized','New', current_date,0,0);
