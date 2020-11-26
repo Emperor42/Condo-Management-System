@@ -1,3 +1,4 @@
+<!-- Tiffany Ah King(40082976) & Khadija Subtain(40040952) Codes-->
 <form method="post">
     <h3>Editing Group: <?php echo $data['data']->groupID; ?></h3>
     <div class="form-group">
