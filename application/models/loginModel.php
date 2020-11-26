@@ -1,9 +1,11 @@
 <?php
 /*Khadija SUBTAIN-40040952*/
-class userModel extends databaseService
+/*Matthew GIANCOLA-40019131*/
+
+class loginModel extends databaseService
 {
     /**
-     * creates another row in the entity table
+     * creates a new user in entity table
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -26,7 +28,7 @@ class userModel extends databaseService
     }
 
     /**
-     * updates information on a specified user in the entity table using their userId
+     * updates rows in the entity table
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -57,7 +59,7 @@ class userModel extends databaseService
     }
 
     /**
-     * deletes a user with the specified userId from the entity table
+     * remove a particular user using their userId
      * @param $userId : User id for the user to be deleted
      */
     function deleteUser($userId){
@@ -65,49 +67,25 @@ class userModel extends databaseService
     }
 
     /**
-     * gets all users from the entity table
+     * get all users in the entity table
      * @return fetch : ALl users from entity
      */
     function getUsers()
     {
-        if ($this->Query("SELECT * FROM entity WHERE user_group = ? AND userId != ?", [false, 0])) {
+        if ($this->Query("SELECT * FROM entity", [])) {
             return $this->fetchAll();
         }
     }
 
     /**
-     * gets all informatino of a user given a userId
+     * get a user in the entity table using the userId
      * @param $userId
-     * @return fetch : User with provided id
+     * @return fetch : User with provded id
      */
     function getUser($userId)
     {
         if ($this->Query("SELECT * FROM entity WHERE userId = ?", [$userId])) {
             return $this->fetch();
         }
-    }
-
-    /**
-     * gets the entityId (EID) of a given user usign their userId
-     * @param $userId
-     * @param $pwd
-     * @return fetch
-     */
-    function getEID($userId, $pwd){
-        if ($this->Query("SELECT eid, userId, firstName, lastName FROM entity WHERE user_group != ? AND userId = ? AND pwrd = ?", [true, $userId, $pwd])) {
-            return $this->fetch();
-        }
-    }
-
-    /**
-     * @param $userId
-     * @return fetch : User with provded id
-     */
-    function checkUser($userId, $pwd)
-    {
-        $userId = trim(strip_tags($userId));
-        $pwrd = trim(strip_tags($pwd));
-        return $this->Query("SELECT * FROM entity WHERE userId = ? AND pwrd = ?", [$userId, $pwd]);
-            
     }
 }

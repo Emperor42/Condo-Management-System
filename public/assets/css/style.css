@@ -1,3 +1,4 @@
+/*!Khadija SUBTAIN-40040952*/
 .error {
     color: red;
 }
@@ -10,4 +11,8 @@
 .recieveMessage{
     left:0px;
     text-align: left;
+}
+
+.event-card{
+    width:100%;
 }

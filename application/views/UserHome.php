@@ -9,13 +9,13 @@
     <?php include "components/header.php" ?>
 </head>
 <body>
-<?php include "components/nav.php"; ?>
+<?php include "components/user-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-5">
             <?php include "components/flashMessage.php"; ?>
-            <?php include "components/signupForm.php"; ?>
+
         </div>
         <!-- Close col-md-5 -->
     </div>

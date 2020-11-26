@@ -1,8 +1,14 @@
 <?php
-
+//Khadija SUBTAIN-40040952
+//Matthew GIANCOLA-40019131
 class groupModel extends databaseService
 {
-
+    /**
+     * @param $groupName
+     * @param $groupDescription
+     * @return bool
+     * takes the group name and description and creates the group
+     */
     function insertGroup($groupName, $groupDescription)
     {
         if ($this->Query("INSERT INTO entity (userId, user_group, pwrd) VALUES (?,?,?)", [$groupName, true, ""])) {
@@ -24,6 +30,7 @@ class groupModel extends databaseService
     }
 
     /**
+     * insert a group owner to the group
      * @param $ownerId
      * @param $userId
      * @return bool
@@ -38,6 +45,12 @@ class groupModel extends databaseService
         }
     }
 
+    /**
+     * @param $gid
+     * @param $userId
+     * @return bool
+     * takes user id and group id and adds the user to that group
+     */
     function insertUserToGroup($gid, $userId)
     {
         if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid)
@@ -47,6 +60,13 @@ class groupModel extends databaseService
             return false;
         }
     }
+
+    /**
+     * @param $groupId
+     * @return fetch
+     * takes the group Id and checks if the users from an entity table
+     * are part of that group or not
+     */
     function checkNonMemberUser($groupId)
     {
         if ($this->Query("SELECT * FROM entity e WHERE e.eid NOT IN (SELECT eid FROM relate m WHERE m.tid=?)", [$groupId])) {
@@ -54,7 +74,12 @@ class groupModel extends databaseService
         return $this->fetchAll();
     }
 
-
+    /**
+     * @param $gid
+     * @param $userId
+     * @return bool
+     * takes the group id and user id and removes him/her from the group
+     */
     function deleteUserFromGroup($gid, $userId)
     {
         if ($this->Query("DELETE FROM relate 
