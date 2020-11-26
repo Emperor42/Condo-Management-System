@@ -1,0 +1,37 @@
+<!-- Daniel GAUVIN - 40061905-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Voting</title>
+</head>
+<body>
+	<h2>Choose yor preferences for the event!</h2>
+	<br><br>
+	<form action=""> 
+		<!-- 
+			php file to be added in action = ""
+		-->
+		<label>On what date?</label>
+		<br>
+		<input type="date" id="date">
+		<br><br>
+
+		<label>At what time would you like?</label>
+		<br>
+		<input type="time" id="eventTime" min="08:00" max="20:00" required>
+		<br><br>
+
+		<label>Where would you like to have the event?</label>
+		<br>
+		  <select>
+		      <option value="Concordia">Concordia</option>
+		      <option value="McGill">McGill</option>
+		      <option value="UDeM">UDeM</option>
+		      <option value="UQAM">UQAM</option>
+		  </select>
+		  <br><br>
+		  <input type="submit" value="Submit">
+		</select>
+	</form>
+</body>
+</html>
