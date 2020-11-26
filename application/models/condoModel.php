@@ -5,7 +5,7 @@ class condoModel extends databaseService
 {
 
     /**
-
+     * adds a property to property table
      * @return bool
      */
     function insertProperty($place)
@@ -18,8 +18,8 @@ class condoModel extends databaseService
         }
     }
 
-        /**
-
+     /**
+      * adds an owner to the own table
      * @return bool
      */
     function insertOwner($place, $owner,$share)
@@ -32,8 +32,8 @@ class condoModel extends databaseService
         }
     }
 
-            /**
-
+    /**
+     * adds manager to the manager table
      * @return bool
      */
     function insertManager($place, $owner)
@@ -47,6 +47,7 @@ class condoModel extends databaseService
     }
 
     /**
+     * updates the own table by updating the property owner
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -71,6 +72,7 @@ class condoModel extends databaseService
     }
 
     /**
+     * removes a property from the database
      * @param $userId : User id for the user to be deleted
      */
     function deleteProperty($userId){
@@ -78,6 +80,7 @@ class condoModel extends databaseService
     }
 
     /**
+     * gets all owned properties
      * @return fetch : ALl users from entity
      */
     function getOwnedProperties($eid)
@@ -90,6 +93,7 @@ class condoModel extends databaseService
     }
 
     /**
+     * gets all managed properties
      * @return fetch : ALl users from entity
      */
     function getManagedProperties($gid)

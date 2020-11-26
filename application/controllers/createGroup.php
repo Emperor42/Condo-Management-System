@@ -16,6 +16,8 @@ try {
   $entityType = 2020;
   $group = True;
   $pwrd="";
+
+  //check if any of the fields are missing, and add them to database if not
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_POST("userId"))){
             $userId = trim(stripslashes(htmlspecialchars($_POST("userId"))));
