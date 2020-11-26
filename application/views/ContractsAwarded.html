@@ -1,4 +1,3 @@
-<!-- Tiffany Ah King 40082976 Codes-->
 <!DOCTYPE html>
 <html lang="en">
 <head>

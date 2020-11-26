@@ -1,4 +1,3 @@
-<!-- Tiffany Ah King(40082976) & Khadija Subtain(40040952) Codes-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
