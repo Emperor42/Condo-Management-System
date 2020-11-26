@@ -8,12 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home
+                <a class="nav-link" href="<?php echo BASEURL; ?>/user/home">Home</a>
                     <span class="sr-only">(current)</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo BASEURL; ?>/user/register">New User</a>
