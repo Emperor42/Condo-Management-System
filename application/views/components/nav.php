@@ -30,6 +30,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo BASEURL; ?>/main/events">Events</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo BASEURL; ?>/email/inbox">Email</a>
+            </li>
             <!--NOT YET IMPLEMENTED!-->
             <li class="nav-item">
                 <a class="nav-link" href="#">Contacts</a>

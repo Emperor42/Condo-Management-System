@@ -1,5 +1,12 @@
 <?php
 /*Khadija SUBTAIN-40040952*/
+
+/**
+ * This class models email functionality
+ * This class interfaces with the database
+ *
+ * Class emailModel
+ */
 class emailModel extends databaseService
 {
     /**
@@ -10,21 +17,23 @@ class emailModel extends databaseService
     }
 
     /**
-     * @param $email_id
      * takes the email id and deletes it from the table
+     * @param $email_id
      */
     public function deleteEmail($email_id){
 
     }
 
     /**
+     * takes user id and retrieves the email from the table
      * @param $user_Id
-     * * takes user id and retrieves the email from the table
+     * @return fetch
      */
     public function fetchInbox($user_Id){
         if ($this->Query("SELECT * FROM email em INNER JOIN entity en
-            ON em.toEid = en.userId
-            WHERE em.inboxDelete = 0 AND em.toEid = ?", [$user_Id])) {
+            ON em.toEid = en.eid
+            WHERE em.inboxDelete = 0 AND em.toEid = ?
+            order by createDate, emailStatus", [$user_Id])) {
             return $this->fetchAll();
         }
     }

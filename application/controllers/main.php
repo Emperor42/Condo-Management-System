@@ -89,15 +89,18 @@ class main extends BaseController
             $u= $this->input($_POST["uname"]);
             $p = $this->input($_POST["psw"]);
             if($this->userModel->checkUser($u,$p)){
-                $_SESSION["loggedUser"]= strval($this->userModel->getEID($u,$p)->eid);
-                $_SESSION["loggedName"]= strval($this->userModel->getEID($u,$p)->firstName)." ".strval($this->userModel->getEID($u,$p)->firstName)." ".strval($this->userModel->getEID($u,$p)->lastName)." (".strval($this->userModel->getEID($u,$p)->userId).")";
+                $result = $this->userModel->getEID($u,$p);
+
+                $this->setSession("loggedUser", strval($result->eid));
+                $this->setSession("loggedName", strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")");
+
                 $this->redirect('main/wall');
             } else {
                 $this->setFlash('failure', "Failed to Log In ");
                 $this->redirect('main/login');
             }
         }
-        $this->setFlash('success', "WELCOME!");
+        $this->setFlash('success', "WELCOME " . $this->getSession(loggedName));
     }
 
     public function logout(){
