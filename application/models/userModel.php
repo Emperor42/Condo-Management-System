@@ -102,7 +102,7 @@ class userModel extends databaseService
      * @return fetch
      */
     function getEID($userId, $pwd){
-        if ($this->Query("SELECT eid, userId, firstName, lastName FROM entity WHERE user_group != ? AND userId = ? AND pwrd = ?", [true, $userId, $pwd])) {
+        if ($this->Query("SELECT eid, userId, firstName, lastName, entityType FROM entity WHERE user_group != ? AND userId = ? AND pwrd = ?", [true, $userId, $pwd])) {
             return $this->fetch();
         }
     }

@@ -93,6 +93,8 @@ class main extends BaseController
 
                 $this->setSession("loggedUser", strval($result->eid));
                 $this->setSession("loggedName", strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")");
+                $this->setSession("screenName", strval($result->firstName));
+                $this->setSession("entityType", strval($result->entityType));
 
                 $this->redirect('main/wall');
             } else {
