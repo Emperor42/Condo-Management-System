@@ -1,4 +1,3 @@
-<!--Khadija SUBTAIN-40040952-->
 <!DOCTYPE html>
 <html lang="en">
 <head>

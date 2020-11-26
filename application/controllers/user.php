@@ -1,5 +1,4 @@
 <?php
-/*Khadija SUBTAIN-40040952*/
 
 /**
  * This controller will deal anything to do with user
@@ -8,9 +7,6 @@ class user extends BaseController
 {
     private $userModel;
 
-    /**
-     * user default constructor
-     */
     public function __construct()
     {
         //Loads Base class constructor
@@ -25,12 +21,6 @@ class user extends BaseController
     /**************************************************************/
     /*                    VIEW REQUESTS                           */
     /**************************************************************/
-    /**
-     * returns the user's home page (userHome View)
-     */
-    public function home(){
-        $this->view('UserHome');
-    }
 
     /**
      * Returns register view
@@ -48,16 +38,10 @@ class user extends BaseController
         $this->view('EditOrRemove', $data);
     }
 
-
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
 
-    /**
-     * @param $user_id
-     *  takes user ID, edits the information of user and returns the user
-     * edited information on EditUser
-     */
     public function editUserRequest($user_id)
     {
         $dataRow = $this->userModel->getUser($user_id);
@@ -72,11 +56,6 @@ class user extends BaseController
         $this->view('EditUser', $data);
     }
 
-    /**
-     * @param $userId
-     *  takes user ID, deletes the row with the information of user and returns the
-     * page where the user has been deleted and redirects the user to editOrRemove
-     */
     public function deleteUserRequest($userId)
     {
         $this->userModel->deleteUser($userId)
@@ -88,11 +67,6 @@ class user extends BaseController
         $this->redirect('user/editOrRemove');
     }
 
-    /**
-     * updates the user information and flashes the message with
-     * success and failure regarding the update of the information
-     * redirects the user to editOrRemove
-     */
     public function updateUserRequest()
     {
         $age = 2020;
@@ -121,11 +95,6 @@ class user extends BaseController
 
     }
 
-    /**
-     * Register user's information and flashes a message with
-     * successful or failed attempt
-     * redirects the user to register page
-     */
     public function registerUserRequest()
     {
         $age = 2020;

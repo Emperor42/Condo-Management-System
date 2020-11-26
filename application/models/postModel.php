@@ -4,7 +4,6 @@ class postModel extends databaseService
 {
 
     /**
-     * Creates a new message ot insert into the messages table
      * @param $replyTo
      * @param $msgTo
      * @param $msgFrom
@@ -33,8 +32,8 @@ class postModel extends databaseService
     function createEvent($msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
-        VALUES(?,?,?,'EVENTS',?)", [-1, $msgTo, $msgFrom, $name])) {
+        if ($this->Query("INSERT INTO messages (msgTo, msgFrom, msgSubject, msgText)
+        VALUES(?,?,'EVENTS',?)", [$msgTo, $msgFrom, $msgText])) {
             return true;
         } else {
             return false;
@@ -52,7 +51,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
-        VALUES(?,?,?,'EVENTSDATE',?)", [$eventID, $msgTo, $msgFrom, $name])) {
+        VALUES(?,?,?,'EVENTSDATE',?)", [$eventID, $msgTo, $msgFrom, $msgText])) {
             return true;
         } else {
             return false;
@@ -70,7 +69,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if ($this->Query("INSERT INTO messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
-        VALUES(?,?,?,'EVENTSTIME',?)", [$eventID,$msgTo, $msgFrom, $name])) {
+        VALUES(?,?,?,'EVENTSTIME',?)", [$eventID,$msgTo, $msgFrom, $msgText])) {
             return true;
         } else {
             return false;
@@ -84,11 +83,11 @@ class postModel extends databaseService
      * @param $msgText is the name of the event
      * @return bool
      */
-    function createEventLocation($eventID,$msgTo, $msgFrom, $name)
+    function createEventLocation($eventID,$msgTo, $msgFrom, $msgText)
     {
         //create the event itself
         if ($this->Query("INSERT INTO messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
-        VALUES(?,?,?,'EVENTSLOCATION',?)", [$eventID,$msgTo, $msgFrom, $name])) {
+        VALUES(?,?,?,'EVENTSLOCATION',?)", [$eventID,$msgTo, $msgFrom, $msgText])) {
             return true;
         } else {
             return false;
@@ -110,34 +109,10 @@ class postModel extends databaseService
             return false;
         }
     }
-
-    /**
-     * removes vote a specifed vote using specified parameters
-     * @param $msgFrom
-     * @param $name
-     * @return bool specified vote is found
-     */
-    function deleteVote($msgFrom, $name){
-        if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject = 'VOTE", [$name, $msgFrom])){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    /**
-     * counts all the votes on a given event
-     * @param $event
-     * @param $userId
-     * @return array
-     */
-    function countVotes($event, $userId){
-        if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE'", [$event])) {
-            $ret = $this->fetchAll();
-            if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE' AND msgFrom = ?", [$event, $userId])){
-                $tmp = $this->fetchAll();
-                return [$ret, count($ret), count($tmp)>0];
-            }
+    //count all the votes for some message
+    function countVotes($event){
+        if ($this->Query("SELECT COUNT(DISTINCT mid) FROM messages WHERE msgSubject='VOTE' AND replyTo = ?", [$event])) {
+            return $this->fetchAll();
         }
     }
 
@@ -178,7 +153,6 @@ class postModel extends databaseService
     }
 
     /**
-     * fetches all messages destined to the specified user if they are logged in
      * @param $userId
      * @return fetch : User with provded id to pull messages from this person (sjows posts to public and from admin)
      */
@@ -214,8 +188,7 @@ class postModel extends databaseService
      */
     function conversationForUsers($userIdA, $userIdB)
     {
-        if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
-        FROM messages 
+        if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
         WHERE msgSubject='PM' AND ((msgTo = ? AND msgFrom = ?)
         OR (msgTo = ? AND msgFrom = ?))
         ORDER BY mid ASC", [$userIdA, $userIdB, $userIdB, $userIdA])) {
@@ -248,9 +221,15 @@ class postModel extends databaseService
      */
     function eventsForUser($userId)
     {
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE') AS votes FROM messages m, messages n WHERE (m.msgSubject = 'VOTE' OR m.msgSubject = 'EVENTSLOCATION' OR m.msgSubject = 'EVENTS' OR m.msgSubject = 'EVENTSDATE' OR m.msgSubject = 'EVENTSTIME') AND (m.msgTo = ? OR m.msgFrom = ? OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY m.mid 
-        ", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
-            return $this->fetchAll();
+        if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+        WHERE msgSubject = 'EVENTS' AND (msgTo = ? 
+        OR msgFrom = ? 
+        OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
+        OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
+        OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
+        OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY mid
+        ", [$userId,$userId,$userId,$userId,$userId,$userId])) {
+            return $this->fetch();
         }
     }
 }

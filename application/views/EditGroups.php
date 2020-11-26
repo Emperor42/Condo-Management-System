@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--Khadija SUBTAIN-40040952 -->
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">

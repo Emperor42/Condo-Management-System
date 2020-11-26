@@ -1,4 +1,3 @@
-<!-- Daniel GAUVIN -->
 <!DOCTYPE html>
 <html>
 <head>
