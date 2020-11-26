@@ -48,11 +48,11 @@ class main extends BaseController
     public function conversation($other)
     {
         //switch to the login page if he loggedUser is not set
-        if (!isset($_SESSION['loggedUser'])){
+        if (isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
-        $_SESSION['talkTo'] = $other;
+        $_SESSION['talkTo']=$other;
         $this->view('conversation', $data);
     }
 
@@ -60,18 +60,18 @@ class main extends BaseController
     public function conversationGroup($other)
     {
         //switch to the login page if he loggedUser is not set
-        if (!isset($_SESSION['loggedUser'])){
+        if (isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
-        $_SESSION['talkTo'] = $other;
+        $_SESSION['talkTo']=$other;
         $this->view('conversation', $data);
     }
 
 
     public function events(){
         //switch to the login page if he loggedUser is not set
-        if (!isset($_SESSION['loggedUser'])){
+        if (isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
     }
         $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
@@ -86,28 +86,26 @@ class main extends BaseController
         // Value validation happens at client side, so no need to check for blanks here
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //check if the user password is correct
-            $u = $this->input($_POST["uname"]);
+            $u= $this->input($_POST["uname"]);
             $p = $this->input($_POST["psw"]);
-            if ($this->userModel->checkUser($u, $p)) {
-                $result = $this->userModel->getEID($u, $p);
+            if($this->userModel->checkUser($u,$p)){
+                $result = $this->userModel->getEID($u,$p);
 
-                $this->setSession("loggedUser", strval($result->eid));
-                $this->setSession("loggedName", strval($result->eid) . " " . strval($result->firstName) . " " . strval($result->lastName) . " (" . strval($result->userId) . ")");
-                $this->setSession("screenName", strval($result->firstName));
-                $this->setSession("entityType", strval($result->entityType));
-
+                $_SESSION["loggedUser"]= strval($result->eid);
+                $_SESSION["loggedName"]= strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")";
+                $this->setFLash('success', 'you are logged in ');
                 $this->redirect('main/wall');
-                $this->setFlash('success', "WELCOME " . $this->getSession(loggedName));
             } else {
                 $this->setFlash('failure', "Failed to Log In ");
                 $this->redirect('main/login');
             }
         }
+        $this->setFlash('success', "WELCOME " . $_SESSION['loggedName']);
     }
 
     public function logout(){
         if (isset($_SESSION['loggedUser'])){
-            $_SESSION["loggedUser"]= "";
+            $_SESSION["loggedUser"]="";
             $_SESSION["loggedName"]= "";
                 
         }
