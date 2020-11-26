@@ -5,6 +5,7 @@
 class loginModel extends databaseService
 {
     /**
+     * creates a new user in entity table
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -27,6 +28,7 @@ class loginModel extends databaseService
     }
 
     /**
+     * updates rows in the entity table
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -57,6 +59,7 @@ class loginModel extends databaseService
     }
 
     /**
+     * remove a particular user using their userId
      * @param $userId : User id for the user to be deleted
      */
     function deleteUser($userId){
@@ -64,6 +67,7 @@ class loginModel extends databaseService
     }
 
     /**
+     * get all users in the entity table
      * @return fetch : ALl users from entity
      */
     function getUsers()
@@ -74,6 +78,7 @@ class loginModel extends databaseService
     }
 
     /**
+     * get a user in the entity table using the userId
      * @param $userId
      * @return fetch : User with provded id
      */

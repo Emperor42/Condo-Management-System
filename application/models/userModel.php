@@ -3,6 +3,7 @@
 class userModel extends databaseService
 {
     /**
+     * creates another row in the entity table
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -25,6 +26,7 @@ class userModel extends databaseService
     }
 
     /**
+     * updates information on a specified user in the entity table using their userId
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -55,6 +57,7 @@ class userModel extends databaseService
     }
 
     /**
+     * deletes a user with the specified userId from the entity table
      * @param $userId : User id for the user to be deleted
      */
     function deleteUser($userId){
@@ -62,6 +65,7 @@ class userModel extends databaseService
     }
 
     /**
+     * gets all users from the entity table
      * @return fetch : ALl users from entity
      */
     function getUsers()
@@ -72,6 +76,7 @@ class userModel extends databaseService
     }
 
     /**
+     * gets all informatino of a user given a userId
      * @param $userId
      * @return fetch : User with provided id
      */
@@ -83,6 +88,7 @@ class userModel extends databaseService
     }
 
     /**
+     * gets the entityId (EID) of a given user usign their userId
      * @param $userId
      * @param $pwd
      * @return fetch

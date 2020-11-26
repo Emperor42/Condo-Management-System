@@ -4,6 +4,7 @@ class postModel extends databaseService
 {
 
     /**
+     * Creates a new message ot insert into the messages table
      * @param $replyTo
      * @param $msgTo
      * @param $msgFrom
@@ -110,6 +111,12 @@ class postModel extends databaseService
         }
     }
 
+    /**
+     * removes vote a specifed vote using specified parameters
+     * @param $msgFrom
+     * @param $name
+     * @return bool specified vote is found
+     */
     function deleteVote($msgFrom, $name){
         if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject = 'VOTE", [$name, $msgFrom])){
             return true;
@@ -118,7 +125,12 @@ class postModel extends databaseService
         }
     }
 
-    //count all the votes for some message
+    /**
+     * counts all the votes on a given event
+     * @param $event
+     * @param $userId
+     * @return array
+     */
     function countVotes($event, $userId){
         if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE'", [$event])) {
             $ret = $this->fetchAll();
@@ -166,6 +178,7 @@ class postModel extends databaseService
     }
 
     /**
+     * fetches all messages destined to the specified user if they are logged in
      * @param $userId
      * @return fetch : User with provded id to pull messages from this person (sjows posts to public and from admin)
      */
