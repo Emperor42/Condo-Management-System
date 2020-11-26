@@ -11,6 +11,7 @@
     <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
+<?php include "components/nav.php";?>
 <?php include "components/email-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">

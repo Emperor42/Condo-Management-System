@@ -48,11 +48,11 @@ class main extends BaseController
     public function conversation($other)
     {
         //switch to the login page if he loggedUser is not set
-        if (!isset($_SESSION['loggedUser'])){
+        if (isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
-        $_SESSION['talkTo'] = $other;
+        $_SESSION['talkTo']=$other;
         $this->view('conversation', $data);
     }
 
@@ -60,18 +60,18 @@ class main extends BaseController
     public function conversationGroup($other)
     {
         //switch to the login page if he loggedUser is not set
-        if (!isset($_SESSION['loggedUser'])){
+        if (isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
-        $_SESSION['talkTo'] = $other;
+        $_SESSION['talkTo']=$other;
         $this->view('conversation', $data);
     }
 
 
     public function events(){
         //switch to the login page if he loggedUser is not set
-        if (!isset($_SESSION['loggedUser'])){
+        if (isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
     }
         $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
@@ -89,20 +89,23 @@ class main extends BaseController
             $u= $this->input($_POST["uname"]);
             $p = $this->input($_POST["psw"]);
             if($this->userModel->checkUser($u,$p)){
-                $_SESSION["loggedUser"]= strval($this->userModel->getEID($u,$p)->eid);
-                $_SESSION["loggedName"]= strval($this->userModel->getEID($u,$p)->firstName)." ".strval($this->userModel->getEID($u,$p)->firstName)." ".strval($this->userModel->getEID($u,$p)->lastName)." (".strval($this->userModel->getEID($u,$p)->userId).")";
+                $result = $this->userModel->getEID($u,$p);
+
+                $_SESSION["loggedUser"]= strval($result->eid);
+                $_SESSION["loggedName"]= strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")";
+                $this->setFLash('success', 'you are logged in ');
                 $this->redirect('main/wall');
             } else {
                 $this->setFlash('failure', "Failed to Log In ");
                 $this->redirect('main/login');
             }
         }
-        $this->setFlash('success', "WELCOME!");
+        $this->setFlash('success', "WELCOME " . $_SESSION['loggedName']);
     }
 
     public function logout(){
         if (isset($_SESSION['loggedUser'])){
-            $_SESSION["loggedUser"]= "";
+            $_SESSION["loggedUser"]="";
             $_SESSION["loggedName"]= "";
                 
         }

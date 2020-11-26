@@ -9,6 +9,7 @@
     <?php include "components/header.php" ?>
 </head>
 <body>
+<?php include "components/nav.php";?>
 <?php include "components/user-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">

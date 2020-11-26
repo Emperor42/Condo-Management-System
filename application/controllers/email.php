@@ -28,8 +28,8 @@ class email extends BaseController
      */
     public function inbox()
     {
-        //TODO: Get this user id from session
-        $data = $this->emailModel->fetchInbox(3);
+        echo $this->getSession("loggedUser");
+        $data = $this->emailModel->fetchInbox($this->getSession("loggedUser"));
         //print_r($data);
         $this->view('emailInbox',$data);
     }

@@ -1,9 +1,16 @@
 <?php
 /*Khadija SUBTAIN-40040952*/
+
+/**
+ * This class models a user in the system.
+ * This model interfaces with the database.
+ *
+ * Class userModel
+ */
 class userModel extends databaseService
 {
     /**
-     * creates another row in the entity table
+     * Inserts a new user in the system. This creates another row in the entity table
      * @param $userId
      * @param $firstName
      * @param $lastName
@@ -58,7 +65,8 @@ class userModel extends databaseService
 
     /**
      * deletes a user with the specified userId from the entity table
-     * @param $userId : User id for the user to be deleted
+     * @param $userId
+     * @return bool
      */
     function deleteUser($userId){
         return $this->Query("DELETE FROM entity WHERE userId = ?", [$userId]);
@@ -100,14 +108,17 @@ class userModel extends databaseService
     }
 
     /**
+     * This method checks for the existence of a user in the system
      * @param $userId
-     * @return fetch : User with provded id
+     * @param $pwd
+     * @return bool
      */
     function checkUser($userId, $pwd)
     {
-        $userId = trim(strip_tags($userId));
-        $pwrd = trim(strip_tags($pwd));
-        return $this->Query("SELECT * FROM entity WHERE userId = ? AND pwrd = ?", [$userId, $pwd]);
-            
+        $userIdentification = trim(strip_tags($userId));
+        $password = trim(strip_tags($pwd));
+         if($this->Query("SELECT * FROM entity WHERE userId = ? AND pwrd = ?", [$userIdentification, $password])) {
+             return empty($this->fetch()) ? false : true;
+         }
     }
 }
