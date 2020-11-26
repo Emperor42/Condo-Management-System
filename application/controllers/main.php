@@ -86,23 +86,23 @@ class main extends BaseController
         // Value validation happens at client side, so no need to check for blanks here
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //check if the user password is correct
-            $u= $this->input($_POST["uname"]);
+            $u = $this->input($_POST["uname"]);
             $p = $this->input($_POST["psw"]);
-            if($this->userModel->checkUser($u,$p)){
-                $result = $this->userModel->getEID($u,$p);
+            if ($this->userModel->checkUser($u, $p)) {
+                $result = $this->userModel->getEID($u, $p);
 
                 $this->setSession("loggedUser", strval($result->eid));
-                $this->setSession("loggedName", strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")");
+                $this->setSession("loggedName", strval($result->eid) . " " . strval($result->firstName) . " " . strval($result->lastName) . " (" . strval($result->userId) . ")");
                 $this->setSession("screenName", strval($result->firstName));
                 $this->setSession("entityType", strval($result->entityType));
 
                 $this->redirect('main/wall');
+                $this->setFlash('success', "WELCOME " . $this->getSession(loggedName));
             } else {
                 $this->setFlash('failure', "Failed to Log In ");
                 $this->redirect('main/login');
             }
         }
-        $this->setFlash('success', "WELCOME " . $this->getSession(loggedName));
     }
 
     public function logout(){

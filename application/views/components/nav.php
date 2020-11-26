@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/main/logout">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo BASEURL; ?>/user/register">New User</a>

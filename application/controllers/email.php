@@ -28,10 +28,9 @@ class email extends BaseController
      */
     public function inbox()
     {
-        echo $this->getSession("loggedUser");
         $data = $this->emailModel->fetchInbox($this->getSession("loggedUser"));
-        //print_r($data);
         $this->view('emailInbox',$data);
+        //print_r($data);
     }
     /**
      * will display the outbox view
@@ -46,6 +45,11 @@ class email extends BaseController
     public function compose()
     {
         $this->view('emailCompose');
+    }
+
+    public function viewEmail(){
+        $data = $this->emailModel->fetchInbox($this->getSession("loggedUser"));
+        $this->view('viewEmail',$data);
     }
 
     /**************************************************************/

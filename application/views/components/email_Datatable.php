@@ -16,15 +16,16 @@
 
             <tr>
                 <td><?php echo $emailData->firstName . " " . $emailData->lastName; ?>  </td>
-                <td><a href=""> <?php echo $emailData->subject; ?></td>
+                <td><a href="<?php echo BASEURL; ?>/email/viewEmail/<?php echo $emailData->userId; ?>"><?php echo $emailData->subject; ?></a></td>
                 <td><?php echo $emailData->createDate; ?></td>
                 <td><?php echo $emailData->emailStatus; ?></td>
-                <td><a href="<?php echo BASEURL; ?>/email/deleteEmail/<?php echo $emailData->userId; ?>"
+               <td><a href="<?php echo BASEURL; ?>/email/deleteEmail/<?php echo $emailData->userId; ?>"
                        class="btn-editRemove btn-danger">Delete</a></td>
             </tr>
 
         <?php endforeach; ?>
 
+        <?php include "emailDetailModal.php"; ?>
     <?php endif; ?>
     </tbody>
 

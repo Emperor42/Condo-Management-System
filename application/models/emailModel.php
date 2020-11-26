@@ -45,4 +45,10 @@ class emailModel extends databaseService
     public function fetchOutbox($user_Id){
 
     }
+
+    public function getEmail($email_Id){
+        if ($this->Query("SELECT * FROM email WHERE eid = ?", [$email_Id])) {
+            return $this->fetch();
+        }
+    }
 }

@@ -82,7 +82,7 @@ INSERT INTO entity (eid, userId, pwrd) VALUES (0, 'admin', 'admin');
 
 #TODO triggers and refernce keys
 CREATE TABLE email(
-eid int NOT NULL AUTO_INCREMENT,
+emailId int NOT NULL AUTO_INCREMENT,
 fromEid int NOT NULL,
 toEid int NOT NULL,
 subject varchar(256),
@@ -91,7 +91,7 @@ emailStatus varchar(256),
 createDate DATE,
 outboxDelete int NOT NULL,
 inboxDelete int NOT NULL,
-PRIMARY KEY(eid)
+PRIMARY KEY(emailId)
 );
 INSERT INTO email (eid, fromEid, toEid, subject, body, emailStatus, createDate, outboxDelete ,inboxDelete)
- VALUES (null,1, 3, 'Re: Income Tax Spam', 'Your SIN has been compormized','New', current_date,0,0);
+ VALUES (null,36, 3, 'Re: Income Tax Spam', 'Your SIN has been compormized','New', current_date,0,0);
