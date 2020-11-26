@@ -8,6 +8,9 @@ class user extends BaseController
 {
     private $userModel;
 
+    /**
+     * user default constructor
+     */
     public function __construct()
     {
         //Loads Base class constructor
@@ -23,7 +26,7 @@ class user extends BaseController
     /*                    VIEW REQUESTS                           */
     /**************************************************************/
     /**
-     * main page of user
+     * returns the user's home page (userHome View)
      */
     public function home(){
         $this->view('UserHome');
@@ -120,7 +123,8 @@ class user extends BaseController
 
     /**
      * Register user's information and flashes a message with
-     * successful or failed attempt and redirects the user to register page
+     * successful or failed attempt
+     * redirects the user to register page
      */
     public function registerUserRequest()
     {

@@ -25,6 +25,9 @@ class main extends BaseController
     /*                    VIEW REQUESTS                           */
     /**************************************************************/
 
+    /**
+     * returns "wall" view if user is logged in
+     */
     public function wall()
     {
         //switch to the login page if he loggedUser is not set

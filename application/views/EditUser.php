@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!--Khadija SUBTAIN-40040952 -->
+<!--Daniel GAUVIN 40061905-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">

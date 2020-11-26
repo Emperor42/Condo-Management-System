@@ -3,12 +3,15 @@
  * khadija Subtain-40040952
  */
 /**
- * This controller will deal anything to do with user
+ * This controller will deal anything to do with login
  */
 class login extends BaseController
 {
     private $loginModel;
 
+    /**
+     * login default constructor
+     */
     public function __construct()
     {
         //Loads Base class constructor
@@ -31,8 +34,11 @@ class login extends BaseController
     {
         $this->view('login');
     }
+
     /**
-     * Returns editOrRemove view
+     * Returns editOrRemove view with
+     * a specified userId
+     * @param $user_id
      */
     public function validateUser($user_id)
     {
@@ -46,6 +52,10 @@ class login extends BaseController
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
 
+    /**
+     * returns EditUser View using a user id
+     * @param $user_id
+     */
     public function editUserRequest($user_id)
     {
         $dataRow = $this->userModel->getUser($user_id);
@@ -60,6 +70,10 @@ class login extends BaseController
         $this->view('EditUser', $data);
     }
 
+    /**
+     * deletes userRequests and redirects to editOrRemove View
+     * @param $userId
+     */
     public function deleteUserRequest($userId)
     {
         $this->userModel->deleteUser($userId)
@@ -71,6 +85,10 @@ class login extends BaseController
         $this->redirect('user/editOrRemove');
     }
 
+    /**
+     * updates the user information to the newly edited
+     * version of the user
+     */
     public function updateUserRequest()
     {
         $age = 2020;
@@ -99,6 +117,10 @@ class login extends BaseController
 
     }
 
+    /**
+     * creates a user and inserts the user information into
+     * in the user model table
+     */
     public function registerUserRequest()
     {
         $age = 2020;

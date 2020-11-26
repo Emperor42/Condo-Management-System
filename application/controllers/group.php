@@ -46,8 +46,11 @@
         {
             $this->view('createGroup');
         }
-        
 
+        /**
+         * adds a user to a group with specified group id
+         * @param $gid
+         */
         public function addUser($gid){
             //$data = $this->userModel->getUsers($gid);
             //$this->view('userListForGroup', $data);
@@ -60,7 +63,8 @@
         }
 
         /**
-         * Returns groupDetails view
+         * Returns groupDetails with group details for specified groupid
+         * @param $groupId
          */
         public function groupDetails($groupId)
         {
@@ -71,7 +75,8 @@
 
 
         /**
-         * Returns editGroup view
+         * Returns editGroup view if user is logged in
+         * otherwise, login view
          */
         public function editGroups()
         {
@@ -85,6 +90,7 @@
             }
            // return $data;
         }
+
         /**
          * Returns editOrRemove view
          * @param $ownerId
@@ -103,8 +109,8 @@
         /**************************************************************/
 
         /**
+         * specified group will be deleted given the groupId
          * @param $groupId
-         * will delete the group based on group Id
          */
         public function deleteGroupRequest($groupId)
         {
@@ -118,10 +124,10 @@
         }
 
         /**
+         * adds a user to a group using userid and groupid
+         * returns manage group view if logged in, else  login view
          * @param $groupId
          * @param $user_id
-         * takes the group id and user id and add the member to the group
-         * where he is not already a part of that group
          */
         public function addMemberToGroup($groupId, $user_id){
             if(isset($_SESSION['loggedUser'])){
@@ -175,7 +181,8 @@
             
         }
 
-        /** Get groups pertaining to an owner id
+        /**
+         * Get groups pertaining to an owner id
          * @param $ownerId
          * @return mixed
          */
@@ -219,6 +226,9 @@
         }
 
         /**
+         * adds user to group given user id, group id
+         * flashes a success or failure message
+         * redirects to custom group page
          * @param $gid
          * @param $userId
          *
@@ -231,9 +241,15 @@
                 $this->setFlash('failure', 'User has not been added to group' );
             }
             //$this->view('AddedUser', $data);
-            $this->redirect('group/groupDetails/'.$gid);//custom redirect based on group
+            $this->redirect('group/groupDetails/'.$gid);
         }
 
+        /**
+         * deletes a user from a group user their respective id's
+         * redirect to the group details view
+         * @param $ownerId
+         * @param $userId
+         */
         public function deleteUserFromGroup($ownerId,$userId)
         {
             if ($this->groupModel->deleteUserFromGroup($ownerId, $userId)){

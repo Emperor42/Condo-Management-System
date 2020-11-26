@@ -7,7 +7,7 @@ class groupModel extends databaseService
      * @param $groupName
      * @param $groupDescription
      * @return bool
-     * takes the group name and description and helps create the group
+     * takes the group name and description and creates the group
      */
     function insertGroup($groupName, $groupDescription)
     {
@@ -30,6 +30,7 @@ class groupModel extends databaseService
     }
 
     /**
+     * insert a group owner to the group
      * @param $ownerId
      * @param $userId
      * @return bool
