@@ -48,7 +48,7 @@ class main extends BaseController
     public function conversation($other)
     {
         //switch to the login page if he loggedUser is not set
-        if (isset($_SESSION['loggedUser'])){
+        if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
@@ -60,7 +60,7 @@ class main extends BaseController
     public function conversationGroup($other)
     {
         //switch to the login page if he loggedUser is not set
-        if (isset($_SESSION['loggedUser'])){
+        if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
         $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
@@ -71,9 +71,9 @@ class main extends BaseController
 
     public function events(){
         //switch to the login page if he loggedUser is not set
-        if (isset($_SESSION['loggedUser'])){
+        if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
-    }
+        }
         $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
         $this->view('events', $data, $this->userModel);
     }
