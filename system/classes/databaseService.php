@@ -16,6 +16,8 @@ class databaseService
     public function __construct()
     {
 
+        date_default_timezone_set('America/Toronto');
+
         try {
             $this->con = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database, $this->user, $this->password);
             $this->con ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

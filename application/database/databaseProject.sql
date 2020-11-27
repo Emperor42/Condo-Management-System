@@ -88,10 +88,8 @@ toEid int NOT NULL,
 subject varchar(256),
 body varchar(1000),
 emailStatus varchar(256),
-createDate DATE,
+createDate DATETIME,
 outboxDelete int NOT NULL,
 inboxDelete int NOT NULL,
 PRIMARY KEY(emailId)
 );
-INSERT INTO email (eid, fromEid, toEid, subject, body, emailStatus, createDate, outboxDelete ,inboxDelete)
- VALUES (null,36, 3, 'Re: Income Tax Spam', 'Your SIN has been compormized','New', current_date,0,0);

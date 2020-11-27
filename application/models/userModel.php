@@ -84,7 +84,7 @@ class userModel extends databaseService
     }
 
     /**
-     * gets all informatino of a user given a userId
+     * gets all information of a user given a userId
      * @param $userId
      * @return fetch : User with provided id
      */
@@ -94,6 +94,18 @@ class userModel extends databaseService
             return $this->fetch();
         }
     }
+
+    /**
+     * gets a user by its email address.
+     *
+     * @param $email
+     * @return fetch
+     */
+     public function getUserByEmail($email)
+     {
+        $this->Query("SELECT * FROM entity WHERE email = ?", [$email]);
+        return $this->fetch();
+     }
 
     /**
      * gets the entityId (EID) of a given user usign their userId

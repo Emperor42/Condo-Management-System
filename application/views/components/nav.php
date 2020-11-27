@@ -41,6 +41,9 @@
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
+                <li>
+                    <label class="nav-link"><?php echo $_SESSION["screenName"] ?></label>
+                </li>
                     <a class="nav-link" href="<?php echo BASEURL; ?>/main/logout">Logout</a>
                 </li>
             </ul>

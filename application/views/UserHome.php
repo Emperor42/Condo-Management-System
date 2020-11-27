@@ -10,7 +10,6 @@
 </head>
 <body>
 <?php include "components/nav.php";?>
-<?php include "components/user-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">

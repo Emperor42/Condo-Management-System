@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-11">
             <h3>Inbox</h3>
-            <?php include "components/email_Datatable.php"; ?>
+            <?php $inout = "in"; include "components/email_Datatable.php"; ?>
         </div>
         <!-- Close col-md-5 -->
     </div>

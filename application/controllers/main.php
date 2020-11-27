@@ -93,6 +93,9 @@ class main extends BaseController
 
                 $_SESSION["loggedUser"]= strval($result->eid);
                 $_SESSION["loggedName"]= strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")";
+                $this->setSession("screenName", strval($result->firstName));
+                $this->setSession("entityType", strval($result->entityType));
+
                 $this->setFLash('success', 'you are logged in ');
                 $this->redirect('main/wall');
             } else {
