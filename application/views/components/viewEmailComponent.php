@@ -1,6 +1,6 @@
 <!--Khadija SUBTAIN-40040952 -->
 <h3><?php echo $data->subject ?></h3>
-<form action="<?php echo BASEURL; ?>/email/replyEmail" method="post">
+<form method="post">
 
     <div class="form-group">
 
@@ -24,8 +24,8 @@
     </div>
     <!-- Close form-group -->
     <div class="form-group">
-        <input type="submit" name="send" class="btn btn-primary" value="reply">
-        <input type="submit" name="send" class="btn btn-primary" value="forward">
+        <input type="submit" name="reply" class="btn btn-primary" value="reply" formaction="<?php echo BASEURL; ?>/email/replyEmail">
+        <input type="submit" name="forward" class="btn btn-primary" value="forward" formaction="<?php echo BASEURL; ?>/email/forwardEmail">
     </div>
     <!-- Close form-group -->
 

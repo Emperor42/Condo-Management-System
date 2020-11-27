@@ -65,7 +65,7 @@ class emailModel extends databaseService
         if ($this->Query("SELECT *, 'inbox' AS page FROM email em INNER JOIN entity en
             ON em.toEid = en.eid
             WHERE em.inboxDelete = 0 AND em.toEid = ?
-            order by createDate, emailStatus", [$user_Id])) {
+            order by em.createDate desc", [$user_Id])) {
             return $this->fetchAll();
         }
     }
@@ -78,7 +78,7 @@ class emailModel extends databaseService
         if ($this->Query("SELECT *, 'outbox' AS page FROM email em INNER JOIN entity en
             ON em.toEid = en.eid
             WHERE em.outboxDelete = 0 AND em.fromEid = ?
-            order by createDate, emailStatus", [$user_Id])) {
+            order by em.createDate desc", [$user_Id])) {
             return $this->fetchAll();
         }
     }

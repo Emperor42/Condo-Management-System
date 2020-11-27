@@ -1,5 +1,5 @@
 <!--Khadija SUBTAIN-40040952 -->
-<h3>Create new email</h3>
+<h3>Compose Email</h3>
 <form action="<?php echo BASEURL; ?>/email/sendEmailRequest" method="post">
 
     <div class="form-group">

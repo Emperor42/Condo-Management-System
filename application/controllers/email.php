@@ -51,6 +51,14 @@ class email extends BaseController
         $this->view('emailCompose', array());
     }
 
+    /**
+     * This method is used to view an email.
+     * If this request is coming from inbox, then
+     * email is also marked as 'Read'
+     *
+     * @param $emailId
+     * @param $page
+     */
     public function viewEmail($emailId, $page)
     {
         $data = $this->emailModel->getEmail($this->getSession("loggedUser"), $emailId, $page);
@@ -60,6 +68,9 @@ class email extends BaseController
         $this->view('viewEmail', $data);
     }
 
+    /**
+     * This method is used to reply to an email
+     */
     public function replyEmail(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -76,11 +87,25 @@ class email extends BaseController
                     $this->input($_POST["subject"]) . "\r\n" . $line . "\r\n" .
                     $this->input($_POST["messageBody"])
             );
-
             $this->view('emailCompose', $emailContext);
-
         }
     }
+
+    /**
+     * This method is used to forward an email
+     */
+    public function forwardEmail(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $emailContext = array(
+                'email' => '',
+                'subject' => "FW: " . $this->input($_POST["emailSubject"]),
+                'body' =>  "\r\n" . $this->input($_POST["messageBody"])
+            );
+            $this->view('emailCompose', $emailContext);
+        }
+    }
+
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
