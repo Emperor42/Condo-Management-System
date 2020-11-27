@@ -60,6 +60,27 @@ class email extends BaseController
         $this->view('viewEmail', $data);
     }
 
+    public function replyEmail(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+           $length =  strlen($this->input($_POST["subject"]) );
+           $line = "";
+           for($i = 0; $i < $length; $i++){
+               $line .= "=";
+            }
+
+            $emailContext = array(
+                'email' => $this->input($_POST["emailAddress"]),
+                'subject' => "RE: " . $this->input($_POST["emailSubject"]),
+                'body' => "\r\n" . $line . "\r\n" .
+                    $this->input($_POST["subject"]) . "\r\n" . $line . "\r\n" .
+                    $this->input($_POST["messageBody"])
+            );
+
+            $this->view('emailCompose', $emailContext);
+
+        }
+    }
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
