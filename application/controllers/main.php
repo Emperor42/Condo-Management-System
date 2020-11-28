@@ -38,6 +38,16 @@ class main extends BaseController
         $this->view('wall', $data, $this->userModel);
     }
 
+    public function classified()
+    {
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_SESSION['loggedUser'])){
+                $this->redirect('main/login');
+        }
+        $data = $this->postModel->getAds();
+        $this->view('ads', $data, $this->userModel);
+    }
+
     public function login(){
         //temp ffor testing
         $this->view('login');
@@ -76,6 +86,14 @@ class main extends BaseController
         }
         $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
         $this->view('events', $data, $this->userModel);
+    }
+
+    public function contracts(){
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_SESSION['loggedUser'])){
+            $this->redirect('main/login');
+        }
+        $this->redirect('main/wall');
     }
 
     /**************************************************************/

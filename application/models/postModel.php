@@ -178,6 +178,24 @@ class postModel extends databaseService
         }
     }
 
+    function getAds(){
+        if ((int)$_SESSION['loggedUser']==-1) {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages WHERE msgSubject = 'PAD'
+             ORDER BY mid DESC
+            ", [])) {
+                return $this->fetchAll();
+            }
+        } else {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
+            FROM messages 
+            WHERE msgSubject = 'PAD' OR msgSubject = 'AD'
+             ORDER BY mid DESC
+            ", [])) {
+                return $this->fetchAll();
+            }
+        }
+    }
+
     /**
      * fetches all messages destined to the specified user if they are logged in
      * @param $userId
