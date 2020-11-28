@@ -93,7 +93,8 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
-        $this->redirect('main/wall');
+        $data = $this->postModel->contractsForUser($_SESSION['loggedUser']);
+        $this->view('events', $data, $this->userModel);
     }
 
     /**************************************************************/
@@ -187,6 +188,61 @@ class main extends BaseController
             }
         }
         $this->redirect('main/events');
+    }
+
+    public function startContract(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $t=$this->input($_POST['eventGroup']);
+                $f=$this->input($_POST['eventStart']);
+                $n=$this->input($_POST['eventNamed']);
+                if ($this->postModel->createContract($t,$f,$n)){
+                    $this->setFlash('success', "Your event has been created!");
+                } else {
+                    $this->setFlash('failure', "We could not create your event!");
+                }
+            }
+        }
+        $this->redirect('main/contracts');
+    }
+
+    public function addContractDetails(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['eventReply']);
+                $t=$this->input($_POST['eventGroup']);
+                $f=$this->input($_POST['eventStart']);
+                $date=strval($this->input($_POST['eventDate']));
+                $time=strval($this->input($_POST['eventTime']));
+                $area=strval($this->input($_POST['eventArea']));
+                if (empty($_POST['eventDate'])&& empty($_POST['eventTime']) && empty($_POST['eventArea'])){
+                    $this->setFlash('failure', "No details supplied!");//no details supplied
+                    $this->redirect('main/events');
+                }
+                if (!empty($_POST['eventDate'])) { 
+                    if( $this->postModel->createContractDate($n,$t,$f, $date)){
+                        $this->setFlash('success', "The details have been added to the event!");
+                    } else {
+                        $this->setFlash('failure', "We could not create your event location!");
+                    }
+                }
+                if (!empty($_POST['eventTime'])){
+                    if( $this->postModel->createContractTime($n,$t,$f, $time)){
+                        $this->setFlash('success', "The details have been added to the event!");
+                    } else {
+                        $this->setFlash('failure', "We could not create your event location!");
+                    }
+                }
+                if (!empty($_POST['eventArea'])) {
+                    if($this->postModel->createContractLocation($n,$t,$f, $area)){
+                        $this->setFlash('success', "The details have been added to the event!");
+                    } else {
+                        $this->setFlash('failure', "We could not create your event location!");
+                    }
+                }
+            }
+        }
+        $this->redirect('main/contracts');
     }
 
 

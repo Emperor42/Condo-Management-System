@@ -272,4 +272,16 @@ class postModel extends databaseService
             return $this->fetchAll();
         }
     }
+
+         /**
+     * @param $userId
+     * @return fetch : User with provded id to pull messages from this person
+     */
+    function contractsForUser($userId)
+    {
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach FROM messages m WHERE m.msgSubject = 'CONTRACTS' OR m.msgSubject = 'CONTRACTSDATE' OR m.msgSubject = 'CONTRACTSTIME' OR m.msgSubject = 'CONTRACTSLOCATION'  ORDER BY m.mid ASC
+        ", [])) {
+            return $this->fetchAll();
+        }
+    }
 }
