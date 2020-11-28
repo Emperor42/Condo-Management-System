@@ -1,6 +1,6 @@
 <?php
 
-//combines property and ownership and management
+//combines property and ownership and management AND PAYMENTS (TODO ADD PAYMENTS!)
 class condoModel extends databaseService
 {
 

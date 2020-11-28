@@ -93,3 +93,22 @@ outboxDelete int NOT NULL,
 inboxDelete int NOT NULL,
 PRIMARY KEY(emailId)
 );
+
+#for the saving and loading of files from the database
+CREATE TABLE files (
+    id   INT           AUTO_INCREMENT ,
+    mime VARCHAR (255) NOT NULL,
+    data BLOB          NOT NULL,
+    PRIMARY KEY (id)
+);
+
+#simple payment table to store information regarding payments for various things (DO NOT DELETE)
+CREATE TABLE payment(
+    pid INT AUTO_INCREMENT,
+    payTo int,
+    FOREIGN KEY (payTo) REFERENCES entity(eid),
+    payFrom int,
+    FOREIGN KEY (payFrom) REFERENCES entity(eid),
+    total int NOT NULL, 
+    posted TIMESTAMP NOT NULL
+)
