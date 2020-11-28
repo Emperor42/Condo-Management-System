@@ -110,5 +110,6 @@ CREATE TABLE payment(
     payFrom int,
     FOREIGN KEY (payFrom) REFERENCES entity(eid),
     total int NOT NULL, 
-    posted TIMESTAMP NOT NULL
+    posted TIMESTAMP NOT NULL,
+    PRIMARY KEY (pid)
 )

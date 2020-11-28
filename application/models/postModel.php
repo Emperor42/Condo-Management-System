@@ -95,6 +95,7 @@ class postModel extends databaseService
         }
     }
 
+
     /**
      * @param $msgFrom is the voter
      * @param $name is the item for which you are voting
@@ -104,7 +105,7 @@ class postModel extends databaseService
     {
         //apply a new vote for something here, you can vote for multiple different things
         if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
-        VALUES(?,?,'VOTE') WHERE NOT EXISTS (SELECT replyTo, msgFrom FROM messages WHERE replyTo = ? AND msgFrom = ? AND msgSubject = 'VOTE')", [$name, $msgFrom, $name, $msgFrom])) {
+        VALUES(?,?,'VOTE')", [$name, $msgFrom])) {
             return true;
         } else {
             return false;
@@ -118,7 +119,7 @@ class postModel extends databaseService
      * @return bool specified vote is found
      */
     function deleteVote($msgFrom, $name){
-        if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject = 'VOTE", [$name, $msgFrom])){
+        if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject = 'VOTE' ", [$name, $msgFrom])){
             return true;
         }else {
             return false;
@@ -248,7 +249,7 @@ class postModel extends databaseService
      */
     function eventsForUser($userId)
     {
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE') AS votes FROM messages m, messages n WHERE (m.msgSubject = 'VOTE' OR m.msgSubject = 'EVENTSLOCATION' OR m.msgSubject = 'EVENTS' OR m.msgSubject = 'EVENTSDATE' OR m.msgSubject = 'EVENTSTIME') AND (m.msgTo = ? OR m.msgFrom = ? OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY m.mid 
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE') AS votes FROM messages m, messages n WHERE (m.msgSubject = 'VOTE' OR m.msgSubject = 'EVENTSLOCATION' OR m.msgSubject = 'EVENTS' OR m.msgSubject = 'EVENTSDATE' OR m.msgSubject = 'EVENTSTIME') AND (m.msgTo = ? OR m.msgFrom = ? OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY m.mid ASC, voted DESC
         ", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
             return $this->fetchAll();
         }

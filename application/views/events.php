@@ -34,8 +34,19 @@
             <!-- Close row -->
         <!--The list of events-->
         <div id="eventsList">
-                <?php foreach($data as $key=>$eventData): ?>
-                    <?php include "components/eventCard.php"; ?>
+                <?php
+                $skipThis =false;
+                 foreach($data as $key=>$eventData): ?>
+                    <?php if(!$skipThis){
+                        include "components/eventCard.php"; 
+                        if ($eventData->voted==1){
+                            $skipThis = true;
+                        }
+                    } else {
+                        $skipThis =false;
+                    }
+                        
+                        ?>
                 <?php endforeach;?>
             </div>
         </div>

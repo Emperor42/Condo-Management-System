@@ -171,11 +171,21 @@ class main extends BaseController
         $this->redirect('main/events');
     }
 
+
     public function toggleVote($event){
         if (isset($_SESSION['loggedUser'])){
             if ($this->postModel->createVote($_SESSION['loggedUser'], $event)){
                 $this->setFlash('success', 'The vote has been added');
-            } elseif ($this->postModel->deleteVote($_SESSION['loggedUser'], $event)) {
+            } else{ 
+                $this->setFlash('failure', 'There was a problem voting');
+            }
+        }
+        $this->redirect('main/events');
+    }
+
+    public function revokeVote($event) {
+        if (isset($_SESSION['loggedUser'])){
+            if ($this->postModel->deleteVote($_SESSION['loggedUser'], $event)) {
                 $this->setFlash('success', 'The vote has been removed'); 
             } else {
                 $this->setFlash('failure', 'There was a problem voting');
