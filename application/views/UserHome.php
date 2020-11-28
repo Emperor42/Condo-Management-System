@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-5">
             <?php include "components/flashMessage.php"; ?>
-
+            
         </div>
         <!-- Close col-md-5 -->
     </div>
