@@ -23,10 +23,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/OnlineDiscussion.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/OwnersConcerns.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/OwnersConcernsandDiscussion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/Polling.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Polling.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
