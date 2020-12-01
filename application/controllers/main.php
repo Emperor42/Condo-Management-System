@@ -8,6 +8,8 @@ class main extends BaseController
 {
     public $userModel;
     private $postModel;
+    private $condoModel;
+    private $groupModel;
 
     public function __construct()
     {
@@ -15,6 +17,8 @@ class main extends BaseController
         parent::__construct();
         $this->userModel = $this->model('userModel');
         $this->postModel = $this->model('postModel');
+        $this->condoModel = $this->model('condoModel');
+        $this->groupModel = $this->model('groupModel');
     }
 
     public function index()
@@ -29,6 +33,32 @@ class main extends BaseController
      * returns "wall" view if user is logged in
      */
     public function wall()
+    {
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_SESSION['loggedUser'])){
+                $this->redirect('main/login');
+        }
+        $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
+        $this->view('wall', $data, $this->userModel);
+    }
+
+        /**
+     * returns "notoices" view if user is logged in, more or less a special sql query
+     */
+    public function notices()
+    {
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_SESSION['loggedUser'])){
+                $this->redirect('main/login');
+        }
+        $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
+        $this->view('wall', $data, $this->userModel);
+    }
+
+        /**
+     * returns "notoices" view if user is logged in, more or less a special sql query
+     */
+    public function concerns()
     {
         //switch to the login page if he loggedUser is not set
         if (!isset($_SESSION['loggedUser'])){
@@ -104,6 +134,18 @@ class main extends BaseController
         }
         $data = $this->postModel->contractsForUser($_SESSION['loggedUser']);
         $this->view('events', $data, $this->userModel);
+    }
+
+    public function property(){
+        //switch to the login page if he loggedUser is not set
+        if (!isset($_SESSION['loggedUser'])){
+            $this->redirect('main/login');
+        }
+        $myProperty = $this->condoModel->getOwnedProperties($_SESSION['loggedUser']);
+        $groupProperty = $this->condoModel->getClaimedProperties();
+        $data['mine'] = $myProperty;
+        $data['ours'] = $groupProperty;
+        $this->view('property', $data);
     }
 
     /**************************************************************/
@@ -309,6 +351,8 @@ class main extends BaseController
         $this->redirect('main/contracts');
     }
 
+    //polling for  various resolutions
+
     public function toggleVote($event){
         if (isset($_SESSION['loggedUser'])){
             if ($this->postModel->createVote($_SESSION['loggedUser'], $event)){
@@ -330,6 +374,132 @@ class main extends BaseController
         }
         $this->redirect('main/events');
     }
+
+    //group (Condo Association Setting)
+
+    public function useGroup($group){
+        if (isset($_SESSION['loggedUser'])){
+            $data = $this->groupModel->getDetails($group);
+            if (!empty($data)) {
+                $_SESSION['useGroup'] = $data->eid;
+                $_SESSION['useName'] = $data->groupName;
+                $this->setFlash('success', 'The active group has ben changed!'); 
+            } else {
+                $this->setFlash('failure', 'The group can\'t be found');
+            }
+        }
+    }
+
+    // property management
+    function addProperty(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                if ($this->condoModel->insertProperty($n)) {
+                    $this->setFlash('success', 'The property has been created'); 
+                } else {
+                    $this->setFlash('failure', 'The property could not be created');
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
+    public function addOwner(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                $o = $this->input($_POST['owner']);
+                $s = (int)$this->input($_POST['share']);
+                if ($s>100) {
+                    $s =100;
+                    $this->setFlash('warning', 'Ownership has been set to 100'); 
+                }
+                if ($s<=0) {
+                    $s =0;
+                    $this->setFlash('failure', 'Ownership has to be set between 1 and 100!'); 
+                } else {
+                    if ($this->condoModel->insertOwner($n, $o, $s)) {
+                        $this->setFlash('success', 'The property has a new owner been created'); 
+                    } else {
+                        $this->setFlash('failure', 'The property could not be changed');
+                    }
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
+    function addManager(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                $m=$this->input($_POST['manager']);
+                if ($this->condoModel->insertManager($n, $m)) {
+                    $this->setFlash('success', 'The property has been updated'); 
+                } else {
+                    $this->setFlash('failure', 'The property could not be updated');
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
+    // property management
+    function dropProperty(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                if ($this->condoModel->deleteProperty($n)) {
+                    $this->setFlash('success', 'The property has been created'); 
+                } else {
+                    $this->setFlash('failure', 'The property could not be created');
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
+    public function changeOwner(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                $o = $this->input($_POST['owner']);
+                $s = (int)$this->input($_POST['share']);
+                if ($s>100) {
+                    $s =100;
+                    $this->setFlash('warning', 'Ownership has been set to 100'); 
+                }
+                if ($s<=0) {
+                    $s =0;
+                    $this->setFlash('failure', 'Ownership has to be set between 1 and 100!'); 
+                } else {
+                    if ($this->condoModel->updatePropertyOwner($n, $o, $s)) {
+                        $this->setFlash('success', 'The property has a new owner been created'); 
+                    } else {
+                        $this->setFlash('failure', 'The property could not be changed');
+                    }
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
+    function changeManager(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                $m=$this->input($_POST['manager']);
+                if ($this->condoModel->updatePropertyManager($n, $m)) {
+                    $this->setFlash('success', 'The property has been updated'); 
+                } else {
+                    $this->setFlash('failure', 'The property could not be updated');
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
 
 }
 ?>

@@ -115,7 +115,15 @@ class groupModel extends databaseService
                                 WHERE gm.tid = ?", [$groupId])) {*/
         if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
         FROM entity e INNER JOIN relate r
-        ON e.eid = r.eid WHERE r.tid = ? ", [$groupId])){
+        ON e.eid = r.eid WHERE r.tid = ? OR r.eid=?", [$groupId, $groupId])){
+            return $this->fetchAll();
+        }
+    }
+
+    function getDetails($groupId){
+        if($this->Query("SELECT DISTINCT * 
+        FROM entity e INNER JOIN group r
+        ON e.eid = r.groupId WHERE e.eid=?", [$groupId])){
             return $this->fetchAll();
         }
     }

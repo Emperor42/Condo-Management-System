@@ -35,14 +35,14 @@
                 <a class="nav-link" href="<?php echo BASEURL; ?>/main/resolution">Resolutions</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Manage Property</a>
+                <a class="nav-link" href="<?php echo BASEURL; ?>/main/property">Manage Property</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                 <li>
-                    <label class="nav-link"><?php echo $_SESSION["screenName"] ?></label>
+                    <label class="nav-link"><?php echo $_SESSION["screenName"]; ?></label>
                 </li>
                     <a class="nav-link" href="<?php echo BASEURL; ?>/main/logout">Logout</a>
                 </li>

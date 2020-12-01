@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/propertyList">Properties</a>
+                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/property">Properties</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/notices">Notices</a>
