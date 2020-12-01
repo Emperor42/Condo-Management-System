@@ -1,7 +1,7 @@
 <!--NOT SURE : TOOK REFERENCE TO EVENTCARD.PHP-->
 <!-- NOT SURE THE POLLDATA VARIABLE -->
 <?php if(!empty($pollData)):?>
-    <?php if($pollData->msgSubject=='polls'):?>
+    <?php if($pollData->msgSubject=='POLLS'):?>
         <div class="poll">
             <div class="poll-header">
                 <h1><?php echo $pollData->msgText;?></h1>

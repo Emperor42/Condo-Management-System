@@ -284,4 +284,16 @@ class postModel extends databaseService
             return $this->fetchAll();
         }
     }
+
+         /**
+     * @param $userId
+     * @return fetch : User with provded id to pull messages from this person
+     */
+    function pollsForUser($userId)
+    {
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE') AS votes FROM messages m, messages n WHERE (m.msgSubject = 'VOTE' OR m.msgSubject = 'POLLSLOCATION' OR m.msgSubject = 'POLLS' OR m.msgSubject = 'POLLSDATE' OR m.msgSubject = 'POLLSTIME') AND (m.msgTo = ? OR m.msgFrom = ? OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY m.mid ASC, voted DESC
+        ", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
+            return $this->fetchAll();
+        }
+    }
 }
