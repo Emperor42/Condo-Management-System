@@ -13,8 +13,8 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-5">
-            <div class="card event-card">
-                <div class="card-header">Create a new poll</div>
+            <div class="poll">
+                <div class="poll-header">Create a new poll</div>
                 <form action="<?php echo BASEURL; ?>/main/startPoll" method="post">
                     <div class="poll-body">
                         <label for="newPoll">Topic for the poll: </label>
@@ -30,10 +30,9 @@
         <!-- Close col-md-5 -->
     </div>
     <!-- Close row -->
-    <!-- NOT SURE-->
+    <!-- NOT SURE : TOOK REFERENCE TO EVENTS.PHP-->
     <div id="pollvote">
         <?php
-        $skipThis =false;
         foreach($data as $key=> $pollData): ?>
             <?php if(!$skipThis){
                 include "components/poll.php";

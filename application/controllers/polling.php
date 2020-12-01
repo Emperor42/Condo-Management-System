@@ -1,3 +1,4 @@
+<!-- BAD VERSION : DISCARD-->
 <?php
 $vote = $_REQUEST['vote'];
 
