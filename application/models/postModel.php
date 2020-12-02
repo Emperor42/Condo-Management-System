@@ -180,17 +180,21 @@ class postModel extends databaseService
 
     function getAds(){
         if ((int)$_SESSION['loggedUser']==-1) {
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages WHERE msgSubject = 'PAD'
+            if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.firstName AS name, e.lastName AS coname
+            FROM messages m, entity e
+            WHERE m.msgFrom = e.eid AND (m.msgSubject = 'PAD')
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
             }
         } else {
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
-            FROM messages 
-            WHERE msgSubject = 'PAD' OR msgSubject = 'AD'
+            if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.firstName AS name, e.lastName AS coname
+            FROM messages m, entity e
+            WHERE m.msgFrom = e.eid AND (m.msgSubject = 'PAD' OR (m.msgSubject = 'AD' AND m.msgFrom IN (select r1.eid FROM relate r1, relate r2 WHERE 
+            r2.eid = ? AND r1.tid=r2.tid
+            )))
              ORDER BY mid DESC
-            ", [])) {
+            ", [(int)$_SESSION['loggedUser']])) {
                 return $this->fetchAll();
             }
         }

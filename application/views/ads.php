@@ -20,6 +20,8 @@
                     <?php if(!empty($data)):?>
                         <?php foreach($data as $key=>$postData): ?>
                             <?php if($postData->msgSubject=="AD"||$postData->msgSubject=="PAD")://create a new post on the wall?>
+                                <?php if($postData->msgSubject=="PAD"){$postData->msgSubject="Public AD";}?>
+                                <?php if($postData->msgSubject=="AD"){$postData->msgSubject="Group AD";}?>
                                 <?php include "components/adPost.php"; ?>
                             <?php endif;?>
                         <?php endforeach;?>

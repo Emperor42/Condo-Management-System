@@ -2,7 +2,7 @@
     <div id="message<?php echo $postData->mid;?>" class="card" style="width:400px">
         
         <div class="card-body">
-            <h4 class="card-title"><?php echo $this->userModel->getUser($postData->msgFrom)."->".$this->userModel->getUser($postData->msgTo); ?></h4><!--This should convert the user id number into a name-->
+            <h4 class="card-title"><?php echo ($postData->msgSubject)." from ".($postData->name)." ".($postData->coname); ?></h4><!--This should convert the user id number into a name-->
             <?php if($postData->msgAttach!=""):?>
             <img class="card-img-bottom" src="<?php echo $postData->msgAttach; ?>" alt="Card image">
             <?php endif; ?>
