@@ -225,6 +225,64 @@ class postModel extends databaseService
         }
     }
 
+        /**
+     * fetches all messages destined to the specified user if they are logged in
+     * @param $userId
+     * @return fetch : User with provded id to pull messages from this person (sjows posts to public and from admin)
+     */
+    function concernsForUser($userId)
+    {
+        if ((int)$_SESSION['loggedUser']==0){
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+             ORDER BY mid DESC
+            ", [])) {
+                return $this->fetchAll();
+            }
+        } else {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            WHERE (msgTo = ? 
+            OR msgFrom = ? 
+            OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
+            OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
+            OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
+            OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
+            OR msgTo = ? 
+            OR msgFrom = ? ORDER BY mid DESC
+            ", [$userId,$userId,$userId,$userId,$userId,$userId,$_SESSION['useGroup'], $_SESSION['loggedUser']])) {
+                return $this->fetchAll();
+            }
+        }
+    }
+
+        /**
+     * fetches all messages destined to the specified user if they are logged in
+     * @param $userId
+     * @return fetch : User with provded id to pull messages from this person (sjows posts to public and from admin)
+     */
+    function noticesForUser($userId)
+    {
+        if ((int)$_SESSION['loggedUser']==0){
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+             ORDER BY mid DESC
+            ", [])) {
+                return $this->fetchAll();
+            }
+        } else {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            WHERE (msgTo = ? 
+            OR msgFrom = ? 
+            OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
+            OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
+            OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
+            OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
+            OR msgTo = ? 
+            OR msgFrom = ? ORDER BY mid DESC
+            ", [$userId,$userId,$userId,$userId,$userId,$userId,$_SESSION['loggedUser'], $_SESSION['useGroup']])) {
+                return $this->fetchAll();
+            }
+        }
+    }
+
      /**
      * Allows all messages with subject PM
      * @param $userIdA

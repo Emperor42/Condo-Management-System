@@ -10,6 +10,7 @@ class main extends BaseController
     private $postModel;
     private $condoModel;
     private $groupModel;
+    private $payModel;
 
     public function __construct()
     {
@@ -19,6 +20,7 @@ class main extends BaseController
         $this->postModel = $this->model('postModel');
         $this->condoModel = $this->model('condoModel');
         $this->groupModel = $this->model('groupModel');
+        $this->payModel = $this->model('payModel');
     }
 
     public function index()
@@ -51,7 +53,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
-        $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
+        $data = $this->postModel->noticesForUser($_SESSION['loggedUser']);
         $this->view('wall', $data, $this->userModel);
     }
 
@@ -64,7 +66,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
-        $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
+        $data = $this->postModel->concernsForUser($_SESSION['loggedUser']);
         $this->view('wall', $data, $this->userModel);
     }
 
@@ -80,6 +82,7 @@ class main extends BaseController
 
     public function login(){
         //temp ffor testing
+        $this->useGroup(1998);
         $this->view('login');
         //$this->wall();
     }
@@ -147,6 +150,19 @@ class main extends BaseController
         $data['ours'] = $groupProperty;
         $this->view('property', $data);
     }
+
+    //the payment oveview
+    public function finance($ca){
+        $s = $this->payModel->getAccountsTotal($ca);
+        $i = $this->payModel->getInAccounts($ca);
+        $o = $this->payModel->getOutAccounts($ca);
+        $data['summary']=$s;
+        $data['in']=$i;
+        $data['out']=$o;
+        $this->view('finance', $data);
+    
+    }
+
 
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
@@ -385,7 +401,9 @@ class main extends BaseController
                 $_SESSION['useName'] = $data->groupName;
                 $this->setFlash('success', 'The active group has ben changed!'); 
             } else {
-                $this->setFlash('failure', 'The group can\'t be found');
+                $_SESSION['useGroup'] = $group;
+                $_SESSION['useName'] = '';
+                $this->setFlash('failure', 'The group can\'t be found, there may be issues until one is set');
             }
         }
     }

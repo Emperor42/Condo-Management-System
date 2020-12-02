@@ -102,7 +102,7 @@ CREATE TABLE files (
     PRIMARY KEY (id)
 );
 
-#simple payment table to store information regarding payments for various things (DO NOT DELETE)
+#simple payment table to store information regarding payments for various things (planed transfers of money)
 CREATE TABLE payment(
     pid INT AUTO_INCREMENT,
     payTo int,
@@ -110,6 +110,9 @@ CREATE TABLE payment(
     payFrom int,
     FOREIGN KEY (payFrom) REFERENCES entity(eid),
     total int NOT NULL, 
+    outstanding int NOT NULL,
+    class VARCHAR(255),
+    memo VARCHAR(255),
     posted TIMESTAMP NOT NULL,
     PRIMARY KEY (pid)
 )

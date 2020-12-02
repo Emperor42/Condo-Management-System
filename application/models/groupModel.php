@@ -121,8 +121,8 @@ class groupModel extends databaseService
     }
 
     function getDetails($groupId){
-        if($this->Query("SELECT DISTINCT * 
-        FROM entity e INNER JOIN group r
+        if($this->Query("SELECT DISTINCT *
+        FROM entity e INNER JOIN groups r
         ON e.eid = r.groupId WHERE e.eid=?", [$groupId])){
             return $this->fetchAll();
         }

@@ -17,6 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/concerns">Concerns</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/finance/<?php echo $_SESSION['useGroup'];?>">CA Finance</a>
+            </li>
         </ul>
     </div>
 </nav>
