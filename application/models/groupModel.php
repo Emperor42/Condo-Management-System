@@ -16,6 +16,11 @@ class groupModel extends databaseService
                 $made = $this->fetch();
                 if ($this->Query("INSERT INTO groups VALUES(?,?,?)", [$made->eid, $groupName, $groupDescription])) {
                     if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid) VALUES(?,?,?,?)", [0,0,0,$made->eid])) {
+                        if ($_SESSION['loggedUser']!=0) {
+                            if(!$this->insertGroupOwner($made->eid, $_SESSION['loggedUser'])){
+                                return false;
+                            }
+                        } 
                         return true;
                     } else {
                         return false;
@@ -67,11 +72,13 @@ class groupModel extends databaseService
      * takes the group Id and checks if the users from an entity table
      * are part of that group or not
      */
-    function checkNonMemberUser($groupId)
+    function checkNonMemberUser($groupId, $eid)
     {
-        if ($this->Query("SELECT * FROM entity e WHERE e.eid NOT IN (SELECT eid FROM relate m WHERE m.tid=?)", [$groupId])) {
+        if ($this->Query("SELECT eid FROM relate m WHERE m.tid=? AND m.eid=?", [$groupId, $eid])) {
+            return empty($this->fetchAll());
         }
-        return $this->fetchAll();
+        return false;
+        
     }
 
     /**
@@ -116,6 +123,13 @@ class groupModel extends databaseService
         if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
         FROM entity e INNER JOIN relate r
         ON e.eid = r.eid WHERE r.tid = ? OR r.eid=?", [$groupId, $groupId])){
+            return $this->fetchAll();
+        }
+    }
+
+    function getUserGroups($groupId){
+        if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription 
+        FROM (entity e INNER JOIN groups g ON e.eid = g.groupId), relate r WHERE (r.eid=? AND r.tid=g.groupId)", [$groupId])){
             return $this->fetchAll();
         }
     }

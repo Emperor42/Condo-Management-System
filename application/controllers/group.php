@@ -32,7 +32,7 @@
         {
             //switch to the login page if he loggedUser is not set
             if (isset($_SESSION['loggedUser'])){
-                $data = $this->getGroups((int)$_SESSION['loggedUser']);
+                $data = $this->groupModel->getUserGroups((int)$_SESSION['loggedUser']);
                 $this->view('manageGroups',$data);
             } else {
                 $this->redirect('main/login');
@@ -56,7 +56,7 @@
             //$this->view('userListForGroup', $data);
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $groupId = $_POST['gid'];
-                $user_id = $_POST['uid'];
+                $user_id = (int)($this->userModel->getUser($_POST['uid'])->eid);
                 $this->addMemberToGroup($groupId, $user_id);
             }
             $this->redirect('group/groupDetails/'.$gid);
@@ -132,13 +132,16 @@
         public function addMemberToGroup($groupId, $user_id){
             if(isset($_SESSION['loggedUser'])){
                 //$gid, $userId
-                if($this->groupModel->checkNonMemberUser($groupId) != $user_id){
+                if($this->groupModel->checkNonMemberUser($groupId, $user_id)){
                     $this->groupModel->insertUserToGroup($groupId,$user_id);
                     $this->setFlash('success', "User is added." );
                     $this->redirect('group/manageGroups');
                 } else {
-                    $this->redirect('main/login');
+                    $this->setFlash('failure', "User is a member." );
                 }
+            }
+            else {
+                $this->redirect('main/login');
             }
             //$gid, $userId
         }
@@ -170,10 +173,15 @@
          */
         public function selfAddToGroup($groupId){
             if(isset($_SESSION['loggedUser'])){
-                $ownerId = (int)$_SESSION['loggedUser'];
-                $this->groupModel->insertUserToGroup($groupId,$ownerId);
-                $this->setFlash('success', 'A request to add yourself has been made to the group!');
-                $this->redirect('group/manageGroups');
+                $ownerId = $_SESSION['loggedUser'];
+                if ($this->groupModel->checkNonMemberUser($groupId, $ownerId)){
+                    $this->groupModel->insertUserToGroup($groupId,$ownerId);
+                    $this->setFlash('success', 'A request to add yourself has been made to the group!');
+                    $this->redirect('group/manageGroups');
+                }else {
+                    $this->setFlash('failure', 'YOu are already a member of thr group!');
+                    $this->redirect('group/manageGroups');
+                }
             } else {
                 $this->redirect('main/login');
             }
@@ -235,10 +243,14 @@
          */
         public function addUserToGroup($gid, $userId)
         {
-            if($this->groupModel->insertUserToGroup($gid, $userId)){
-                $this->setFlash('success', 'User added successfully to group' );
-            } else {
-                $this->setFlash('failure', 'User has not been added to group' );
+            if ($this->groupModel->checkNonMemberUser($groupId, $ownerId)){
+                if($this->groupModel->insertUserToGroup($gid, $userId)){
+                    $this->setFlash('success', 'User added successfully to group' );
+                } else {
+                    $this->setFlash('failure', 'User has not been added to group' );
+                }
+            }else {
+                $this->setFlash('failure', 'User is already a member of thr group!' );
             }
             //$this->view('AddedUser', $data);
             $this->redirect('group/groupDetails/'.$gid);
