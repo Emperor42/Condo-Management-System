@@ -204,21 +204,27 @@ class postModel extends databaseService
     function messagesForUser($userId)
     {
         if ((int)$_SESSION['loggedUser']==0){
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId AS fromName
+           FROM messages, entity e1, entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
             }
         } else {
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
-            WHERE (msgTo = ? 
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+             e1.userId AS toName, e2.userId As fromName
+            FROM messages, entity e1, entity e2 
+            WHERE ((msgTo = ? 
             OR msgFrom = ? 
             OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
             OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
             OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
             OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
             OR msgTo = ? 
-            OR msgFrom = ? ORDER BY mid DESC
+            OR msgFrom = ?) 
+            AND e1.eid = msgTo AND e2.eid = msgFrom 
+            ORDER BY mid DESC
             ", [$userId,$userId,$userId,$userId,$userId,$userId,-1, 0])) {
                 return $this->fetchAll();
             }
@@ -325,7 +331,17 @@ class postModel extends databaseService
      */
     function eventsForUser($userId)
     {
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE') AS votes FROM messages m, messages n WHERE (m.msgSubject = 'VOTE' OR m.msgSubject = 'EVENTSLOCATION' OR m.msgSubject = 'EVENTS' OR m.msgSubject = 'EVENTSDATE' OR m.msgSubject = 'EVENTSTIME') AND (m.msgTo = ? OR m.msgFrom = ? OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY m.mid ASC, voted DESC
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, 
+        IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, 
+        (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE')
+         AS votes FROM messages m, messages n WHERE (m.msgSubject LIKE 'EVENTS%') AND (m.msgTo = ? OR m.msgFrom = ?
+ OR m.msgTo = -1 OR m.msgFrom = -1 
+                                                                                  
+OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?)
+OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) 
+OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) 
+OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) 
+ORDER BY m.mid ASC, voted DESC
         ", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
             return $this->fetchAll();
         }

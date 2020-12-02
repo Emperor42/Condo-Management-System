@@ -1,14 +1,15 @@
 <?php if(!empty($info)):?>
-    <div class="card">
-        <div class="card-header bg-primary">
-            <?php echo $info->owner;?>
+    <div class="card text-light">
+        <div class="card-header bg-primary ">
+            <p><?php echo $info->owner;?></p>
         </div>
-        <div class="card-body">
-            Property: <?php echo $info->address;?>
-            Share: <?php echo $info->share;?>
+        <div class="card-body text-dark">
+            <p>Property: <?php echo $info->address;?></p>
+            <br>
+            <p>Share: <?php echo $info->shares;?></p>
         </div>
     <div class="card-footer bg-info">
-        <?php echo $info->manager;?>
+        <p><?php echo $info->manage;?></p>
     </div>
-    </div>
+    </div><br>
 <?php endif;?>

@@ -2,7 +2,7 @@
     <div id="message<?php echo $postData->mid;?>" class="card" style="width:400px">
         
         <div class="card-body">
-            <h4 class="card-title"><?php echo $this->userModel->getUser($postData->msgFrom)."->".$this->userModel->getUser($postData->msgTo); ?></h4><!--This should convert the user id number into a name-->
+            <h4 class="card-title"><?php echo ($postData->fromName)."->".($postData->toName); ?></h4><!--This should convert the user id number into a name-->
             <?php if($postData->msgAttach!=""):?>
             <img class="card-img-bottom" src="<?php echo $postData->msgAttach; ?>" alt="Card image">
             <?php endif; ?>
@@ -51,7 +51,7 @@
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Comment on the <?php echo strtolower($postData->msgSubject);?> by <?php echo strtolower($this->userModel->getUser($postData->msgFrom));?></h4>
+                        <h4 class="modal-title">Comment on the <?php echo strtolower($postData->msgSubject);?> by <?php echo strtolower(($postData->fromName));?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                         <form id="replyForm<?php echo $postData->mid;?>" action="<?php echo BASEURL; ?>/userPost/registerPostRequest" method="post" enctype="multipart/form-data">
