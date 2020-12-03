@@ -81,13 +81,8 @@ class userPost extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
-            if(!empty($_POST["msgAttach"])){
+            //if(!empty($_POST["msgAttach"])){
                 if (!empty($_FILES["msgAttach"])){
-                    /*
-                    $this->fileModel->insertFile(addslashes(file_get_contents($_FILES['msgAttach']['tmp_name'])),strtolower(pathinfo($target_file,PATHINFO_EXTENSION)));
-                    $msgAttach = strval($this->fileModel->last());
-                    */
-                    
                     $target_dir = "../".UPLOADURL."/";
                     
                     $target_file = $target_dir .$_SESSION['loggedUser']. basename($_FILES["msgAttach"]["name"]);
@@ -146,14 +141,12 @@ class userPost extends BaseController
                             $this->redirect('main/wall');
                         }
                     }
-                    
+                                      
                 } 
-            }
+            //}
 
 
             // Value validation happens at client side, so no need to check for blanks here
-       
-
             $this->postModel->insertMessage(
                 (int)$this->input($_POST["replyTo"]),
                 (int)$this->input($_POST["msgTo"]),
@@ -179,7 +172,7 @@ class userPost extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
-            if(!empty($_POST["msgAttach"])){
+            //if(!empty($_POST["msgAttach"])){
                 if (!empty($_FILES["msgAttach"])){
                     $target_dir = "../".UPLOADURL."/";
                     
@@ -240,7 +233,7 @@ class userPost extends BaseController
                         }
                     }
                 } 
-            }
+            //}
 
 
             // Value validation happens at client side, so no need to check for blanks here
@@ -267,7 +260,7 @@ class userPost extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
-            if(!empty($_POST["msgAttach"])){
+            //if(!empty($_POST["msgAttach"])){
                 if (!empty($_FILES["msgAttach"])){
                     $target_dir = "../".UPLOADURL."/";
                     
@@ -328,7 +321,7 @@ class userPost extends BaseController
                         }
                     }
                 } 
-            }
+            //}
 
 
             // Value validation happens at client side, so no need to check for blanks here
@@ -354,7 +347,7 @@ class userPost extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
-            if(!empty($_POST["msgAttach"])){
+            //if(!empty($_POST["msgAttach"])){
                 if (!empty($_FILES["msgAttach"])){
                     $target_dir = "../".UPLOADURL."/";
                     
@@ -415,7 +408,7 @@ class userPost extends BaseController
                         }
                     }
                 } 
-            }
+            //}
 
 
             // Value validation happens at client side, so no need to check for blanks here
@@ -434,7 +427,7 @@ class userPost extends BaseController
                 $this->setFlash("failure",'Post Not Sent!');
 
             //$this->redirect($_SERVER['HTTP);
-            $this->redirect('main/conversation/'.strval($_POST["msgTo"]));
+            $this->redirect('main/conversationGroup/'.strval($_POST["msgTo"]));
         }
     }
 }

@@ -37,11 +37,7 @@
         <div id="eventsList">
                 <?php
                  foreach($data['core'] as $key=>$eventData): ?>
-
-                       <?php include "components/contractCard.php"; 
-
-                        
-                        ?>
+                       <?php include "components/contractCard.php"; ?>
                 <?php endforeach;?>
             </div>
         </div>

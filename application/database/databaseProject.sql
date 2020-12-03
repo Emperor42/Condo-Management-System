@@ -28,7 +28,7 @@ msgFrom int,
 FOREIGN KEY (msgFrom) REFERENCES entity(eid) ON DELETE CASCADE,
 msgSubject varchar(255),
 msgText varchar(2550),
-msgAttach varchar(2250),
+msgAttach  varchar(2550),
 PRIMARY KEY(mid)
 );
 
@@ -96,7 +96,7 @@ PRIMARY KEY(emailId)
 
 #for the saving and loading of files from the database
 CREATE TABLE files (
-    id   INT           AUTO_INCREMENT ,
+    fid   INT           AUTO_INCREMENT ,
     mime VARCHAR (255) NOT NULL,
     data BLOB          NOT NULL,
     PRIMARY KEY (id)
