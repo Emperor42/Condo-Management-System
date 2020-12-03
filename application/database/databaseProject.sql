@@ -94,14 +94,6 @@ inboxDelete int NOT NULL,
 PRIMARY KEY(emailId)
 );
 
-#for the saving and loading of files from the database
-CREATE TABLE files (
-    fid   INT           AUTO_INCREMENT ,
-    mime VARCHAR (255) NOT NULL,
-    data BLOB          NOT NULL,
-    PRIMARY KEY (id)
-);
-
 #simple payment table to store information regarding payments for various things (planed transfers of money)
 CREATE TABLE payment(
     pid INT AUTO_INCREMENT,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 02, 2020 at 07:48 PM
+-- Generation Time: Dec 03, 2020 at 09:11 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -67,26 +67,15 @@ CREATE TABLE `entity` (
 --
 
 INSERT INTO `entity` (`eid`, `userId`, `firstName`, `lastName`, `age`, `email`, `phone`, `entityType`, `user_group`, `pwrd`) VALUES
-(-1, 'PUBLIC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(0, 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin'),
+(-1, 'PUBLIC', NULL, NULL, NULL, NULL, NULL, -1, 0, ''),
+(0, 'admin', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'admin'),
 (2, 'emperor42', 'Matthew', 'Giancola', 22, 'matthewgiancola@email.com', '1234567890', 0, 0, 'password'),
 (6, 'tiffany910', 'Tiffany', 'Ah King', 22, 'tiffanyahking@email.com', '1234567891', 0, 0, 'password'),
 (7, 'khadijasubtain', 'Khadija', 'Umer', 22, 'khadijaumer@email.com', '1234567892', 0, 0, 'password'),
 (8, 'dgovi', 'Daniel', 'Gauvin', 22, 'danielgauvin@email.com', '1234567894', 0, 0, 'password'),
-(9, 'Very Good Condo Association', NULL, NULL, NULL, NULL, NULL, NULL, 1, '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `files`
---
-
-DROP TABLE IF EXISTS `files`;
-CREATE TABLE `files` (
-  `id` int(11) NOT NULL,
-  `mime` varchar(255) NOT NULL,
-  `data` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(9, 'Very Good Condo Association', NULL, NULL, NULL, NULL, NULL, NULL, 1, ''),
+(13, '1998 Niagara Club', NULL, NULL, NULL, NULL, NULL, NULL, 1, ''),
+(14, 'jsmith', 'John', 'Smith', 2020, 'johnsmith@gmail.com', '9876543210', 0, 0, 'password');
 
 -- --------------------------------------------------------
 
@@ -106,7 +95,8 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`groupId`, `groupName`, `groupDescription`) VALUES
-(9, 'Very Good Condo Association', 'A very good condo association and development company');
+(9, 'Very Good Condo Association', 'A very good condo association and development company'),
+(13, '1998 Niagara Club', 'A club for 1998 Niagara');
 
 -- --------------------------------------------------------
 
@@ -145,8 +135,23 @@ CREATE TABLE `messages` (
   `msgFrom` int(11) DEFAULT NULL,
   `msgSubject` varchar(255) DEFAULT NULL,
   `msgText` varchar(2550) DEFAULT NULL,
-  `msgAttach` varchar(2250) DEFAULT NULL
+  `msgAttach` varchar(2550) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`mid`, `replyTO`, `msgTo`, `msgFrom`, `msgSubject`, `msgText`, `msgAttach`) VALUES
+(8, -1, -1, 8, 'POST', 'I have just moved into my new condo', ''),
+(9, -1, -1, 8, 'POST', 'I have just taken this photo near my new condo', '../public/assets/uploads/8IMG_20170409_122805.jpg'),
+(10, -1, -1, 8, 'POST', 'I like my condo', ''),
+(11, -1, -1, 8, 'EVENTS', 'Online Amung Us Party', NULL),
+(12, 11, -1, 8, 'EVENTSDATE', '2021-12-07', NULL),
+(13, 11, -1, 8, 'EVENTSTIME', '04:01', NULL),
+(14, 11, -1, 8, 'EVENTSLOCATION', 'Online', NULL),
+(19, 14, NULL, 8, 'VOTES', NULL, NULL),
+(20, 12, NULL, 8, 'VOTES', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -238,11 +243,15 @@ CREATE TABLE `relate` (
 --
 
 INSERT INTO `relate` (`relType`, `relSup`, `eid`, `tid`) VALUES
-(0, 0, 0, 9),
 (3, 0, 8, 9),
 (3, 0, 2, 9),
 (3, 0, 7, 9),
-(3, 0, 6, 9);
+(3, 0, 6, 9),
+(0, 0, 0, 13),
+(0, 0, 2, 13),
+(0, 0, 0, 9),
+(3, 0, 8, 9),
+(3, 0, 7, 13);
 
 --
 -- Indexes for dumped tables
@@ -259,12 +268,6 @@ ALTER TABLE `email`
 --
 ALTER TABLE `entity`
   ADD PRIMARY KEY (`eid`);
-
---
--- Indexes for table `files`
---
-ALTER TABLE `files`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `groups`
@@ -329,19 +332,13 @@ ALTER TABLE `email`
 -- AUTO_INCREMENT for table `entity`
 --
 ALTER TABLE `entity`
-  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `files`
---
-ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `payment`
