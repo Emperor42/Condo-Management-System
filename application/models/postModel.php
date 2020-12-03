@@ -15,7 +15,7 @@ class postModel extends databaseService
      */
     function insertMessage($replyTo, $msgTo, $msgFrom, $msgSubject, $msgText, $msgAttach)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach)
         VALUES(?,?,?,?,?,?)", [$replyTo, $msgTo, $msgFrom, $msgSubject, $msgText, $msgAttach])) {
             return true;
@@ -34,7 +34,7 @@ class postModel extends databaseService
     function createEvent($msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
@@ -53,7 +53,7 @@ class postModel extends databaseService
     function createPoll($msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'POLLS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
@@ -72,7 +72,7 @@ class postModel extends databaseService
     function createEventDate($eventID,$msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTSDATE',?)", [$eventID, $msgTo, $msgFrom, $name])) {
             return true;
@@ -91,7 +91,7 @@ class postModel extends databaseService
     function createEventTime($eventID,$msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTSTIME',?)", [$eventID,$msgTo, $msgFrom, $name])) {
             return true;
@@ -110,7 +110,7 @@ class postModel extends databaseService
     function createEventLocation($eventID,$msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTSLOCATION',?)", [$eventID,$msgTo, $msgFrom, $name])) {
             return true;
@@ -129,7 +129,7 @@ class postModel extends databaseService
     function createContract($msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'CONTRACTS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
@@ -147,7 +147,7 @@ class postModel extends databaseService
     function createContractOffer($eventID,$msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'CONTRACTSOFFER',?)", [$eventID, $msgTo, $msgFrom, $name])) {
             return true;
@@ -166,7 +166,7 @@ class postModel extends databaseService
     function awardContractOffer($eventID,$msgFrom)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 4)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 4)){return false;}
         if ($this->Query("UPDATE `messages` SET `msgSubject` = 'CONTRACTSAWARD' WHERE mid = ? AND msgSubject = 'CONTRACTSOFFER' AND ? IN(
             SELECT m2.msgFrom FROM messages m1, messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSOFFER' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
             return true;
@@ -185,7 +185,7 @@ class postModel extends databaseService
     function completeContractOffer($eventID,$msgFrom)
     {
         //create the event itself
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 4)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 4)){return false;}
         if ($this->Query("UPDATE `messages` SET `msgSubject` = 'CONTRACTSCOMPLETE' WHERE mid = ? AND msgSubject = 'CONTRACTSAWARD' AND ? IN(
             SELECT m2.msgFrom FROM messages m1, messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSAWARD' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
             return true;
@@ -202,7 +202,7 @@ class postModel extends databaseService
      */
     function createVote($msgFrom, $name)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         //apply a new vote for something here, you can vote for multiple different things
         if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
         VALUES(?,?,'VOTES')", [$name, $msgFrom])) {
@@ -219,7 +219,7 @@ class postModel extends databaseService
      */
     function yeaVote($msgFrom, $name)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         //apply a new vote for something here, you can vote for multiple different things
         if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
         VALUES(?,?,'VOTEYEA')", [$name, $msgFrom])) {
@@ -236,7 +236,7 @@ class postModel extends databaseService
      */
     function nayVote($msgFrom, $name)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         //apply a new vote for something here, you can vote for multiple different things
         if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
         VALUES(?,?,'VOTENAY')", [$name, $msgFrom])) {
@@ -253,7 +253,7 @@ class postModel extends databaseService
      * @return bool specified vote is found
      */
     function deleteVote($msgFrom, $name){
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject LIKE 'VOTE%' ", [$name, $msgFrom])){
             return true;
         }else {
@@ -268,7 +268,7 @@ class postModel extends databaseService
      * @return array
      */
     function countVotes($event, $userId){
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE'", [$event])) {
             $ret = $this->fetchAll();
             if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE' AND msgFrom = ?", [$event, $userId])){
@@ -287,7 +287,7 @@ class postModel extends databaseService
      */
     function updateMessage($mid, $msgText)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("UPDATE messages SET
         msgText = ?
         WHERE mid = ?", [ $msgText, $mid])) {
@@ -302,7 +302,7 @@ class postModel extends databaseService
      * NOTE: Some messages are only deleted after they have been found in a get query (replies to replies for example)
      */
     function deleteMessage($mid){
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         return $this->Query("DELETE FROM messages WHERE mid = ?", [$mid]);
     }
 
@@ -311,14 +311,14 @@ class postModel extends databaseService
      */
     function getMessages()
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT * FROM messages", [])) {
             return $this->fetchAll();
         }
     }
 
     function getAds(){
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ((int)$_SESSION['loggedUser']==-1) {
             if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.firstName AS name, e.lastName AS coname
             FROM messages m, entity e
@@ -347,7 +347,7 @@ class postModel extends databaseService
      */
     function messagesForUser($userId)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ((int)$_SESSION['loggedUser']==0){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId AS fromName
@@ -391,7 +391,7 @@ class postModel extends databaseService
      */
     function concernsForUser($userId)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ((int)$_SESSION['loggedUser']==0){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId AS fromName
@@ -435,7 +435,7 @@ class postModel extends databaseService
      */
     function noticesForUser($userId)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ((int)$_SESSION['loggedUser']==0){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId AS fromName
@@ -480,7 +480,7 @@ class postModel extends databaseService
      */
     function conversationForUsers($userIdA, $userIdB)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
         FROM messages 
         WHERE msgSubject='PM' AND ((msgTo = ? AND msgFrom = ?)
@@ -498,7 +498,7 @@ class postModel extends databaseService
      */
     function conversationForGroup($user, $group)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("SELECT DISTINCT * FROM relate 
         WHERE (tid=? AND eid=?) OR (tid=? AND eid=?)", [$group,$user,$user, $group])){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
@@ -516,10 +516,10 @@ class postModel extends databaseService
      */
     function eventsForUser($userId)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, 
-        IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, 
-        (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE')
+        IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject LIKE 'VOTE%'),true, false) AS voted, 
+        (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject LIKE 'VOTE%')
          AS votes FROM messages m, messages n WHERE (m.msgSubject LIKE 'EVENTS%') AND (m.msgTo = ? OR m.msgFrom = ?
  OR m.msgTo = -1 OR m.msgFrom = -1 
                                                                                   
@@ -539,7 +539,7 @@ ORDER BY m.mid ASC, voted DESC
      */
     function contractsForUser($userId)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, CONCAT(a.firstName,' ',a.lastName) AS 'poster' FROM messages m, entity a WHERE m.msgSubject LIKE 'CONTRACTS%' AND a.eid = m.msgFrom ORDER BY m.mid ASC
         ", [])) {
             return $this->fetchAll();
@@ -552,7 +552,7 @@ ORDER BY m.mid ASC, voted DESC
      */
     function pollsForUser($userId)
     {
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, 
         (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject LIKE 'VOTE%') AS voted, 
         ((SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTEYEA')-(SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTENAY'))
@@ -569,7 +569,7 @@ ORDER BY m.mid ASC, voted DESC", [$userId,$userId,$userId,$userId,$userId,$userI
     }
 
     function postToForUser($userId){
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT tid AS eid, userId from relate, entity WHERE relate.eid=? AND relate.tid=entity.eid 
         UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? 
         UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? 
@@ -579,7 +579,7 @@ ORDER BY m.mid ASC, voted DESC", [$userId,$userId,$userId,$userId,$userId,$userI
     }
 
     function postFromForUser($userId){
-        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT tid AS eid, userId from relate, entity WHERE relate.relType<? AND relate.eid=? AND relate.tid=entity.eid 
         UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? ", [3,$userId,$userId])) {
             return $this->fetchAll();
