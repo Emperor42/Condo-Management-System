@@ -11,15 +11,15 @@ class groupModel extends databaseService
      */
     function insertGroup($groupName, $groupDescription)
     {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO entity (userId, user_group, pwrd) VALUES (?,?,?)", [$groupName, true, ""])) {
             if ($this->Query("SELECT eid FROM entity WHERE userId = ? AND user_group = ?", [$groupName,true])) {
                 $made = $this->fetch();
                 if ($this->Query("INSERT INTO groups VALUES(?,?,?)", [$made->eid, $groupName, $groupDescription])) {
                     if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid) VALUES(?,?,?,?)", [0,0,0,$made->eid])) {
                         if ($_SESSION['loggedUser']!=0) {
-                            if(!$this->insertGroupOwner($made->eid, $_SESSION['loggedUser'])){
-                                return false;
-                            }
+                            if (!$this->Query("INSERT INTO relate (relType, relSup, eid, tid)
+                            VALUES(?,?,?,?)", [0,0,$_SESSION['loggedUser'], $made->eid])) {return false;}
                         } 
                         return true;
                     } else {
@@ -42,6 +42,7 @@ class groupModel extends databaseService
      */
     function insertGroupOwner($gid, $ownerId)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 4)){return false;}
         if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid)
             VALUES(?,?,?,?)", [0,0,$ownerId, $gid])) {
             return true;
@@ -58,6 +59,7 @@ class groupModel extends databaseService
      */
     function insertUserToGroup($gid, $userId)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 4)){return false;}
         if ($this->Query("INSERT INTO relate (relType, relSup, eid, tid)
             VALUES(?,?,?,?)", [3,0,$userId,$gid])) {
             return true;
@@ -74,6 +76,7 @@ class groupModel extends databaseService
      */
     function checkNonMemberUser($groupId, $eid)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 4)){return false;}
         if ($this->Query("SELECT eid FROM relate m WHERE m.tid=? AND m.eid=?", [$groupId, $eid])) {
             return empty($this->fetchAll());
         }
@@ -89,6 +92,7 @@ class groupModel extends databaseService
      */
     function deleteUserFromGroup($gid, $userId)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 4)){return false;}
         if ($this->Query("DELETE FROM relate 
             WHERE eid=? AND tid = ?", [$userId,$gid])) {
             return true;
@@ -108,6 +112,7 @@ class groupModel extends databaseService
      */
     function deleteGroup($groupId)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 4)){return false;}
         return $this->Query("DELETE FROM entity WHERE eid = ? AND user_group=?", [$groupId, true]);
     }
 
@@ -116,6 +121,7 @@ class groupModel extends databaseService
      */
     function getGroupDetails($groupId)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 5)){return false;}
         /*if ($this->Query("SELECT DISTINCT gm.tid AS groupId, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email FROM (CONMANSYSTEM.entity e
                                 INNER JOIN CONMANSYSTEM.relate gm
                                 ON e.eid = gm.eid)
@@ -128,6 +134,7 @@ class groupModel extends databaseService
     }
 
     function getUserGroups($groupId){
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription 
         FROM (entity e INNER JOIN groups g ON e.eid = g.groupId), relate r WHERE (r.eid=? AND r.tid=g.groupId)", [$groupId])){
             return $this->fetchAll();
@@ -135,6 +142,7 @@ class groupModel extends databaseService
     }
 
     function getDetails($groupId){
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT *
         FROM entity e INNER JOIN groups r
         ON e.eid = r.groupId WHERE e.eid=?", [$groupId])){
@@ -147,6 +155,7 @@ class groupModel extends databaseService
      */
     function getAllGroups()
     {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT * FROM groups", [])) {
             return $this->fetchAll();
         }
@@ -157,6 +166,7 @@ class groupModel extends databaseService
      */
     function getAllGroupListed()
     {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT groupId, groupName FROM `groups`, payment WHERE payment.payTo = groupId OR payment.payFrom = groupId", [])) {
             return $this->fetchAll();
         }

@@ -82,7 +82,7 @@ class userPost extends BaseController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
             //if(!empty($_POST["msgAttach"])){
-                if (!empty($_FILES["msgAttach"])){
+                if (!empty($_FILES["msgAttach"]) && basename($_FILES["msgAttach"]["name"])!="" && basename($_FILES["msgAttach"]["name"])!=NULL){
                     $target_dir = "../".UPLOADURL."/";
                     
                     $target_file = $target_dir .$_SESSION['loggedUser']. basename($_FILES["msgAttach"]["name"]);
@@ -127,7 +127,7 @@ class userPost extends BaseController
                     // Check if $uploadOk is set to 0 by an error
                     if ($uploadOk == 0) {
                         //$this->setFlash("failure", "Sorry, your file was not uploaded.");
-                    $msgAttach = $target_file;
+                    //$msgAttach = $target_file;
                     $this->redirect('main/wall');
                     // if everything is ok, try to upload file
                     } else {
@@ -173,7 +173,7 @@ class userPost extends BaseController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
             //if(!empty($_POST["msgAttach"])){
-                if (!empty($_FILES["msgAttach"])){
+                if (!empty($_FILES["msgAttach"]) && basename($_FILES["msgAttach"]["name"])!="" && basename($_FILES["msgAttach"]["name"])!=NULL){
                     $target_dir = "../".UPLOADURL."/";
                     
                     $target_file = $target_dir .$_SESSION['loggedUser']. basename($_FILES["msgAttach"]["name"]);
@@ -261,7 +261,7 @@ class userPost extends BaseController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
             //if(!empty($_POST["msgAttach"])){
-                if (!empty($_FILES["msgAttach"])){
+                if (!empty($_FILES["msgAttach"]) && basename($_FILES["msgAttach"]["name"])!="" && basename($_FILES["msgAttach"]["name"])!=NULL){
                     $target_dir = "../".UPLOADURL."/";
                     
                     $target_file = $target_dir .$_SESSION['loggedUser']. basename($_FILES["msgAttach"]["name"]);
@@ -348,7 +348,7 @@ class userPost extends BaseController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msgAttach = "";
             //if(!empty($_POST["msgAttach"])){
-                if (!empty($_FILES["msgAttach"])){
+                if (!empty($_FILES["msgAttach"]) && basename($_FILES["msgAttach"]["name"])!="" && basename($_FILES["msgAttach"]["name"])!=NULL){
                     $target_dir = "../".UPLOADURL."/";
                     
                     $target_file = $target_dir .$_SESSION['loggedUser']. basename($_FILES["msgAttach"]["name"]);

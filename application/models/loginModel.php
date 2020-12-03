@@ -1,6 +1,10 @@
 <?php
 /*Khadija SUBTAIN-40040952*/
-/*Matthew GIANCOLA-40019131*/
+/*Matthew GIANCOLA-40019131
+
+We can use this to check privilege on all the other models to prevent access events and whatnot
+
+*/
 
 class loginModel extends databaseService
 {
@@ -88,4 +92,6 @@ class loginModel extends databaseService
             return $this->fetch();
         }
     }
+
+    
 }

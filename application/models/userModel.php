@@ -24,6 +24,7 @@ class userModel extends databaseService
      */
     function insertUser($userId, $firstName, $lastName, $age, $email, $phone, $entityType, $userGroup, $password)
     {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 2)){return false;}
         if ($this->Query("INSERT INTO entity (userId, firstName, lastName, age,email,phone,entityType,user_group, pwrd)
         VALUES(?,?,?,?,?,?,?,?,?)", [$userId, $firstName, $lastName, $age, $email, $phone, $entityType, $userGroup, $password])) {
             return true;
@@ -47,6 +48,7 @@ class userModel extends databaseService
      */
     function updateUser($userId, $firstName, $lastName, $age, $email, $phone, $entityType, $userGroup, $password)
     {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("UPDATE entity SET
         firstName = ?
         ,lastName = ?
@@ -69,6 +71,7 @@ class userModel extends databaseService
      * @return bool
      */
     function deleteUser($userId){
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 6)){return false;}
         return $this->Query("DELETE FROM entity WHERE userId = ?", [$userId]);
     }
 
@@ -78,6 +81,7 @@ class userModel extends databaseService
      */
     function getUsers()
     {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT * FROM entity WHERE user_group = ? AND userId != ?", [false, 0])) {
             return $this->fetchAll();
         }
@@ -90,6 +94,7 @@ class userModel extends databaseService
      */
     function getUser($userId)
     {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT * FROM entity WHERE userId = ?", [$userId])) {
             return $this->fetch();
         }
@@ -103,10 +108,15 @@ class userModel extends databaseService
      */
      public function getUserByEmail($email)
      {
+        if(!$this->hasGenralAccess($_SESSION['loggedUser'], 1998)){return false;}
         $this->Query("SELECT * FROM entity WHERE email = ?", [$email]);
         return $this->fetch();
      }
 
+
+     //
+     //_______DO NOT ADD PERMISSION BELOW THIS IS USED ON LOGIN!________
+     //
     /**
      * gets the entityId (EID) of a given user usign their userId
      * @param $userId
@@ -114,6 +124,7 @@ class userModel extends databaseService
      * @return fetch
      */
     function getEID($userId, $pwd){
+        
         if ($this->Query("SELECT eid, userId, firstName, lastName, entityType FROM entity WHERE user_group != ? AND userId = ? AND pwrd = ?", [true, $userId, $pwd])) {
             return $this->fetch();
         }

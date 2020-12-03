@@ -10,8 +10,8 @@ class condoModel extends databaseService
      */
     function insertProperty($place)
     {
-        if ($this->Query("INSERT INTO property (property.address)
-        VALUES(?)", [$place])) {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
+        if ($this->Query("INSERT INTO property (property.address) VALUES(?)", [$place])) {
             return true;
         } else {
             return false;
@@ -24,6 +24,7 @@ class condoModel extends databaseService
      */
     function insertOwner($place, $owner,$share)
     {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 3)){return false;}
         if ($this->Query("INSERT INTO own (eid, pid, myShare)
         VALUES(?,?,?)", [$owner, $place, $share])) {
             return true;
@@ -38,6 +39,7 @@ class condoModel extends databaseService
      */
     function insertManager($place, $owner)
     {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
         if ($this->Query("INSERT INTO manager (eid, pid)
         VALUES(?,?)", [$owner, $place])) {
             return true;
@@ -61,6 +63,7 @@ class condoModel extends databaseService
      */
     function updatePropertyOwner($place, $owner, $share)
     {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 3)){return false;}
         if ($this->Query("UPDATE own SET
         eid = ?, share = ?
         WHERE pid = ?", [$owner, $share, $place])) {
@@ -85,6 +88,7 @@ class condoModel extends databaseService
      */
     function updatePropertyManager($place, $owner)
     {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
         if ($this->Query("UPDATE own SET
         eid = ?
         WHERE pid = ?", [$owner, $share, $place])) {
@@ -99,6 +103,7 @@ class condoModel extends databaseService
      * @param $userId : User id for the user to be deleted
      */
     function deleteProperty($userId){
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
         return $this->Query("DELETE FROM property WHERE pid = ?", [$userId]);
     }
 
@@ -108,6 +113,7 @@ class condoModel extends databaseService
      */
     function getOwnedProperties($eid)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$eid, 5)){return false;}
         if ($this->Query("SELECT DISTINCT
         p.pid AS pid, 
         p.address AS address,
@@ -140,6 +146,7 @@ class condoModel extends databaseService
      */
     function getManagedProperties($gid)
     {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 5)){return false;}
         if ($this->Query("SELECT DISTINCT
         p.pid AS pid, 
         p.address AS address,
@@ -167,6 +174,7 @@ class condoModel extends databaseService
     }
 
     function getClaimedProperties(){
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT
         p.pid AS pid, 
         p.address AS address,
