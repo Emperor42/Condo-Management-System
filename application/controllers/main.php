@@ -333,57 +333,20 @@ class main extends BaseController
     public function startPoll(){
         if (isset($_SESSION['loggedUser'])){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $t=$this->input($_POST['eventGroup']);
-                $f=$this->input($_POST['eventStart']);
+                $t=(int)$this->input($_POST['eventGroup']);
+                $f=(int)$this->input($_POST['eventStart']);
                 $n=$this->input($_POST['eventNamed']);
-                if ($this->postModel->createContract($t,$f,$n)){
-                    $this->setFlash('success', "Your event has been created!");
+                if ($this->postModel->createPoll($t,$f,$n)){
+                    $this->setFlash('success', "Your poll has been created!");
                 } else {
-                    $this->setFlash('failure', "We could not create your event!");
+                    $this->setFlash('failure', "We could not create your poll!");
                 }
             }
         }
-        $this->redirect('main/contracts');
+        $this->redirect('main/resolution');
     }
 
-    public function addPollDetails(){
-        if (isset($_SESSION['loggedUser'])){
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $n=$this->input($_POST['eventReply']);
-                $t=$this->input($_POST['eventGroup']);
-                $f=$this->input($_POST['eventStart']);
-                $date=strval($this->input($_POST['eventDate']));
-                $time=strval($this->input($_POST['eventTime']));
-                $area=strval($this->input($_POST['eventArea']));
-                if (empty($_POST['eventDate'])&& empty($_POST['eventTime']) && empty($_POST['eventArea'])){
-                    $this->setFlash('failure', "No details supplied!");//no details supplied
-                    $this->redirect('main/events');
-                }
-                if (!empty($_POST['eventDate'])) { 
-                    if( $this->postModel->createContractDate($n,$t,$f, $date)){
-                        $this->setFlash('success', "The details have been added to the event!");
-                    } else {
-                        $this->setFlash('failure', "We could not create your event location!");
-                    }
-                }
-                if (!empty($_POST['eventTime'])){
-                    if( $this->postModel->createContractTime($n,$t,$f, $time)){
-                        $this->setFlash('success', "The details have been added to the event!");
-                    } else {
-                        $this->setFlash('failure', "We could not create your event location!");
-                    }
-                }
-                if (!empty($_POST['eventArea'])) {
-                    if($this->postModel->createContractLocation($n,$t,$f, $area)){
-                        $this->setFlash('success', "The details have been added to the event!");
-                    } else {
-                        $this->setFlash('failure', "We could not create your event location!");
-                    }
-                }
-            }
-        }
-        $this->redirect('main/contracts');
-    }
+
 
     //polling for  various resolutions
 
@@ -398,6 +361,28 @@ class main extends BaseController
         $this->redirect('main/events');
     }
 
+    public function nayVote($event){
+        if (isset($_SESSION['loggedUser'])){
+            if ($this->postModel->nayVote($_SESSION['loggedUser'], $event)){
+                $this->setFlash('success', 'The vote has been added');
+            } else{ 
+                $this->setFlash('failure', 'There was a problem voting');
+            }
+        }
+        $this->redirect('main/resolution');
+    }
+
+    public function yeaVote($event){
+        if (isset($_SESSION['loggedUser'])){
+            if ($this->postModel->yeaVote($_SESSION['loggedUser'], $event)){
+                $this->setFlash('success', 'The vote has been added');
+            } else{ 
+                $this->setFlash('failure', 'There was a problem voting');
+            }
+        }
+        $this->redirect('main/resolution');
+    }
+
     public function revokeVote($event) {
         if (isset($_SESSION['loggedUser'])){
             if ($this->postModel->deleteVote($_SESSION['loggedUser'], $event)) {
@@ -409,6 +394,16 @@ class main extends BaseController
         $this->redirect('main/events');
     }
 
+    public function revokePollVote($event) {
+        if (isset($_SESSION['loggedUser'])){
+            if ($this->postModel->deleteVote($_SESSION['loggedUser'], $event)) {
+                $this->setFlash('success', 'The vote has been removed'); 
+            } else {
+                $this->setFlash('failure', 'There was a problem voting');
+            }
+        }
+        $this->redirect('main/resolution');
+    }
     //group (Condo Association Setting)
 
     public function useGroup($group){

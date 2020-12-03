@@ -48,6 +48,24 @@ class postModel extends databaseService
      * @param $name is the name of the event
      * @return bool
      */
+    function createPoll($msgTo, $msgFrom, $name)
+    {
+        //create the event itself
+        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        VALUES(?,?,?,'POLLS',?)", [-1, $msgTo, $msgFrom, $name])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+        /**
+     * The is a helper function which creates a series of messages which allow for the creation of an event
+     * @param $msgTo is the group that the event involves
+     * @param $msgFrom is the user who created the event
+     * @param $name is the name of the event
+     * @return bool
+     */
     function createEventDate($eventID,$msgTo, $msgFrom, $name)
     {
         //create the event itself
@@ -176,7 +194,39 @@ class postModel extends databaseService
     {
         //apply a new vote for something here, you can vote for multiple different things
         if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
-        VALUES(?,?,'VOTE')", [$name, $msgFrom])) {
+        VALUES(?,?,'VOTES')", [$name, $msgFrom])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param $msgFrom is the voter
+     * @param $name is the item for which you are voting
+     * @return bool
+     */
+    function yeaVote($msgFrom, $name)
+    {
+        //apply a new vote for something here, you can vote for multiple different things
+        if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
+        VALUES(?,?,'VOTEYEA')", [$name, $msgFrom])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+        /**
+     * @param $msgFrom is the voter
+     * @param $name is the item for which you are voting
+     * @return bool
+     */
+    function nayVote($msgFrom, $name)
+    {
+        //apply a new vote for something here, you can vote for multiple different things
+        if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
+        VALUES(?,?,'VOTENAY')", [$name, $msgFrom])) {
             return true;
         } else {
             return false;
@@ -190,7 +240,7 @@ class postModel extends databaseService
      * @return bool specified vote is found
      */
     function deleteVote($msgFrom, $name){
-        if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject = 'VOTE' ", [$name, $msgFrom])){
+        if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject LIKE 'VOTE%' ", [$name, $msgFrom])){
             return true;
         }else {
             return false;
@@ -440,8 +490,17 @@ ORDER BY m.mid ASC, voted DESC
      */
     function pollsForUser($userId)
     {
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject='VOTE'),true, false) AS voted, (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTE') AS votes FROM messages m, messages n WHERE (m.msgSubject = 'VOTE' OR m.msgSubject = 'POLLSLOCATION' OR m.msgSubject = 'POLLS' OR m.msgSubject = 'POLLSDATE' OR m.msgSubject = 'POLLSTIME') AND (m.msgTo = ? OR m.msgFrom = ? OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) ORDER BY m.mid ASC, voted DESC
-        ", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, 
+        (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject LIKE 'VOTE%') AS voted, 
+        ((SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTEYEA')-(SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTENAY'))
+         AS votes FROM messages m, messages n WHERE  (m.mid != n.mid) AND ((m.msgSubject LIKE 'POLLS%') AND (m.msgTo = ? OR m.msgFrom = ?
+ OR m.msgTo = -1 OR m.msgFrom = -1 
+                                                                                  
+OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?)
+OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) 
+OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) 
+OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?))) 
+ORDER BY m.mid ASC, voted DESC", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
             return $this->fetchAll();
         }
     }

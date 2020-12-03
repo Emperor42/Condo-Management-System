@@ -34,17 +34,17 @@
     <!-- Close row -->
     <!-- NOT SURE : TOOK REFERENCE TO EVENTS.PHP-->
     <div id="pollvote">
-        <?php
+        <?php $skipThis = false;
         foreach($data as $key=> $pollData): ?>
-            <?php if(!$skipThis){
+               <?php 
+               if (!$skipThis){
                 include "components/poll.php";
                 if ($pollData->voted==1){
                     $skipThis = true;
                 }
-            } else {
+               }else {
                 $skipThis =false;
             }
-
             ?>
         <?php endforeach;?>
     </div>
