@@ -133,4 +133,16 @@ class userModel extends databaseService
              return empty($this->fetch()) ? false : true;
          }
     }
+
+    function generalPermission($userId){
+        if($this->Query("SELECT DISTINCT MIN(relType) AS m FROM relate WHERE eid=?", [$userId])){
+            return $this->fetch();
+        }
+    }
+
+    function specificPermission($userId, $groupId){
+        if($this->Query("SELECT DISTINCT MIN(relType) AS m FROM relate WHERE eid=? AND tid=?", [$userId, $groupId])){
+            return $this->fetch();
+        }
+    }
 }

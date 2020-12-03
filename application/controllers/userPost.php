@@ -6,12 +6,14 @@
 class userPost extends BaseController
 {
     private $postModel;
+    private $fileModel;
 
     public function __construct()
     {
         //Loads Base class constructor
         parent::__construct();
         $this->postModel = $this->model('postModel');
+        $this->fileModel = $this->model('fileModel');
     }
 
     public function index()
@@ -81,6 +83,11 @@ class userPost extends BaseController
             $msgAttach = "";
             if(!empty($_POST["msgAttach"])){
                 if (!empty($_FILES["msgAttach"])){
+                    /*
+                    $this->fileModel->insertFile(addslashes(file_get_contents($_FILES['msgAttach']['tmp_name'])),strtolower(pathinfo($target_file,PATHINFO_EXTENSION)));
+                    $msgAttach = strval($this->fileModel->last());
+                    */
+                    
                     $target_dir = "../".UPLOADURL."/";
                     
                     $target_file = $target_dir .$_SESSION['loggedUser']. basename($_FILES["msgAttach"]["name"]);
@@ -139,6 +146,7 @@ class userPost extends BaseController
                             $this->redirect('main/wall');
                         }
                     }
+                    
                 } 
             }
 

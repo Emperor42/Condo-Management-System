@@ -33,6 +33,7 @@ class main extends BaseController
 
     /**
      * returns "wall" view if user is logged in
+     * HIDDEN (NOTHING)
      */
     public function wall()
     {
@@ -41,6 +42,12 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Public Forum";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data['core'] = $this->postModel->messagesForUser($_SESSION['loggedUser']);
         $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
         $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
@@ -48,7 +55,7 @@ class main extends BaseController
     }
 
         /**
-     * returns "notoices" view if user is logged in, more or less a special sql query
+     * returns "notoices" view if user is logged in, more or less a special sql query can only post notices if your an admin
      */
     public function notices()
     {
@@ -57,6 +64,12 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Condo Association Notices";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data['core'] = $this->postModel->noticesForUser($_SESSION['loggedUser']);
         $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
         $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
@@ -73,6 +86,12 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Condo Owner Concerns";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data['core'] = $this->postModel->concernsForUser($_SESSION['loggedUser']);
         $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
         $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
@@ -86,6 +105,12 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Classified Ads";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data = $this->postModel->getAds();
         $this->view('ads', $data);
     }
@@ -107,6 +132,12 @@ class main extends BaseController
         $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
         $_SESSION['talkTo']=$other;
         $_SESSION['adminFunc']="PM with ".$other;
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $this->view('conversation', $data);
     }
 
@@ -120,6 +151,12 @@ class main extends BaseController
         $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
         $_SESSION['talkTo']=$other;
         $_SESSION['adminFunc']="Group Chat with ".$other;
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $this->view('conversation', $data);
     }
 
@@ -130,6 +167,12 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Events";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data['core'] = $this->postModel->eventsForUser($_SESSION['loggedUser']);
         $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
         $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
@@ -142,6 +185,12 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Resolutions";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data['core'] = $this->postModel->pollsForUser($_SESSION['loggedUser']);
         $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
         $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
@@ -154,6 +203,12 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Public Contracts";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data['core'] = $this->postModel->contractsForUser($_SESSION['loggedUser']);
         $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
         $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
@@ -166,6 +221,12 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Property";
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $myProperty = $this->condoModel->getOwnedProperties($_SESSION['loggedUser']);
         $groupProperty = $this->condoModel->getClaimedProperties();
         $data['mine'] = $myProperty;
@@ -175,14 +236,26 @@ class main extends BaseController
 
     //the payment oveview
     public function finance($ca){
-        $s = $this->payModel->getAccountsTotal($ca);
-        $i = $this->payModel->getInAccounts($ca);
-        $o = $this->payModel->getOutAccounts($ca);
-        $data['summary']=$s;
-        $data['in']=$i;
-        $data['out']=$o;
+        $tmp = $this->groupModel->getAllGroupListed();
+        foreach($tmp as $core){
+            $ca = $core->groupId;
+            $s = $this->payModel->getAccountsTotal($ca);
+            $i = $this->payModel->getInAccounts($ca);
+            $o = $this->payModel->getOutAccounts($ca);
+            $data[$ca]['name']=$core->groupName;
+            $data[$ca]['summary']=$s;
+            $data[$ca]['in']=$i;
+            $data[$ca]['out']=$o;
+        }
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $_SESSION['adminFunc']="Condo";
         $this->view('finance', $data);
+        
     
     }
 

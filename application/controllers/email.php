@@ -30,6 +30,12 @@ class email extends BaseController
      */
     public function inbox()
     {
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data = $this->emailModel->fetchInbox($this->getSession("loggedUser"));
         $this->view('emailInbox', $data);
     }
@@ -39,6 +45,12 @@ class email extends BaseController
      */
     public function outbox()
     {
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data = $this->emailModel->fetchOutbox($this->getSession("loggedUser"));
         $this->view('emailOutbox', $data);
     }
@@ -48,6 +60,12 @@ class email extends BaseController
      */
     public function compose()
     {
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $this->view('emailCompose', array());
     }
 
@@ -61,6 +79,12 @@ class email extends BaseController
      */
     public function viewEmail($emailId, $page)
     {
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         $data = $this->emailModel->getEmail($this->getSession("loggedUser"), $emailId, $page);
         if(!empty($data) && $page == "inbox"){
             $this->emailModel->markEmailAsRead($emailId);
@@ -72,6 +96,12 @@ class email extends BaseController
      * This method is used to reply to an email
      */
     public function replyEmail(){
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
            $length =  strlen($this->input($_POST["subject"]) );
@@ -95,6 +125,12 @@ class email extends BaseController
      * This method is used to forward an email
      */
     public function forwardEmail(){
+        $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+        if (!empty($tmp)){
+            $_SESSION['gp']=$tmp->m;
+        }else {
+            $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $emailContext = array(

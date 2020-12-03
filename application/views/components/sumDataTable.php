@@ -9,9 +9,9 @@
     </tr>
     </thead>
     <tbody>
-    <?php if (!empty($data)): ?>
-        <?php if (!empty($data['summary'])): ?>
-        <?php foreach ($data['summary'] as $userData): ?>
+    <?php if (!empty($core)): ?>
+        <?php if (!empty($core['summary'])): ?>
+        <?php foreach ($core['summary'] as $userData): ?>
 
             <tr>
                 <td><?php echo $userData->totalPayments; ?></td>

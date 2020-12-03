@@ -14,9 +14,9 @@
     </tr>
     </thead>
     <tbody>
-    <?php if (!empty($data)): ?>
-        <?php if (!empty($data['in'])): ?>
-        <?php foreach ($data['in'] as $userData): ?>
+    <?php if (!empty($core)): ?>
+        <?php if (!empty($core['in'])): ?>
+        <?php foreach ($core['in'] as $userData): ?>
 
             <tr>
                 <td><?php echo $userData->pid; ?></td>

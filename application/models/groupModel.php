@@ -151,5 +151,15 @@ class groupModel extends databaseService
             return $this->fetchAll();
         }
     }
+
+    /**
+     * @return fetch : Fetches all groups. To be used by an Admin
+     */
+    function getAllGroupListed()
+    {
+        if ($this->Query("SELECT DISTINCT groupId, groupName FROM `groups`, payment WHERE payment.payTo = groupId OR payment.payFrom = groupId", [])) {
+            return $this->fetchAll();
+        }
+    }
 }
 

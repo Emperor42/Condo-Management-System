@@ -11,14 +11,16 @@
             <li class="nav-item">
                 <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/property">Properties</a>
             </li>
+            <?php if($_SESSION['gp']<5):?>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/notices">Notices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/concerns">Concerns</a>
+                </li>
+            <?php endif;?>
             <li class="nav-item">
-                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/notices">Notices</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/concerns">Concerns</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/finance/<?php echo $_SESSION['useGroup'];?>">CA Finance</a>
+                <a class="nav-link py-0" href="<?php echo BASEURL; ?>/main/finance/<?php echo -1;?>">CA Finance</a>
             </li>
         </ul>
     </div>

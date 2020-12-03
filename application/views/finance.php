@@ -14,33 +14,48 @@
 <?php include "components/admin-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-11">
-            <h3>Summary</h3>
-            <?php include "components/sumDataTable.php"; ?>
-        </div>
-        <!-- Close col-md-5 -->
+    <div class="jumbotron">
+        <h1>Financial Reports</h1><br>
+        <p>Generate Report for: </p>
+            <?php foreach( $data as $key=>$core):?>
+                <?php if(!empty($core)):?>
+                    <button class="tablinks" onclick="openCity(event, 'f<?php echo $key;?>')"><?php echo $core['name'];?></button>
+                <?php endif;?>
+            <?php endforeach;?>
     </div>
-    <!-- Close row -->
-    <div class="row">
-        <div class="col-md-11">
-            <h3>Revenue In</h3>
-            <?php include "components/inDataTable.php"; ?>
+    <?php foreach( $data as $key=>$core):?>
+        <div id ='f<?php echo $key;?>' class="tabcontent">
+            <div class="row">
+                <div class="col-md-11">
+                    <h3>Summary</h3>
+                    <?php include "components/sumDataTable.php"; ?>
+                </div>
+                <!-- Close col-md-5 -->
+            </div>
+            <!-- Close row -->
+            <div class="row">
+                <div class="col-md-11">
+                    <h3>Revenue In</h3>
+                    <?php include "components/inDataTable.php"; ?>
+                </div>
+                <!-- Close col-md-5 -->
+            </div>
+            <!-- Close row -->
+            <div class="row">
+                <div class="col-md-11">
+                    <h3>Revenue Out</h3>
+                    <?php include "components/outDataTable.php"; ?>
+                </div>
+                <!-- Close col-md-5 -->
+            </div>
+            <!-- Close row -->
         </div>
-        <!-- Close col-md-5 -->
-    </div>
-    <!-- Close row -->
-    <div class="row">
-        <div class="col-md-11">
-            <h3>Revenue Out</h3>
-            <?php include "components/outDataTable.php"; ?>
-        </div>
-        <!-- Close col-md-5 -->
-    </div>
-    <!-- Close row -->
+    <?php endforeach;?>
 </div>
 
+
 <?php include "components/footer.php"; ?>
+<?php linkJS('assets/js/tabs.js'); ?>
 <?php linkJS('assets/js/dataTable.load.js'); ?>
 <?php linkJS('assets/js/jquery.dataTables.min.js'); ?>
 <?php linkJS('assets/js/dataTables.bootstrap4.min.js'); ?>

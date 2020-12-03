@@ -60,6 +60,10 @@ class databaseService
         return $this->preparedStmt->rowCount();
     }
 
+    public function last(){
+        return $this->conn->lastInsertId();
+    }
+
     /**
      * @return fetch all rows from last executed query
      */
