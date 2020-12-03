@@ -6,27 +6,31 @@
             </div>
             <div class="card-body">
                 <!--Date-->
-                <div id="eDate<?php echo $eventData->mid;?>">
+                <h3>Contract Offers</h3>
+                <div id="cDate<?php echo $eventData->mid;?>">
                 </div>
                 <hr class="rounded">
                 <!--Time-->
-                <div id="eTime<?php echo $eventData->mid;?>">
+                <h3>Accepted Contract Offers</h3>
+                <div id="cTime<?php echo $eventData->mid;?>">
                 </div>
                 <hr class="rounded">
                 <!--Area-->
-                <div id="eArea<?php echo $eventData->mid;?>">
+                <h3>Completed Contract Offers</h3>
+                <div id="cArea<?php echo $eventData->mid;?>">
                 </div>
             </div>
             <div class="card-footer">
+                <h4>Outline your offer to complete the contract</h4>
                 <div class="btn-group">
                     <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
                         <input name="eventGroup" type="hidden" value="-1">
                         <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
                         <input type="hidden" name="eventReply" value="<?php echo $eventData->mid;?>">
                         <!--Visible inputs-->
-                        <input name="eventTime"  type="text" value="">
                         <input name="eventDate"  type="text" value="">
-                        <input name="eventArea" type="text" value="">
+                        <!--<input name="eventDate"  type="text" value="">-->
+                        <!--<input name="eventArea" type="text" value="">-->
                         <hr class="rounded">
                         <input class="btn btn-danger" type="reset" value="Clear Post">
                         <input class="btn btn-success" type="submit" value="Submit">
@@ -35,18 +39,24 @@
             </div>
         </div>
     <?php endif;?>
-    <?php if($eventData->msgSubject=="CONTRACTSDATE")://create a new post on the post to which its a comment?>
+    <?php if($eventData->msgSubject=="CONTRACTSOFFER")://create a new post on the post to which its a comment?>
         <div id="cDate<?php echo $eventData->mid;?>" class="card">
-            <div class="card-header">Date</div>
+            <div class="card-header">Work Offer</div>
             <div class="card-body"><?php echo $eventData->msgText;?></div>
             <div class="card-footer">
-                Total Votes: <?php echo $eventData->votes;?><br>
-                <?php if(!$eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
-                <?php endif;?>
-                <?php if($eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
-                <?php endif;?>
+                <?php echo $eventData->poster;?><br>
+                <div class="btn-group">
+                    <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
+                        <input name="eventGroup" type="hidden" value="-1">
+                        <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+                        <input type="hidden" name="eventReply" value="<?php echo $eventData->mid;?>">
+                        <!--Visible inputs-->
+                        <input name="eventTime"  type="hidden" value="<?php echo $eventData->msgText;?>">
+                        <!--<input name="eventArea" type="text" value="">-->
+                        <hr class="rounded">
+                        <input class="btn btn-success" type="submit" value="Accept Offer">
+                    </form>
+                </div> 
             </div>
         </div>
         <script>
@@ -59,18 +69,24 @@
             });
         </script>
     <?php endif;?>
-    <?php if($eventData->msgSubject=="CONTRACTSTIME")://create a new post on the post to which its a comment?>
+    <?php if($eventData->msgSubject=="CONTRACTSAWARD")://create a new post on the post to which its a comment?>
         <div id="cTime<?php echo $eventData->mid;?>" class="card">
             <div class="card-header">Time</div>
             <div class="card-body"><?php echo $eventData->msgText;?></div>
             <div class="card-footer">
-                Total Votes: <?php echo $eventData->votes;?><br>
-                <?php if(!$eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
-                <?php endif;?>
-                <?php if($eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
-                <?php endif;?>
+            <?php echo $eventData->poster;?><br>
+            <div class="btn-group">
+                    <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
+                        <input name="eventGroup" type="hidden" value="-1">
+                        <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+                        <input type="hidden" name="eventReply" value="<?php echo $eventData->mid;?>">
+                        <!--Visible inputs-->
+                        <input name="eventArea"  type="hidden" value="<?php echo $eventData->msgText;?>">
+                        <!--<input name="eventArea" type="text" value="">-->
+                        <hr class="rounded">
+                        <input class="btn btn-success" type="submit" value="Contract Complete">
+                    </form>
+                </div> 
             </div>
         </div>
         <script>
@@ -83,18 +99,12 @@
             });
         </script>
     <?php endif;?>
-    <?php if($eventData->msgSubject=="CONTRACTSLOCATION")://create a new post on the post to which its a comment?>  
-        <div id="eArea<?php echo $eventData->mid;?>" class="card">
+    <?php if($eventData->msgSubject=="CONTRACTSCOMPLETE")://create a new post on the post to which its a comment?>  
+        <div id="cArea<?php echo $eventData->mid;?>" class="card">
             <div class="card-header">Location</div>
             <div class="card-body"><?php echo $eventData->msgText;?></div>
             <div class="card-footer">
-                Total Votes: <?php echo $eventData->votes;?><br>
-                <?php if(!$eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
-                <?php endif;?>
-                <?php if($eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
-                <?php endif;?>
+            <?php echo $eventData->poster;?><br>
             </div>
         </div>
         <script>

@@ -40,6 +40,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Public Forum";
         $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
         $this->view('wall', $data, $this->userModel);
     }
@@ -53,6 +54,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Condo Association Notices";
         $data = $this->postModel->noticesForUser($_SESSION['loggedUser']);
         $this->view('wall', $data, $this->userModel);
     }
@@ -66,6 +68,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Condo Owner Concerns";
         $data = $this->postModel->concernsForUser($_SESSION['loggedUser']);
         $this->view('wall', $data, $this->userModel);
     }
@@ -76,13 +79,14 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
                 $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Classified Ads";
         $data = $this->postModel->getAds();
         $this->view('ads', $data, $this->userModel);
     }
 
     public function login(){
         //temp ffor testing
-        $this->useGroup(1998);
+        //$this->useGroup(1998);
         $this->view('login');
         //$this->wall();
     }
@@ -96,6 +100,7 @@ class main extends BaseController
         }
         $data = $this->postModel->conversationForUsers($_SESSION['loggedUser'], $other);
         $_SESSION['talkTo']=$other;
+        $_SESSION['adminFunc']="PM with ".$other;
         $this->view('conversation', $data);
     }
 
@@ -108,6 +113,7 @@ class main extends BaseController
         }
         $data = $this->postModel->conversationForGroup($_SESSION['loggedUser'], $other);
         $_SESSION['talkTo']=$other;
+        $_SESSION['adminFunc']="Group Chat with ".$other;
         $this->view('conversation', $data);
     }
 
@@ -117,6 +123,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Events";
         $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
         $this->view('events', $data, $this->userModel);
     }
@@ -126,7 +133,8 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
-        $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
+        $_SESSION['adminFunc']="Resolutions";
+        $data = $this->postModel->pollsForUser($_SESSION['loggedUser']);
         $this->view('newpoll', $data, $this->userModel);
     }
 
@@ -135,8 +143,9 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Public Contracts";
         $data = $this->postModel->contractsForUser($_SESSION['loggedUser']);
-        $this->view('events', $data, $this->userModel);
+        $this->view('contracts', $data, $this->userModel);
     }
 
     public function property(){
@@ -144,6 +153,7 @@ class main extends BaseController
         if (!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         }
+        $_SESSION['adminFunc']="Property";
         $myProperty = $this->condoModel->getOwnedProperties($_SESSION['loggedUser']);
         $groupProperty = $this->condoModel->getClaimedProperties();
         $data['mine'] = $myProperty;
@@ -159,6 +169,7 @@ class main extends BaseController
         $data['summary']=$s;
         $data['in']=$i;
         $data['out']=$o;
+        $_SESSION['adminFunc']="Condo";
         $this->view('finance', $data);
     
     }
@@ -177,25 +188,31 @@ class main extends BaseController
             if($this->userModel->checkUser($u,$p)){
                 $result = $this->userModel->getEID($u,$p);
 
-                $_SESSION["loggedUser"]= strval($result->eid);
+                $_SESSION["loggedUser"]= (int)$result->eid;
                 $_SESSION["loggedName"]= strval($result->eid)." ".strval($result->firstName)." ".strval($result->lastName)." (".strval($result->userId).")";
+                $_SESSION['screenName'] = 'PUBLIC';
+                $_SESSION['entityType'] = -1;
                 $this->setSession("screenName", strval($result->firstName));
                 $this->setSession("entityType", strval($result->entityType));
 
-                $this->setFLash('success', 'you are logged in ');
+                $this->setFlash('success', "WELCOME " . $_SESSION['screenName']." EID:".strval($_SESSION["loggedUser"]));
                 $this->redirect('main/wall');
             } else {
                 $this->setFlash('failure', "Failed to Log In ");
                 $this->redirect('main/login');
             }
         }
-        $this->setFlash('success', "WELCOME " . $_SESSION['loggedName']);
     }
 
     public function logout(){
         if (isset($_SESSION['loggedUser'])){
             $_SESSION["loggedUser"]="";
             $_SESSION["loggedName"]= "";
+            $_SESSION["screenName"]="";
+            $_SESSION["entityType"]="";
+            $this->setSession("screenName", "");
+            $this->setSession("entityType", "");
+
                 
         }
         $this->setFlash('success', "You are now logged out!");
@@ -273,6 +290,7 @@ class main extends BaseController
         $this->redirect('main/contracts');
     }
 
+    //CODE IS RECYCLED SO SOME OF THE NAMES MAY NOT MAKE THE MOST CONTEXTUAL SENSE!
     public function addContractDetails(){
         if (isset($_SESSION['loggedUser'])){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -287,21 +305,21 @@ class main extends BaseController
                     $this->redirect('main/events');
                 }
                 if (!empty($_POST['eventDate'])) { 
-                    if( $this->postModel->createContractDate($n,$t,$f, $date)){
+                    if( $this->postModel->createContractOffer($n,$t,$f, $date)){
                         $this->setFlash('success', "The details have been added to the event!");
                     } else {
                         $this->setFlash('failure', "We could not create your event location!");
                     }
                 }
                 if (!empty($_POST['eventTime'])){
-                    if( $this->postModel->createContractTime($n,$t,$f, $time)){
+                    if( $this->postModel->awardContractOffer($n,$f)){
                         $this->setFlash('success', "The details have been added to the event!");
                     } else {
                         $this->setFlash('failure', "We could not create your event location!");
                     }
                 }
                 if (!empty($_POST['eventArea'])) {
-                    if($this->postModel->createContractLocation($n,$t,$f, $area)){
+                    if($this->postModel->completeContractOffer($n,$f)){
                         $this->setFlash('success', "The details have been added to the event!");
                     } else {
                         $this->setFlash('failure', "We could not create your event location!");

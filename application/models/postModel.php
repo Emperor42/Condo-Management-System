@@ -95,6 +95,77 @@ class postModel extends databaseService
         }
     }
 
+        /**
+     * The is a helper function which creates a series of messages which allow for the creation of an event
+     * @param $msgTo is the group that the event involves
+     * @param $msgFrom is the user who created the event
+     * @param $name is the name of the event
+     * @return bool
+     */
+    function createContract($msgTo, $msgFrom, $name)
+    {
+        //create the event itself
+        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        VALUES(?,?,?,'CONTRACTS',?)", [-1, $msgTo, $msgFrom, $name])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+       /**
+     * The is a helper function which creates a series of messages which allow for the creation of an event
+     * @param $msgTo is the group that the event involves
+     * @param $msgFrom is the user who created the event
+     * @param $name is the name of the event
+     * @return bool
+     */
+    function createContractOffer($eventID,$msgTo, $msgFrom, $name)
+    {
+        //create the event itself
+        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        VALUES(?,?,?,'CONTRACTSOFFER',?)", [$eventID, $msgTo, $msgFrom, $name])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+           /**
+     * The is a helper function which creates a series of messages which allow for the creation of an event
+     * @param $msgTo is the group that the event involves
+     * @param $msgFrom is the user who created the event
+     * @param $name is the name of the event
+     * @return bool
+     */
+    function awardContractOffer($eventID,$msgFrom)
+    {
+        //create the event itself
+        if ($this->Query("UPDATE `messages` SET `msgSubject` = 'CONTRACTSAWARD' WHERE mid = ? AND msgSubject = 'CONTRACTSOFFER' AND ? IN(
+            SELECT m2.msgFrom FROM messages m1, messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSOFFER' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+               /**
+     * The is a helper function which creates a series of messages which allow for the creation of an event
+     * @param $msgTo is the group that the event involves
+     * @param $msgFrom is the user who created the event
+     * @param $name is the name of the event
+     * @return bool
+     */
+    function completeContractOffer($eventID,$msgFrom)
+    {
+        //create the event itself
+        if ($this->Query("UPDATE `messages` SET `msgSubject` = 'CONTRACTSCOMPLETE' WHERE mid = ? AND msgSubject = 'CONTRACTSAWARD' AND ? IN(
+            SELECT m2.msgFrom FROM messages m1, messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSAWARD' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * @param $msgFrom is the voter
@@ -357,7 +428,7 @@ ORDER BY m.mid ASC, voted DESC
      */
     function contractsForUser($userId)
     {
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach FROM messages m WHERE m.msgSubject = 'CONTRACTS' OR m.msgSubject = 'CONTRACTSDATE' OR m.msgSubject = 'CONTRACTSTIME' OR m.msgSubject = 'CONTRACTSLOCATION'  ORDER BY m.mid ASC
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, CONCAT(a.firstName,' ',a.lastName) AS 'poster' FROM messages m, entity a WHERE m.msgSubject LIKE 'CONTRACTS%' AND a.eid = m.msgFrom ORDER BY m.mid ASC
         ", [])) {
             return $this->fetchAll();
         }

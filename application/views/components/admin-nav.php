@@ -1,6 +1,6 @@
 <!--Khadija SUBTAIN-40040952 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
-    <a class="navbar-brand py-0" href="#">Condo</a>
+    <a class="navbar-brand py-0" href="#"><?php echo $_SESSION['adminFunc'];?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -9,6 +9,7 @@
     </head>
     <body>
         <?php include "components/nav.php"; ?>
+        <?php include "components/admin-nav.php";?>
         <?php include "components/flashMessage.php"; ?>
         <div class="container mt-5">
             <div class="row">
@@ -35,16 +36,10 @@
         <!--The list of events-->
         <div id="eventsList">
                 <?php
-                $skipThis =false;
                  foreach($data as $key=>$eventData): ?>
-                    <?php if(!$skipThis){
-                        include "components/contractCard.php"; 
-                        if ($eventData->voted==1){
-                            $skipThis = true;
-                        }
-                    } else {
-                        $skipThis =false;
-                    }
+
+                       <?php include "components/contractCard.php"; 
+
                         
                         ?>
                 <?php endforeach;?>
