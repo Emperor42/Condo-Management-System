@@ -35,7 +35,7 @@
     <!-- NOT SURE : TOOK REFERENCE TO EVENTS.PHP-->
     <div id="pollvote">
         <?php $skipThis = false;
-        foreach($data as $key=> $pollData): ?>
+        foreach($data['core'] as $key=> $pollData): ?>
                <?php 
                if (!$skipThis){
                 include "components/poll.php";

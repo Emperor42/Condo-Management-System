@@ -3,8 +3,18 @@
 <form action="<?php echo BASEURL; ?>/userPost/registerPostRequest" method="post" 
 enctype="multipart/form-data">
   <input name="replyTo" id="newPostReplyTo" type="hidden" value="-1">
-  <input name="msgTo" id="newPostMsgTo" type="hidden" value="-1">
-  <input name="msgFrom" id="newPostMsgFrom" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+  Post to group:
+  <fieldset name="msgTo" id="newPostMsgTo" required>
+    <?php foreach($data['top'] as $opt):?>
+    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
+    <?php endforeach;?>
+  </fieldset>
+  Post as:
+  <fieldset name="msgFrom" id="newPostMsgFrom" required>
+    <?php foreach($data['fop'] as $opt):?>
+    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
+    <?php endforeach;?>
+  </fieldset>
   <input name="msgSubject" id="newPostMsgSubject" type="hidden" value="POST">
   <label for="newPostMsgText">Say Something To The Group: </label>
   <input type="text" id="newPostMsgText" name="msgText" value="">

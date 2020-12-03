@@ -41,8 +41,10 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Public Forum";
-        $data = $this->postModel->messagesForUser($_SESSION['loggedUser']);
-        $this->view('wall', $data, $this->userModel);
+        $data['core'] = $this->postModel->messagesForUser($_SESSION['loggedUser']);
+        $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
+        $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
+        $this->view('wall', $data);
     }
 
         /**
@@ -55,8 +57,10 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Condo Association Notices";
-        $data = $this->postModel->noticesForUser($_SESSION['loggedUser']);
-        $this->view('wall', $data, $this->userModel);
+        $data['core'] = $this->postModel->noticesForUser($_SESSION['loggedUser']);
+        $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
+        $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
+        $this->view('wall', $data);
     }
 
         /**
@@ -69,8 +73,10 @@ class main extends BaseController
                 $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Condo Owner Concerns";
-        $data = $this->postModel->concernsForUser($_SESSION['loggedUser']);
-        $this->view('wall', $data, $this->userModel);
+        $data['core'] = $this->postModel->concernsForUser($_SESSION['loggedUser']);
+        $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
+        $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
+        $this->view('wall', $data);
     }
 
     public function classified()
@@ -81,7 +87,7 @@ class main extends BaseController
         }
         $_SESSION['adminFunc']="Classified Ads";
         $data = $this->postModel->getAds();
-        $this->view('ads', $data, $this->userModel);
+        $this->view('ads', $data);
     }
 
     public function login(){
@@ -124,8 +130,10 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Events";
-        $data = $this->postModel->eventsForUser($_SESSION['loggedUser']);
-        $this->view('events', $data, $this->userModel);
+        $data['core'] = $this->postModel->eventsForUser($_SESSION['loggedUser']);
+        $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
+        $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
+        $this->view('events', $data);
     }
 
     public function resolution(){
@@ -134,8 +142,10 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Resolutions";
-        $data = $this->postModel->pollsForUser($_SESSION['loggedUser']);
-        $this->view('newpoll', $data, $this->userModel);
+        $data['core'] = $this->postModel->pollsForUser($_SESSION['loggedUser']);
+        $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
+        $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
+        $this->view('newpoll', $data);
     }
 
     public function contracts(){
@@ -144,8 +154,10 @@ class main extends BaseController
             $this->redirect('main/login');
         }
         $_SESSION['adminFunc']="Public Contracts";
-        $data = $this->postModel->contractsForUser($_SESSION['loggedUser']);
-        $this->view('contracts', $data, $this->userModel);
+        $data['core'] = $this->postModel->contractsForUser($_SESSION['loggedUser']);
+        $data['top'] = $this->postModel->postToForUser($_SESSION['loggedUser']);
+        $data['fop'] = $this->postModel->postFromForUser($_SESSION['loggedUser']);
+        $this->view('contracts', $data);
     }
 
     public function property(){

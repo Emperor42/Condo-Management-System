@@ -157,7 +157,12 @@ class userPost extends BaseController
                 ?
                 $this->setFlash("success","Post Sent!"):
                 $this->setFlash("failure",'Post Not Sent!');
-
+                if($_SESSION['adminFunc']=="Condo Owner Concerns"){
+                    $this->redirect($_SERVER['main/concerns']);
+                }
+                if($_SESSION['adminFunc']=="Condo Association Notices"){
+                    $this->redirect($_SERVER['main/notices']);
+                }
             $this->redirect($_SERVER['HTTP_REFERER']);
         }
     }

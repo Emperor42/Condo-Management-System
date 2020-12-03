@@ -17,8 +17,8 @@
             <div class="col-md-11">
             <div id="wall">
                 <?php include "components/newUserPost.php";?>
-                    <?php if(!empty($data)):?>
-                        <?php foreach($data as $key=>$postData): ?>
+                    <?php if(!empty($data['core'])):?>
+                        <?php foreach($data['core'] as $key=>$postData): ?>
                             <?php if($postData->msgSubject=="POST")://create a new post on the wall?>
                                 <?php include "components/wallPost.php"; ?>
                             <?php endif;?>
@@ -26,12 +26,15 @@
                                 <?php include "components/wallPost.php"?>
                                 <script>
                                     window.addEventListener('load', function(){
-                                        var ele = document.getElementById("m<?php echo $postData->replyTo;?>Comments");//get the details elelment id with js
-                                        var target = document.getElementById("message<?php echo $postData->mid;?>");//get the target ellment
-                                        var mainWall = document.getElementById("wall");
-                                        //referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-                                        ele.appendChild(target);//add the child to the post
-                                        mainWall.removeChild(target);//remove the child from the wall
+                                        
+                                            var ele = document.getElementById("m<?php echo $postData->replyTo;?>Comments");//get the details elelment id with js
+                                            var target = document.getElementById("message<?php echo $postData->mid;?>");//get the target ellment
+                                            var mainWall = document.getElementById("wall");
+                                            //referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+                                            if (document.getElementById("message<?php echo $postData->replyTo;?>")!=null){
+                                                ele.appendChild(target);//add the child to the post
+                                            }
+                                            mainWall.removeChild(target);//remove the child from the wall
                                     });
                                 </script>
                             <?php endif;?>

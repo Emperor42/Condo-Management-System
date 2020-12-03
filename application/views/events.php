@@ -38,7 +38,7 @@
         <div id="eventsList">
                 <?php
                 $skipThis =false;
-                 foreach($data as $key=>$eventData): ?>
+                 foreach($data['core'] as $key=>$eventData): ?>
                     <?php if(!$skipThis){
                         include "components/eventCard.php"; 
                         if ($eventData->voted==1){

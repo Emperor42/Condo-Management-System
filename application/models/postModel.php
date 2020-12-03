@@ -338,48 +338,70 @@ class postModel extends databaseService
             }
         } else {
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
-             e1.userId AS toName, e2.userId As fromName
-            FROM messages, entity e1, entity e2 
-            WHERE ((msgTo = ? 
-            OR msgFrom = ? 
-            OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
-            OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
-            OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
-            OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
-            OR msgTo = ? 
-            OR msgFrom = ?) 
-            AND e1.eid = msgTo AND e2.eid = msgFrom 
-            ORDER BY mid DESC
-            ", [$userId,$userId,$userId,$userId,$userId,$userId,-1, 0])) {
+            e1.userId AS toName, e2.userId As fromName
+           FROM messages, entity e1, entity e2 
+           WHERE e1.eid = msgTo 
+           AND e2.eid = msgFrom
+           AND msgSubject='POST'
+           AND (msgFrom=0 OR (msgTo = -1 OR msgFrom=-1) OR msgFrom = 7 OR msgTo = 7 OR 
+            msgTo IN (SELECT DISTINCT tid FROM relate WHERE  eid = 7 )
+            OR 
+            msgFrom IN (SELECT DISTINCT tid FROM relate WHERE  eid = 7 ))
+           UNION
+           SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId As fromName
+           FROM messages, entity e1, entity e2 
+           WHERE e1.eid = msgTo 
+           AND e2.eid = msgFrom
+           AND msgSubject='COMMENT'
+           
+           
+           ORDER BY mid ASC
+            
+            ", [0,-1,-1,$userId,$userId,$userId,$userId])) {
                 return $this->fetchAll();
             }
         }
     }
 
         /**
-     * fetches all messages destined to the specified user if they are logged in
+     * fetches all messages destined to the specified user if they are logged in AND r2.relType<3
      * @param $userId
      * @return fetch : User with provded id to pull messages from this person (sjows posts to public and from admin)
      */
     function concernsForUser($userId)
     {
         if ((int)$_SESSION['loggedUser']==0){
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId AS fromName
+           FROM messages, entity e1, entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
             }
         } else {
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
-            WHERE (msgTo = ? 
-            OR msgFrom = ? 
-            OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
-            OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
-            OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
-            OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
-            OR msgTo = ? 
-            OR msgFrom = ? ORDER BY mid DESC
-            ", [$userId,$userId,$userId,$userId,$userId,$userId,$_SESSION['useGroup'], $_SESSION['loggedUser']])) {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId As fromName
+           FROM messages, entity e1, entity e2 
+           WHERE e1.eid = msgTo 
+           AND e2.eid = msgFrom
+           AND msgSubject='POST'
+           AND msgTo != ?
+           AND msgFrom != ?
+           AND msgTo IN (SELECT DISTINCT tid FROM relate WHERE eid = ?)
+           UNION
+           SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId As fromName
+           FROM messages, entity e1, entity e2 
+           WHERE e1.eid = msgTo 
+           AND e2.eid = msgFrom
+           AND msgSubject='COMMENT'
+           
+           
+           ORDER BY mid ASC
+            
+            
+            ", [-1,-1,$userId])) {
                 return $this->fetchAll();
             }
         }
@@ -393,22 +415,36 @@ class postModel extends databaseService
     function noticesForUser($userId)
     {
         if ((int)$_SESSION['loggedUser']==0){
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId AS fromName
+           FROM messages, entity e1, entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
             }
         } else {
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
-            WHERE (msgTo = ? 
-            OR msgFrom = ? 
-            OR msgTo IN (SELECT eid FROM relate WHERE tid = ?) 
-            OR msgTo IN (SELECT tid FROM relate WHERE eid = ?)
-            OR msgFrom IN (SELECT eid FROM relate WHERE tid = ?)
-            OR msgFrom IN (SELECT tid FROM relate WHERE eid = ?))
-            OR msgTo = ? 
-            OR msgFrom = ? ORDER BY mid DESC
-            ", [$userId,$userId,$userId,$userId,$userId,$userId,$_SESSION['loggedUser'], $_SESSION['useGroup']])) {
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId As fromName
+           FROM messages, entity e1, entity e2 
+           WHERE e1.eid = msgTo 
+           AND e2.eid = msgFrom
+           AND msgSubject='POST'
+           AND msgTo != ?
+           AND msgFrom != ?
+           AND msgFrom IN (SELECT DISTINCT tid FROM relate WHERE eid = ?)
+           UNION
+           SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId As fromName
+           FROM messages, entity e1, entity e2 
+           WHERE e1.eid = msgTo 
+           AND e2.eid = msgFrom
+           AND msgSubject='COMMENT'
+           
+           
+           ORDER BY mid ASC
+            
+            
+            ", [-1,-1,$userId])) {
                 return $this->fetchAll();
             }
         }
@@ -501,6 +537,22 @@ OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?)
 OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) 
 OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?))) 
 ORDER BY m.mid ASC, voted DESC", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
+            return $this->fetchAll();
+        }
+    }
+
+    function postToForUser($userId){
+        if ($this->Query("SELECT DISTINCT tid AS eid, userId from relate, entity WHERE relate.eid=? AND relate.tid=entity.eid 
+        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? 
+        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? 
+        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =?", [$userId,$userId,0,-1])) {
+            return $this->fetchAll();
+        }
+    }
+
+    function postFromForUser($userId){
+        if ($this->Query("SELECT DISTINCT tid AS eid, userId from relate, entity WHERE relate.relType<? AND relate.eid=? AND relate.tid=entity.eid 
+        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? ", [3,$userId,$userId])) {
             return $this->fetchAll();
         }
     }
