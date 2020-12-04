@@ -23,10 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/application/views/OwnersConcernsandDiscussion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/OwnersConcernsandDiscussion.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/OwnersConcernsandDiscussion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/newpoll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/newpoll.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +100,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -125,11 +122,13 @@
       <workItem from="1605034282858" duration="15000" />
       <workItem from="1606368235215" duration="900000" />
       <workItem from="1606369203132" duration="107000" />
+      <workItem from="1607106819294" duration="156000" />
+      <workItem from="1607107030870" duration="33000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
