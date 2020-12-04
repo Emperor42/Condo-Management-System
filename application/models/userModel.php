@@ -1,5 +1,8 @@
 <?php
-/*Khadija SUBTAIN-40040952*/
+/*
+ * Khadija SUBTAIN-40040952
+ * Daniel GAUVIN - 40061905
+ */
 
 /**
  * This class models a user in the system.

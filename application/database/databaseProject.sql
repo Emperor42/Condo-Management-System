@@ -1,5 +1,6 @@
 #Matthew GIANCOLA-40019131
 #Khadija SUBTAIN-40040952
+#Daniel GAUVIN-40061905
 CREATE database CONMANSYSTEM;
 #an entity can be a user or group of some type
 #must be validated in the front end if it needs a password

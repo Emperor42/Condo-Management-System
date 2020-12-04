@@ -1,5 +1,8 @@
 <?php
-/*Khadija SUBTAIN-40040952*/
+/*
+ * Khadija SUBTAIN-40040952
+ * Daniel Gauvin- 40061905
+*/
 
 /**
  * This controller will deal anything to do with user

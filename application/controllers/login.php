@@ -1,6 +1,7 @@
 <?php
-/**
+/*
  * khadija Subtain-40040952
+ * Daniel GAUVIN - 40061905
  */
 /**
  * This controller will deal anything to do with login
