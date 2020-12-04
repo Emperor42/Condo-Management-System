@@ -24,17 +24,19 @@
   <component name="ChangeListManager">
     <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/welcome.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/welcome.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/database/databaseProject.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/database/databaseProject.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/loginModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/loginModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/userModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/userModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/UserHome.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/UserHome.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/EditGroups.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/EditGroups.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/EditOrRemove.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/EditOrRemove.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/components/createGroupForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/createGroupForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/components/datatable.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/datatable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/components/editGroupForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/editGroupForm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/components/editUserForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/editUserForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/user-nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/user-nav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/components/groupDetailsDT.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/groupDetailsDT.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/components/groupsInfoDataTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/groupsInfoDataTable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/components/poll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/poll.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/groupDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/groupDetails.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/wall.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/wall.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/manageGroups.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/manageGroups.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/newpoll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/newpoll.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,9 +44,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -113,7 +113,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -148,13 +148,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
