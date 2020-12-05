@@ -153,7 +153,7 @@ class userPost extends BaseController
                 (int)$this->input($_POST["msgFrom"]),
                 $this->input($_POST["msgSubject"]),
                 $this->input($_POST["msgText"]),
-                $this->input($msgAttach),
+                $this->input($msgAttach)
             )
                 ?
                 $this->setFlash("success","Post Sent!"):
@@ -245,7 +245,7 @@ class userPost extends BaseController
                 (int)$this->input($_POST["msgFrom"]),
                 $this->input($_POST["msgSubject"]),
                 $this->input($_POST["msgText"]),
-                $this->input($msgAttach),
+                $this->input($msgAttach)
             )
                 ?
                 $this->setFlash("success","Post Sent!"):
@@ -333,7 +333,7 @@ class userPost extends BaseController
                 (int)$this->input($_POST["msgFrom"]),
                 $this->input($_POST["msgSubject"]),
                 $this->input($_POST["msgText"]),
-                $this->input($msgAttach),
+                $this->input($msgAttach)
             )
                 ?
                 $this->setFlash("success","Post Sent!"):
@@ -420,7 +420,7 @@ class userPost extends BaseController
                 (int)$this->input($_POST["msgFrom"]),
                 $this->input($_POST["msgSubject"]),
                 $this->input($_POST["msgText"]),
-                $this->input($msgAttach),
+                $this->input($msgAttach)
             )
                 ?
                 $this->setFlash("success","Post Sent!"):
