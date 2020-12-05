@@ -22,13 +22,13 @@
                                 Post to group:
                                 <fieldset name="eventGroup"  required>
                                     <?php foreach($data['top'] as $opt):?>
-                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
+                                    <?php echo $opt->userId;?><?php echo $opt->eid;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
                                     <?php endforeach;?>
                                 </fieldset>
                                 Post as:
                                 <fieldset name="eventStart"  required>
                                     <?php foreach($data['fop'] as $opt):?>
-                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
+                                    <?php echo $opt->userId;?><?php echo $opt->eid;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
                                     <?php endforeach;?>
                                 </fieldset>
                                 <label for="newEvent">Headline for your event: </label>
