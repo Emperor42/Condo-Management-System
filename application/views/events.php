@@ -19,8 +19,18 @@
                         <div class="card-header">Create a new event</div>
                         <form action="<?php echo BASEURL; ?>/main/startEvent" method="post">
                             <div class="card-body">
-                                <input name="eventGroup" type="hidden" value="-1">
-                                <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+                                Post to group:
+                                <fieldset name="eventGroup"  required>
+                                    <?php foreach($data['top'] as $opt):?>
+                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
+                                    <?php endforeach;?>
+                                </fieldset>
+                                Post as:
+                                <fieldset name="eventStart"  required>
+                                    <?php foreach($data['fop'] as $opt):?>
+                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
+                                    <?php endforeach;?>
+                                </fieldset>
                                 <label for="newEvent">Headline for your event: </label>
                                 <input id="newEvent" type="text" name="eventNamed" value="">
                             </div>

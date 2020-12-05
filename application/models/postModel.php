@@ -328,7 +328,7 @@ class postModel extends databaseService
         } else {
             if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.firstName AS name, e.lastName AS coname
             FROM iac353_2.messages m, iac353_2.entity e
-            WHERE m.msgFrom = e.eid AND (m.msgSubject = 'PAD' OR (m.msgSubject = 'AD' AND m.msgFrom IN (select r1.eid FROM relate r1, relate r2 WHERE 
+            WHERE m.msgFrom = e.eid AND (m.msgSubject = 'PAD' OR (m.msgSubject = 'AD' AND m.msgFrom IN (select r1.eid FROM  iac353_2.relate r1,  iac353_2.relate r2 WHERE 
             r2.eid = ? AND r1.tid=r2.tid
             )))
              ORDER BY mid DESC
@@ -407,7 +407,7 @@ class postModel extends databaseService
            AND msgSubject='POST'
            AND msgTo != ?
            AND msgFrom != ?
-           AND msgTo IN (SELECT DISTINCT tid FROM relate WHERE eid = ?)
+           AND msgTo IN (SELECT DISTINCT tid FROM  iac353_2.relate WHERE eid = ?)
            UNION
            SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
@@ -517,14 +517,14 @@ class postModel extends databaseService
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, 
         IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject LIKE 'VOTE%'),true, false) AS voted, 
-        (SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject LIKE 'VOTE%')
-         AS votes FROM messages m, messages n WHERE (m.msgSubject LIKE 'EVENTS%') AND (m.msgTo = ? OR m.msgFrom = ?
+        (SELECT DISTINCT COUNT(k.mid) FROM iac353_2.messages k WHERE k.replyTO=m.mid AND k.msgSubject LIKE 'VOTE%')
+         AS votes FROM iac353_2.messages m, iac353_2.messages n WHERE (m.msgSubject LIKE 'EVENTS%') AND (m.msgTo = ? OR m.msgFrom = ?
  OR m.msgTo = -1 OR m.msgFrom = -1 
                                                                                   
-OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?)
-OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) 
-OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) 
-OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?)) 
+OR m.msgTo IN (SELECT eid FROM  iac353_2.relate WHERE tid = ?)
+OR m.msgTo IN (SELECT tid FROM  iac353_2.relate WHERE eid = ?) 
+OR m.msgFrom IN (SELECT eid FROM  iac353_2.relate WHERE tid = ?) 
+OR m.msgFrom IN (SELECT tid FROM  iac353_2.relate WHERE eid = ?)) 
 ORDER BY m.mid ASC, voted DESC
         ", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
             return $this->fetchAll();
@@ -538,7 +538,7 @@ ORDER BY m.mid ASC, voted DESC
     function contractsForUser($userId)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, CONCAT(a.firstName,' ',a.lastName) AS 'poster' FROM messages m, entity a WHERE m.msgSubject LIKE 'CONTRACTS%' AND a.eid = m.msgFrom ORDER BY m.mid ASC
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, CONCAT(a.firstName,' ',a.lastName) AS 'poster' FROM  iac353_2.messages m,  iac353_2.entity a WHERE m.msgSubject LIKE 'CONTRACTS%' AND a.eid = m.msgFrom ORDER BY m.mid ASC
         ", [])) {
             return $this->fetchAll();
         }
@@ -553,14 +553,14 @@ ORDER BY m.mid ASC, voted DESC
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, 
         (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject LIKE 'VOTE%') AS voted, 
-        ((SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTEYEA')-(SELECT DISTINCT COUNT(k.mid) FROM messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTENAY'))
-         AS votes FROM messages m, messages n WHERE  (m.mid != n.mid) AND ((m.msgSubject LIKE 'POLLS%') AND (m.msgTo = ? OR m.msgFrom = ?
+        ((SELECT DISTINCT COUNT(k.mid) FROM  iac353_2.messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTEYEA')-(SELECT DISTINCT COUNT(k.mid) FROM  iac353_2.messages k WHERE k.replyTO=m.mid AND k.msgSubject='VOTENAY'))
+         AS votes FROM  iac353_2.messages m,  iac353_2.messages n WHERE  (m.mid != n.mid) AND ((m.msgSubject LIKE 'POLLS%') AND (m.msgTo = ? OR m.msgFrom = ?
  OR m.msgTo = -1 OR m.msgFrom = -1 
                                                                                   
-OR m.msgTo IN (SELECT eid FROM relate WHERE tid = ?)
-OR m.msgTo IN (SELECT tid FROM relate WHERE eid = ?) 
-OR m.msgFrom IN (SELECT eid FROM relate WHERE tid = ?) 
-OR m.msgFrom IN (SELECT tid FROM relate WHERE eid = ?))) 
+OR m.msgTo IN (SELECT eid FROM  iac353_2.relate WHERE tid = ?)
+OR m.msgTo IN (SELECT tid FROM  iac353_2.relate WHERE eid = ?) 
+OR m.msgFrom IN (SELECT eid FROM  iac353_2.relate WHERE tid = ?) 
+OR m.msgFrom IN (SELECT tid FROM  iac353_2.relate WHERE eid = ?))) 
 ORDER BY m.mid ASC, voted DESC", [$userId,$userId,$userId,$userId,$userId,$userId,$userId])) {
             return $this->fetchAll();
         }
@@ -568,18 +568,18 @@ ORDER BY m.mid ASC, voted DESC", [$userId,$userId,$userId,$userId,$userId,$userI
 
     function postToForUser($userId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("SELECT DISTINCT tid AS eid, userId from relate, entity WHERE relate.eid=? AND relate.tid=entity.eid 
-        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? 
-        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? 
-        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =?", [$userId,$userId,0,-1])) {
+        if ($this->Query("SELECT DISTINCT tid AS eid, userId from  iac353_2.relate,  iac353_2.entity WHERE  iac353_2.relate.eid=? AND  iac353_2.relate.tid= iac353_2.entity.eid 
+        UNION SELECT DISTINCT eid, userId FROM  iac353_2.entity WHERE eid =? 
+        UNION SELECT DISTINCT eid, userId FROM  iac353_2.entity WHERE eid =? 
+        UNION SELECT DISTINCT eid, userId FROM  iac353_2.entity WHERE eid =?", [$userId,$userId,0,-1])) {
             return $this->fetchAll();
         }
     }
 
     function postFromForUser($userId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("SELECT DISTINCT tid AS eid, userId from relate, entity WHERE relate.relType<? AND relate.eid=? AND relate.tid=entity.eid 
-        UNION SELECT DISTINCT eid, userId FROM entity WHERE eid =? ", [3,$userId,$userId])) {
+        if ($this->Query("SELECT DISTINCT tid AS eid, userId from  iac353_2.relate,  iac353_2.entity WHERE  iac353_2.relate.relType<? AND  iac353_2.relate.eid=? AND  iac353_2.relate.tid= iac353_2.entity.eid 
+        UNION SELECT DISTINCT eid, userId FROM  iac353_2.entity WHERE eid =? ", [3,$userId,$userId])) {
             return $this->fetchAll();
         }
     }
