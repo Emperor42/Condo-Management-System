@@ -21,13 +21,13 @@
                                 Post to group:
                                 <fieldset name="eventGroup"  required>
                                     <?php foreach($data['top'] as $opt):?>
-                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
+                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventGroup">
                                     <?php endforeach;?>
                                 </fieldset><br>
                                 Post as:
                                 <fieldset name="eventStart"  required>
                                     <?php foreach($data['fop'] as $opt):?>
-                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
+                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventStart">
                                     <?php endforeach;?>
                                 </fieldset><br>
                                 <label for="newEvent">Explain for your contract: </label>
