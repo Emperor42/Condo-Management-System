@@ -53,7 +53,7 @@ class postModel extends databaseService
     function createPoll($msgTo, $msgFrom, $name)
     {
         //create the event itself
-        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'POLLS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
