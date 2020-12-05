@@ -1,5 +1,4 @@
 <!--Khadija SUBTAIN-40040952 -->
-<!--Tiffany AH KING-40082976 -->
 <form method="post">
     <h3>Editing Group: <?php echo $data['data']->groupID; ?></h3>
     <div class="form-group">

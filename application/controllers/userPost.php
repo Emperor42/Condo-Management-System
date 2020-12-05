@@ -65,7 +65,7 @@ class userPost extends BaseController
 
             $this->postModel->updateMessage(
                 $this->input($_POST["mid"]),
-                $this->input($_POST["msgText"]),
+                $this->input($_POST["msgText"])
                 )
                 ?
                 $this->setFlash('success', 'User' . $this->input($_POST["userId"]) . " updated successfully!")

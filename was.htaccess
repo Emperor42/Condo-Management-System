@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^$ comp353CONsystem/ [L]
+  RewriteRule  (.*) comp353CONsystem/$1 [L]
+Redirect / /comp353CONsystem/
+</IfModule>

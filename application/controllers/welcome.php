@@ -1,6 +1,5 @@
-<!--Daniel GAUVIN-40061905-->
 <?php
-
+//Daniel GAUVIN-40061905
 
 /**
  * Class welcome contorls what the user sees when

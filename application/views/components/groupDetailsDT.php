@@ -1,5 +1,4 @@
 <!--Khadija SUBTAIN-40040952 -->
-<!--Tiffany AH KING-40082976 -->
 <table id="user_table" class="table table-striped table-bordered" style="width:100%">
     <thead>
     <tr>

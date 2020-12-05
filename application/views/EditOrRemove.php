@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- Khadija SUBTAIN-40040952 -->
 <!-- Daniel GAUVIN - 40061905 -->
-<!--Tiffany AH KING-40082976 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">

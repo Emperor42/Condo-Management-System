@@ -24,19 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/EditGroups.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/EditGroups.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/EditOrRemove.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/EditOrRemove.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/createGroupForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/createGroupForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/datatable.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/datatable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/editGroupForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/editGroupForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/editUserForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/editUserForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/groupDetailsDT.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/groupDetailsDT.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/groupsInfoDataTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/groupsInfoDataTable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/components/poll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/components/poll.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/groupDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/groupDetails.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/manageGroups.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/manageGroups.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/newpoll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/newpoll.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +100,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>

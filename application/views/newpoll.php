@@ -1,5 +1,3 @@
-<!-- Matthew GIANCOLA-40019131-->
-<!--Tiffany AH KING-40082976 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

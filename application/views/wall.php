@@ -51,5 +51,6 @@
     <?php linkJS('assets/js/dataTable.load.js'); ?>
     <?php linkJS('assets/js/jquery.dataTables.min.js'); ?>
     <?php linkJS('assets/js/dataTables.bootstrap4.min.js'); ?>
+
 </body>
 </html>
