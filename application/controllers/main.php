@@ -535,7 +535,7 @@ function addPayment(){
                 if ($this->condoModel->insertProperty($n)) {
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         //$n=$this->input($_POST['address']);
-                        $o = (int)$this->userModel->getUser($this->input($_POST['owner']));
+                        $o = (int)$this->userModel->getUser($this->input($_POST['owner']))->eid;
                         $s = (int)$this->input($_POST['share']);
                         if ($s>100) {
                             $s =100;
@@ -548,7 +548,7 @@ function addPayment(){
                             if ($this->condoModel->insertOwner($n, $o, $s)) {
                                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     //$n=$this->input($_POST['address']);
-                                    $m=(int)$this->userModel->getUser($this->input($_POST['manager']));
+                                    $m=(int)$this->userModel->getUser($this->input($_POST['manager']))->eid;
                                     if ($this->condoModel->insertManager($n, $m)) {
                                         $this->setFlash('success', 'The property has been updated'); 
                                     } else {
