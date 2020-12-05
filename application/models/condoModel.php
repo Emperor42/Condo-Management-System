@@ -21,10 +21,8 @@ class condoModel extends databaseService
     function getPropertyByAddress($place){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
         if ($this->Query("SELECT pid FROM iac353_2.property WHERE property.address=?", [$place])) {
-            return true;
-        } else {
-            return false;
-        }
+            return $this->fetch();
+        } 
     }
 
      /**
