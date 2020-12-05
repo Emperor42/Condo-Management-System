@@ -16,7 +16,7 @@ class postModel extends databaseService
     function insertMessage($replyTo, $msgTo, $msgFrom, $msgSubject, $msgText, $msgAttach)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach)
         VALUES(?,?,?,?,?,?)", [$replyTo, $msgTo, $msgFrom, $msgSubject, $msgText, $msgAttach])) {
             return true;
         } else {
@@ -35,7 +35,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -54,7 +54,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'POLLS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -73,7 +73,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTSDATE',?)", [$eventID, $msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -92,7 +92,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTSTIME',?)", [$eventID,$msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -111,7 +111,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo,msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'EVENTSLOCATION',?)", [$eventID,$msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -130,7 +130,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'CONTRACTS',?)", [-1, $msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -148,7 +148,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("INSERT INTO messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgTo, msgFrom, msgSubject, msgText)
         VALUES(?,?,?,'CONTRACTSOFFER',?)", [$eventID, $msgTo, $msgFrom, $name])) {
             return true;
         } else {
@@ -167,8 +167,8 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 4)){return false;}
-        if ($this->Query("UPDATE `messages` SET `msgSubject` = 'CONTRACTSAWARD' WHERE mid = ? AND msgSubject = 'CONTRACTSOFFER' AND ? IN(
-            SELECT m2.msgFrom FROM messages m1, messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSOFFER' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
+        if ($this->Query("UPDATE iac353_2.messages SET msgSubject = 'CONTRACTSAWARD' WHERE mid = ? AND msgSubject = 'CONTRACTSOFFER' AND ? IN(
+            SELECT m2.msgFrom FROM iac353_2.messages m1, iac353_2.messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSOFFER' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
             return true;
         } else {
             return false;
@@ -186,8 +186,8 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 4)){return false;}
-        if ($this->Query("UPDATE `messages` SET `msgSubject` = 'CONTRACTSCOMPLETE' WHERE mid = ? AND msgSubject = 'CONTRACTSAWARD' AND ? IN(
-            SELECT m2.msgFrom FROM messages m1, messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSAWARD' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
+        if ($this->Query("UPDATE iac353_2.messages SET msgSubject = 'CONTRACTSCOMPLETE' WHERE mid = ? AND msgSubject = 'CONTRACTSAWARD' AND ? IN(
+            SELECT m2.msgFrom FROM iac353_2.messages m1, iac353_2.messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSAWARD' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
             return true;
         } else {
             return false;
@@ -204,7 +204,7 @@ class postModel extends databaseService
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         //apply a new vote for something here, you can vote for multiple different things
-        if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgFrom, msgSubject)
         VALUES(?,?,'VOTES')", [$name, $msgFrom])) {
             return true;
         } else {
@@ -221,7 +221,7 @@ class postModel extends databaseService
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         //apply a new vote for something here, you can vote for multiple different things
-        if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgFrom, msgSubject)
         VALUES(?,?,'VOTEYEA')", [$name, $msgFrom])) {
             return true;
         } else {
@@ -238,7 +238,7 @@ class postModel extends databaseService
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
         //apply a new vote for something here, you can vote for multiple different things
-        if ($this->Query("INSERT INTO messages (replyTo, msgFrom, msgSubject)
+        if ($this->Query("INSERT INTO iac353_2.messages (replyTo, msgFrom, msgSubject)
         VALUES(?,?,'VOTENAY')", [$name, $msgFrom])) {
             return true;
         } else {
@@ -254,7 +254,7 @@ class postModel extends databaseService
      */
     function deleteVote($msgFrom, $name){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 5)){return false;}
-        if($this->Query("DELETE FROM messages WHERE replyTo=? AND msgFrom=? AND msgSubject LIKE 'VOTE%' ", [$name, $msgFrom])){
+        if($this->Query("DELETE FROM iac353_2.messages WHERE replyTo=? AND msgFrom=? AND msgSubject LIKE 'VOTE%' ", [$name, $msgFrom])){
             return true;
         }else {
             return false;
@@ -269,9 +269,9 @@ class postModel extends databaseService
      */
     function countVotes($event, $userId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE'", [$event])) {
+        if ($this->Query("SELECT DISTINCT mid, replyTo FROM iac353_2.messages WHERE replyTo = ? AND msgSubject = 'VOTE'", [$event])) {
             $ret = $this->fetchAll();
-            if ($this->Query("SELECT DISTINCT mid, replyTo FROM messages WHERE replyTo = ? AND msgSubject = 'VOTE' AND msgFrom = ?", [$event, $userId])){
+            if ($this->Query("SELECT DISTINCT mid, replyTo FROM iac353_2.messages WHERE replyTo = ? AND msgSubject = 'VOTE' AND msgFrom = ?", [$event, $userId])){
                 $tmp = $this->fetchAll();
                 return [$ret, count($ret), count($tmp)>0];
             }
@@ -288,7 +288,7 @@ class postModel extends databaseService
     function updateMessage($mid, $msgText)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("UPDATE messages SET
+        if ($this->Query("UPDATE iac353_2.messages SET
         msgText = ?
         WHERE mid = ?", [ $msgText, $mid])) {
             return true;
@@ -303,7 +303,7 @@ class postModel extends databaseService
      */
     function deleteMessage($mid){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        return $this->Query("DELETE FROM messages WHERE mid = ?", [$mid]);
+        return $this->Query("DELETE FROM iac353_2.messages WHERE mid = ?", [$mid]);
     }
 
     /**
@@ -312,7 +312,7 @@ class postModel extends databaseService
     function getMessages()
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("SELECT * FROM messages", [])) {
+        if ($this->Query("SELECT * FROM iac353_2.messages", [])) {
             return $this->fetchAll();
         }
     }
@@ -321,7 +321,7 @@ class postModel extends databaseService
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if ((int)$_SESSION['loggedUser']==-1) {
             if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.firstName AS name, e.lastName AS coname
-            FROM messages m, entity e
+            FROM iac353_2.messages m, iac353_2.entity e
             WHERE m.msgFrom = e.eid AND (m.msgSubject = 'PAD')
              ORDER BY mid DESC
             ", [])) {
@@ -329,7 +329,7 @@ class postModel extends databaseService
             }
         } else {
             if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.firstName AS name, e.lastName AS coname
-            FROM messages m, entity e
+            FROM iac353_2.messages m, iac353_2.entity e
             WHERE m.msgFrom = e.eid AND (m.msgSubject = 'PAD' OR (m.msgSubject = 'AD' AND m.msgFrom IN (select r1.eid FROM relate r1, relate r2 WHERE 
             r2.eid = ? AND r1.tid=r2.tid
             )))
@@ -351,7 +351,7 @@ class postModel extends databaseService
         if ((int)$_SESSION['loggedUser']==0){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId AS fromName
-           FROM messages, entity e1, entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
@@ -359,18 +359,18 @@ class postModel extends databaseService
         } else {
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
-           FROM messages, entity e1, entity e2 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='POST'
            AND (msgFrom=0 OR (msgTo = -1 OR msgFrom=-1) OR msgFrom = 7 OR msgTo = 7 OR 
-            msgTo IN (SELECT DISTINCT tid FROM relate WHERE  eid = 7 )
+            msgTo IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE  eid = 7 )
             OR 
-            msgFrom IN (SELECT DISTINCT tid FROM relate WHERE  eid = 7 ))
+            msgFrom IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE  eid = 7 ))
            UNION
            SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
-           FROM messages, entity e1, entity e2 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='COMMENT'
@@ -395,7 +395,7 @@ class postModel extends databaseService
         if ((int)$_SESSION['loggedUser']==0){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId AS fromName
-           FROM messages, entity e1, entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
@@ -403,7 +403,7 @@ class postModel extends databaseService
         } else {
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
-           FROM messages, entity e1, entity e2 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='POST'
@@ -413,7 +413,7 @@ class postModel extends databaseService
            UNION
            SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
-           FROM messages, entity e1, entity e2 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='COMMENT'
@@ -439,7 +439,7 @@ class postModel extends databaseService
         if ((int)$_SESSION['loggedUser']==0){
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId AS fromName
-           FROM messages, entity e1, entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
              ORDER BY mid DESC
             ", [])) {
                 return $this->fetchAll();
@@ -447,17 +447,17 @@ class postModel extends databaseService
         } else {
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
-           FROM messages, entity e1, entity e2 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='POST'
            AND msgTo != ?
            AND msgFrom != ?
-           AND msgFrom IN (SELECT DISTINCT tid FROM relate WHERE eid = ?)
+           AND msgFrom IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE eid = ?)
            UNION
            SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
-           FROM messages, entity e1, entity e2 
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='COMMENT'
@@ -482,7 +482,7 @@ class postModel extends databaseService
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
-        FROM messages 
+        FROM iac353_2.messages 
         WHERE msgSubject='PM' AND ((msgTo = ? AND msgFrom = ?)
         OR (msgTo = ? AND msgFrom = ?))
         ORDER BY mid ASC", [$userIdA, $userIdB, $userIdB, $userIdA])) {
@@ -499,9 +499,9 @@ class postModel extends databaseService
     function conversationForGroup($user, $group)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("SELECT DISTINCT * FROM relate 
+        if ($this->Query("SELECT DISTINCT * FROM iac353_2.relate 
         WHERE (tid=? AND eid=?) OR (tid=? AND eid=?)", [$group,$user,$user, $group])){
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM messages 
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM iac353_2.messages 
             WHERE msgSubject='PM' AND ((msgTo = ?)
             OR (msgFrom = ?))
             ORDER BY mid ASC", [$group, $group])) {

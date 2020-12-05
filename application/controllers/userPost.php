@@ -55,7 +55,7 @@ class userPost extends BaseController
             :
             $this->setFlash('failure', "Problem deleting $userId");
 
-        $this->redirect($_SERVER['HTTP_REFERER']);
+        $this->redirect('main/wall');
     }
 
     public function changePostRequest()
@@ -72,7 +72,7 @@ class userPost extends BaseController
                 :
                 $this->setFlash('failure', "Problem updating " . $this->input($_POST["userId"]));
 
-            $this->redirect($_SERVER['HTTP_REFERER']);
+            $this->redirect('main/wall');
         }
 
     }

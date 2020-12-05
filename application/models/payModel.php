@@ -14,7 +14,7 @@ class payModel extends databaseService
         if ($out<0){
             return false;
         }
-        if ($this->Query("INSERT INTO payment 
+        if ($this->Query("INSERT INTO iac353_2.payment 
         (payTo, payFrom, total, outstanding, class, memo)
         VALUES(?,?,?,?,?,?)", [$to,$from,$pay, $out, $class, $memo])) {
             return true;
@@ -28,7 +28,7 @@ class payModel extends databaseService
      * @param $userId : User id for the user to be deleted
      */
     function updatePayment($pid,$to, $from, $pay, $total, $class, $memo){
-        if ($this->Query("UPDATE payment SET
+        if ($this->Query("UPDATE iac353_2.payment SET
         (payTo=?, payFrom=?, total=?, outstanding=?, class=?, memo=?) WHERE
         pid = ?", [$to,$from,$pay, $out, $class, $memo,$userId])){
             return true;
@@ -42,7 +42,7 @@ class payModel extends databaseService
      * @param $userId : User id for the user to be deleted
      */
     function deleteProperty($pid){
-        return $this->Query("DELETE FROM payment WHERE pid = ?", [$pid]);
+        return $this->Query("DELETE FROM iac353_2.payment WHERE pid = ?", [$pid]);
     }
 
 
@@ -50,7 +50,7 @@ class payModel extends databaseService
     function getAllPayments($eid){
         if ($this->Query("SELECT DISTINCT *
         FROM 
-        payment
+        iac353_2.payment
         WHERE
         payTo = ? OR payFrom = ?", [$eid, $eid])) {
             return $this->fetchAll();
@@ -60,7 +60,7 @@ class payModel extends databaseService
     function getInPayments($eid){
         if ($this->Query("SELECT DISTINCT *
         FROM 
-        payment
+        iac353_2.payment
         WHERE
         payTo = ?", [$eid])) {
             return $this->fetchAll();
@@ -70,7 +70,7 @@ class payModel extends databaseService
     function getOutPayments($eid){
         if ($this->Query("SELECT DISTINCT *
         FROM 
-        payment
+        iac353_2.payment
         WHERE
         payFrom = ?", [$eid])) {
             return $this->fetchAll();
@@ -86,9 +86,9 @@ class payModel extends databaseService
         SUM(p3.total) AS totalOwe,
         SUM(p3.outstanding) AS totalOweOutstanding
         FROM 
-        payment p1,
-        payment p2,
-        payment p3
+        iac353_2.payment p1,
+        iac353_2.payment p2,
+        iac353_2.payment p3
         WHERE
         (p1.payTo = ? OR p1.payFrom = ?) AND p2.payTo = ? AND p3.payFrom = ?", [$eid, $eid,$eid, $eid])) {
             return $this->fetchAll();
@@ -109,9 +109,9 @@ class payModel extends databaseService
         p.total AS total,
         p.memo as memo
         FROM 
-        payment p,
-        entity e1,
-        entity e2
+        iac353_2.payment p,
+        iac353_2.entity e1,
+        iac353_2.entity e2
         WHERE
         p.class != 'BUDGET' 
         AND
@@ -140,9 +140,9 @@ class payModel extends databaseService
         p.total AS total,
         p.memo as memo
         FROM 
-        payment p,
-        entity e1,
-        entity e2
+        iac353_2.payment p,
+        iac353_2.entity e1,
+        iac353_2.entity e2
         WHERE
         p.class != 'BUDGET' 
         AND

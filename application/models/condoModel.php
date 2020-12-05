@@ -11,7 +11,7 @@ class condoModel extends databaseService
     function insertProperty($place)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
-        if ($this->Query("INSERT INTO property (property.address) VALUES(?)", [$place])) {
+        if ($this->Query("INSERT INTO iac353_2.property (property.address) VALUES(?)", [$place])) {
             return true;
         } else {
             return false;
@@ -25,7 +25,7 @@ class condoModel extends databaseService
     function insertOwner($place, $owner,$share)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 3)){return false;}
-        if ($this->Query("INSERT INTO own (eid, pid, myShare)
+        if ($this->Query("INSERT INTO iac353_2.own (eid, pid, myShare)
         VALUES(?,?,?)", [$owner, $place, $share])) {
             return true;
         } else {
@@ -40,7 +40,7 @@ class condoModel extends databaseService
     function insertManager($place, $owner)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
-        if ($this->Query("INSERT INTO manager (eid, pid)
+        if ($this->Query("INSERT INTO iac353_2.manager (eid, pid)
         VALUES(?,?)", [$owner, $place])) {
             return true;
         } else {
@@ -64,7 +64,7 @@ class condoModel extends databaseService
     function updatePropertyOwner($place, $owner, $share)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 3)){return false;}
-        if ($this->Query("UPDATE own SET
+        if ($this->Query("UPDATE iac353_2.own SET
         eid = ?, share = ?
         WHERE pid = ?", [$owner, $share, $place])) {
             return true;
@@ -89,7 +89,7 @@ class condoModel extends databaseService
     function updatePropertyManager($place, $owner)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
-        if ($this->Query("UPDATE own SET
+        if ($this->Query("UPDATE iac353_2.own SET
         eid = ?
         WHERE pid = ?", [$owner, $share, $place])) {
             return true;
@@ -104,7 +104,7 @@ class condoModel extends databaseService
      */
     function deleteProperty($userId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
-        return $this->Query("DELETE FROM property WHERE pid = ?", [$userId]);
+        return $this->Query("DELETE FROM iac353_2.property WHERE pid = ?", [$userId]);
     }
 
     /**
@@ -121,11 +121,11 @@ class condoModel extends databaseService
         e.userId AS owner,
         o.myShare AS shares
         FROM 
-        property p,
-        own o,
-        manager m, 
-        entity e,
-        groups g
+        iac353_2.property p,
+        iac353_2.own o,
+        iac353_2.manager m, 
+        iac353_2.entity e,
+        iac353_2.groups g
         WHERE
         o.pid = p.pid 
         AND 
@@ -154,11 +154,11 @@ class condoModel extends databaseService
         e.userId AS owner,
         o.myShare AS shares
         FROM 
-        property p,
-        own o,
-        manager m, 
-        entity e,
-        groups g
+        iac353_2.property p,
+        iac353_2.own o,
+        iac353_2.manager m, 
+        iac353_2.entity e,
+        iac353_2.groups g
         WHERE
         o.pid = p.pid 
         AND 
@@ -182,11 +182,11 @@ class condoModel extends databaseService
         e.userId AS owner,
         o.myShare AS shares
         FROM 
-        property p,
-        own o,
-        manager m, 
-        entity e,
-        groups g
+        iac353_2.property p,
+        iac353_2.own o,
+        iac353_2.manager m, 
+        iac353_2.entity e,
+        iac353_2.groups g
         WHERE
         o.pid = p.pid 
         AND 

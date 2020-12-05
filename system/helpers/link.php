@@ -1,5 +1,5 @@
 <?php
-//Khadija SUBTAIN-40040952
+
 function linkCSS($cssPath){
 
 
@@ -14,7 +14,5 @@ function linkJS($jsPath){
     $url = BASEURL. "/". $jsPath;
     echo '<script src="'. $url .'"></script>';
 }
-
-
 
 ?>

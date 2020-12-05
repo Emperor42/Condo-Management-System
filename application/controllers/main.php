@@ -157,7 +157,7 @@ class main extends BaseController
         }else {
             $_SESSION['gp']=1998;//default real high so that nothing happens
         }
-        $this->view('conversation', $data);
+        $this->view('conversationGroup', $data);
     }
 
 

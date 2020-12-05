@@ -11,7 +11,7 @@ class emailModel extends databaseService
 {
     public function getUserByEmail($email)
     {
-        $this->Query("SELECT * FROM entity WHERE email = ?", [$email]);
+        $this->Query("SELECT * FROM iac353_2.entity WHERE email = ?", [$email]);
         return $this->fetch();
     }
 
@@ -25,7 +25,7 @@ class emailModel extends databaseService
      * @return bool
      */
     public function insertEmail($senderUserId, $receiverUserId, $subject, $bodyText){
-        if ($this->Query("INSERT INTO email (emailId, fromEid, toEid, subject, body, emailStatus, createDate, outboxDelete ,inboxDelete)
+        if ($this->Query("INSERT INTO iac353_2.email (emailId, fromEid, toEid, subject, body, emailStatus, createDate, outboxDelete ,inboxDelete)
         VALUES(?,?,?,?,?,?,?,?,?)", [null, $senderUserId, $receiverUserId, $subject, $bodyText, 'New', date('Y-m-d H:i:s') ,0 ,0])) {
             return true;
         } else {
@@ -46,7 +46,7 @@ class emailModel extends databaseService
         //1 - Get info if this request is for an outbox email or an inbox email
 
         // 1.1 Outbox check. user ID will be the fromEid
-        $this->Query("SELECT * FROM email WHERE fromEid = ? AND emailId = ?",[$userId, $emailId]);
+        $this->Query("SELECT * FROM iac353_2.email WHERE fromEid = ? AND emailId = ?",[$userId, $emailId]);
         if($this->fetch()){
             $column = "outboxDelete";
         }else{
@@ -62,7 +62,7 @@ class emailModel extends databaseService
      * @return fetch
      */
     public function fetchInbox($user_Id){
-        if ($this->Query("SELECT *, 'inbox' AS page FROM email em INNER JOIN entity en
+        if ($this->Query("SELECT *, 'inbox' AS page FROM iac353_2.email em INNER JOIN iac353_2.entity en
             ON em.toEid = en.eid
             WHERE em.inboxDelete = 0 AND em.toEid = ?
             order by em.createDate desc", [$user_Id])) {
@@ -90,7 +90,7 @@ class emailModel extends databaseService
     public function getEmail($userId, $emailId, $page){
 
         // 1.1 Outbox check. user ID will be the fromEid
-        $this->Query("SELECT * FROM email WHERE fromEid = ? AND emailId = ?",[$userId, $emailId]);
+        $this->Query("SELECT * FROM iac353_2.email WHERE fromEid = ? AND emailId = ?",[$userId, $emailId]);
         if($this->fetch()){
             $column = "toEid";
         }else{
@@ -111,7 +111,7 @@ class emailModel extends databaseService
      * @return bool
      */
     public function markEmailAsRead($emailId){
-        $query = "UPDATE email SET emailStatus = 'Read' WHERE emailId = $emailId";
+        $query = "UPDATE iac353_2.email SET emailStatus = 'Read' WHERE emailId = $emailId";
         return $this->Query($query, [$emailId]);
     }
 }
