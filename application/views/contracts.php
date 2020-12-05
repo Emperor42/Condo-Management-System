@@ -18,8 +18,18 @@
                         <div class="card-header">Create a new contract</div>
                         <form action="<?php echo BASEURL; ?>/main/startContract" method="post">
                             <div class="card-body">
-                                <input name="eventGroup" type="hidden" value="-1">
-                                <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+                                Post to group:
+                                <fieldset name="eventGroup"  required>
+                                    <?php foreach($data['top'] as $opt):?>
+                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
+                                    <?php endforeach;?>
+                                </fieldset><br>
+                                Post as:
+                                <fieldset name="eventStart"  required>
+                                    <?php foreach($data['fop'] as $opt):?>
+                                    <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
+                                    <?php endforeach;?>
+                                </fieldset><br>
                                 <label for="newEvent">Explain for your contract: </label>
                                 <input id="newEvent" type="text" name="eventNamed" value="">
                             </div>

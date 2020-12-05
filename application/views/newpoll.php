@@ -20,20 +20,20 @@
                 <form action="<?php echo BASEURL; ?>/main/startPoll" method="post">
                 
                     <div class="poll-body">
-                        <label for="newPoll">Topic for the poll: </label>
-                        <input id="newPoll" type="text" name="eventNamed" value="">
+                        Topic for the poll: 
+                        <input type="text" name="eventNamed" value=""><br>
                         Post to group:
                         <fieldset name="eventGroup"  required>
                             <?php foreach($data['top'] as $opt):?>
                             <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgTo">
                             <?php endforeach;?>
-                        </fieldset>
+                        </fieldset><br>
                         Post as:
                         <fieldset name="eventStart"  required>
                             <?php foreach($data['fop'] as $opt):?>
                             <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="msgFrom">
                             <?php endforeach;?>
-                        </fieldset>
+                        </fieldset><br>
                     </div>
                     <div class="poll-footer">
                         <input class="btn btn-danger" type="reset" value="Clear Post">
