@@ -17,7 +17,13 @@
     <div class="row">
         <div class="col-md-5">
             <?php include "components/flashMessage.php"; ?>
-            We will display here what features are avaliable to the end user
+            We will display here what features are avaliable to the end user With Special Admin features below:
+            <div class="jumbotron jumbotron-fluid">
+                                <div class="container">
+                <?php include "components/propertyForm.php"?>
+                <?php include "components/payForm.php"?>
+            </div>
+        </div>
         </div>
         <!-- Close col-md-5 -->
     </div>

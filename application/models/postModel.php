@@ -167,8 +167,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 4)){return false;}
-        if ($this->Query("UPDATE iac353_2.messages SET msgSubject = 'CONTRACTSAWARD' WHERE mid = ? AND msgSubject = 'CONTRACTSOFFER' AND ? IN(
-            SELECT m2.msgFrom FROM iac353_2.messages m1, iac353_2.messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSOFFER' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
+        if ($this->Query("UPDATE iac353_2.messages SET msgSubject = 'CONTRACTSAWARD' WHERE mid = ? AND msgSubject = 'CONTRACTSOFFER' AND msgFrom=? ", [$eventID, $msgFrom, $eventID])) {
             return true;
         } else {
             return false;
@@ -186,8 +185,7 @@ class postModel extends databaseService
     {
         //create the event itself
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 4)){return false;}
-        if ($this->Query("UPDATE iac353_2.messages SET msgSubject = 'CONTRACTSCOMPLETE' WHERE mid = ? AND msgSubject = 'CONTRACTSAWARD' AND ? IN(
-            SELECT m2.msgFrom FROM iac353_2.messages m1, iac353_2.messages m2 WHERE m1.mid = ? AND m1.msgSubject = 'CONTRACTSAWARD' AND m2.mid = m1.replyTO)", [$eventID, $msgFrom, $eventID])) {
+        if ($this->Query("UPDATE iac353_2.messages SET msgSubject = 'CONTRACTSCOMPLETE' WHERE mid = ? AND msgSubject = 'CONTRACTSAWARD' AND msgFrom = ? ", [$eventID, $msgFrom, $eventID])) {
             return true;
         } else {
             return false;

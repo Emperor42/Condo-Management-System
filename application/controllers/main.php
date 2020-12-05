@@ -505,8 +505,69 @@ class main extends BaseController
             }
         }
     }
+//payment
+//$to, $from, $pay, $total, $class, $memo
+function addPayment(){
+    if (isset($_SESSION['loggedUser'])){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $a=(int)$this->userModel->getUser($this->input($_POST['to']))->eid;
+            $b=(int)$this->userModel->getUser($this->input($_POST['from']))->eid;
+            $c=(int)$this->input($_POST['pay']);
+            $d=(int)$this->input($_POST['total']);
+            $e=$this->input($_POST['class']);
+            $f=$this->input($_POST['memo']);
+            if ($this->payModel->insertProperty($a, $b, $c, $d, $e, $f)) {
+                $this->setFlash('success', 'The property has been created'); 
+            } else {
+                $this->setFlash('failure', 'The property could not be created');
+            }
+        }
+    }
+    $this->redirect('main/property');
+}
 
     // property management
+    //address, owner, share, manager
+    function newProperty(){
+        if (isset($_SESSION['loggedUser'])){
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $n=$this->input($_POST['address']);
+                if ($this->condoModel->insertProperty($n)) {
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        //$n=$this->input($_POST['address']);
+                        $o = $this->userModel->getUser($this->input($_POST['owner']));
+                        $s = (int)$this->input($_POST['share']);
+                        if ($s>100) {
+                            $s =100;
+                            $this->setFlash('warning', 'Ownership has been set to 100'); 
+                        }
+                        if ($s<=0) {
+                            $s =0;
+                            $this->setFlash('failure', 'Ownership has to be set between 1 and 100!'); 
+                        } else {
+                            if ($this->condoModel->insertOwner($n, $o, $s)) {
+                                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                    //$n=$this->input($_POST['address']);
+                                    $m=$this->userModel->getUser($this->input($_POST['manager']));
+                                    if ($this->condoModel->insertManager($n, $m)) {
+                                        $this->setFlash('success', 'The property has been updated'); 
+                                    } else {
+                                        $this->setFlash('failure', 'The property could not be updated');
+                                    }
+                                } 
+                            } else {
+                                $this->setFlash('failure', 'The property could not be changed');
+                            }
+                        }
+                    }
+                } else {
+                    $this->setFlash('failure', 'The property could not be created');
+                }
+            }
+        }
+        $this->redirect('main/property');
+    }
+
     function addProperty(){
         if (isset($_SESSION['loggedUser'])){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
