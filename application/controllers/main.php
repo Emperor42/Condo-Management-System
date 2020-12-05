@@ -533,6 +533,7 @@ function addPayment(){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $n=$this->input($_POST['address']);
                 if ($this->condoModel->insertProperty($n)) {
+                    $na = (int)$this->condoModel->getPropertyByAddress($n)->pid;
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         //$n=$this->input($_POST['address']);
                         $o = (int)$this->userModel->getUser($this->input($_POST['owner']))->eid;
@@ -545,11 +546,11 @@ function addPayment(){
                             $s =0;
                             $this->setFlash('failure', 'Ownership has to be set between 1 and 100!'); 
                         } else {
-                            if ($this->condoModel->insertOwner($n, $o, $s)) {
+                            if ($this->condoModel->insertOwner($na, $o, $s)) {
                                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     //$n=$this->input($_POST['address']);
                                     $m=(int)$this->userModel->getUser($this->input($_POST['manager']))->eid;
-                                    if ($this->condoModel->insertManager($n, $m)) {
+                                    if ($this->condoModel->insertManager($na, $m)) {
                                         $this->setFlash('success', 'The property has been updated'); 
                                     } else {
                                         $this->setFlash('failure', 'The property could not be updated');
