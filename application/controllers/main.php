@@ -307,8 +307,8 @@ class main extends BaseController
     public function startEvent(){
         if (isset($_SESSION['loggedUser'])){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $t=$this->input($_POST['eventGroup']);
-                $f=$this->input($_POST['eventStart']);
+                $t=(int)$this->input($_POST['eventGroup']);
+                $f=(int)$this->input($_POST['eventStart']);
                 $n=$this->input($_POST['eventNamed']);
                 if ($this->postModel->createEvent($t,$f,$n)){
                     $this->setFlash('success', "Your event has been created!");
@@ -362,8 +362,8 @@ class main extends BaseController
     public function startContract(){
         if (isset($_SESSION['loggedUser'])){
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $t=$this->input($_POST['eventGroup']);
-                $f=$this->input($_POST['eventStart']);
+                $t=(int)$this->input($_POST['eventGroup']);
+                $f=(int)$this->input($_POST['eventStart']);
                 $n=$this->input($_POST['eventNamed']);
                 if ($this->postModel->createContract($t,$f,$n)){
                     $this->setFlash('success', "Your event has been created!");
