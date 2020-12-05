@@ -516,7 +516,7 @@ function addPayment(){
             $d=(int)$this->input($_POST['total']);
             $e=$this->input($_POST['class']);
             $f=$this->input($_POST['memo']);
-            if ($this->payModel->insertProperty($a, $b, $c, $d, $e, $f)) {
+            if ($this->payModel->insertPayment($a, $b, $c, $d, $e, $f)) {
                 $this->setFlash('success', 'The property has been created'); 
             } else {
                 $this->setFlash('failure', 'The property could not be created');
@@ -535,7 +535,7 @@ function addPayment(){
                 if ($this->condoModel->insertProperty($n)) {
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         //$n=$this->input($_POST['address']);
-                        $o = $this->userModel->getUser($this->input($_POST['owner']));
+                        $o = (int)$this->userModel->getUser($this->input($_POST['owner']));
                         $s = (int)$this->input($_POST['share']);
                         if ($s>100) {
                             $s =100;
@@ -548,7 +548,7 @@ function addPayment(){
                             if ($this->condoModel->insertOwner($n, $o, $s)) {
                                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     //$n=$this->input($_POST['address']);
-                                    $m=$this->userModel->getUser($this->input($_POST['manager']));
+                                    $m=(int)$this->userModel->getUser($this->input($_POST['manager']));
                                     if ($this->condoModel->insertManager($n, $m)) {
                                         $this->setFlash('success', 'The property has been updated'); 
                                     } else {
