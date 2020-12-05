@@ -6,14 +6,14 @@
 class userPost extends BaseController
 {
     private $postModel;
-    private $fileModel;
+    //private $fileModel;
 
     public function __construct()
     {
         //Loads Base class constructor
         parent::__construct();
         $this->postModel = $this->model('postModel');
-        $this->fileModel = $this->model('fileModel');
+        //$this->fileModel = $this->model('fileModel');
     }
 
     public function index()
@@ -159,12 +159,12 @@ class userPost extends BaseController
                 $this->setFlash("success","Post Sent!"):
                 $this->setFlash("failure",'Post Not Sent!');
                 if($_SESSION['adminFunc']=="Condo Owner Concerns"){
-                    $this->redirect($_SERVER['main/concerns']);
+                    $this->redirect('main/concerns');
                 }
                 if($_SESSION['adminFunc']=="Condo Association Notices"){
-                    $this->redirect($_SERVER['main/notices']);
+                    $this->redirect('main/notices');
                 }
-            $this->redirect($_SERVER['HTTP_REFERER']);
+            $this->redirect('main/wall');
         }
     }
 
