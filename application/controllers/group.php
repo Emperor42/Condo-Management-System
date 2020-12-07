@@ -232,11 +232,11 @@
         public function createGroupRequest()
         {
             $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
-            if (!empty($tmp)){
+            /*if (!empty($tmp)){
                 $_SESSION['gp']=$tmp->m;
             }else {
                 $_SESSION['gp']=1998;//default real high so that nothing happens
-            }
+            }*/
             // Value validation happens at client side, so no need to check for blanks here
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
