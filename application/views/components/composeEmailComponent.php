@@ -16,7 +16,6 @@
     </div>
     <!-- Close form-group -->
     <div class="form-group">
-        <input type="submit" name="send" class="btn btn-primary" value="attachment">
         <input type="submit" name="send" class="btn btn-primary" value="send">
     </div>
     <!-- Close form-group -->

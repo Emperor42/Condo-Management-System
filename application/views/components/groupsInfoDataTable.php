@@ -25,7 +25,7 @@
                 <td><a href="<?php echo BASEURL; ?>/group/groupDetails/<?php echo $userData->groupId; ?>"
                        class="btn-editRemove btn-primary">Details</a></td>
                 <td><a href="<?php echo BASEURL; ?>/group/selfAddToGroup/<?php echo $userData->groupId; ?>"
-                       class="btn-editRemove btn-primary">Make Request</a></td>
+                       class="btn-editRemove btn-primary">Request</a></td>
                 <td><a href="<?php echo BASEURL; ?>/group/deleteGroupRequest/<?php echo $userData->groupId; ?>"
                        class="btn-editRemove btn-danger">Delete</a></td>
 
