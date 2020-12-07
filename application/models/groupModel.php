@@ -59,7 +59,7 @@ class groupModel extends databaseService
      */
     function insertUserToGroup($groupId, $userId)
     {
-        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$groupId, 4)){return false;}
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$groupId, 3)){return false;}
         if ($this->Query("INSERT INTO iac353_2.relate (relType, relSup, eid, tid)
             VALUES(?,?,?,?)", [3,0,$userId,$groupId])) {
             return true;
@@ -92,7 +92,7 @@ class groupModel extends databaseService
      */
     function deleteUserFromGroup($groupId, $userId)
     {
-        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$groupId, 4)){return false;}
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$groupId, 3)){return false;}
         if ($this->Query("DELETE FROM iac353_2.relate 
             WHERE eid=? AND tid = ?", [$userId,$groupId])) {
             return true;

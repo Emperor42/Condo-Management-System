@@ -33,7 +33,7 @@
                     </form>
                 </div> 
                 <!--Show edit button iff I poste this post-->
-            <?php if($_SESSION['loggedUser']==(int)$eventData->msgFrom):?>
+            <?php if($_SESSION['loggedUser']==(int)$eventData->msgFrom || $_SESSION['loggedUser']==0):?>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $eventData->mid;?>">Edit Text</button>
                 <button type="button" class="btn btn-outline-danger">
                     <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$eventData->mid;?>/<?php echo (int)$eventData->msgFrom;?>">Delete</a>

@@ -13,7 +13,7 @@
                 <summary>Show Comments...</summary>
             </details>
             <!--Show edit button iff I poste this post-->
-            <?php if($_SESSION['loggedUser']==(int)$postData->msgFrom):?>
+            <?php if($_SESSION['loggedUser']==(int)$eventData->msgFrom || $_SESSION['loggedUser']==0):?>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $postData->mid;?>">Edit Text</button>
                 <!--Show edit button iff I poste this post-->
                 <!--Modal POPUP-->

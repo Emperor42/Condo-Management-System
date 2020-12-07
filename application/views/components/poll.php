@@ -13,7 +13,7 @@
             <div class="card-footer">
                 <div class="poll-footer">
                 <!--Show edit button iff I poste this post-->
-            <?php if($_SESSION['loggedUser']==(int)$pollData->msgFrom):?>
+                <?php if($_SESSION['loggedUser']==(int)$eventData->msgFrom || $_SESSION['loggedUser']==0):?>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $pollData->mid;?>">Edit Text</button>
                 <button type="button" class="btn btn-outline-danger">
                     <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$pollData->mid;?>/<?php echo (int)$pollData->msgFrom;?>">Delete</a>

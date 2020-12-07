@@ -21,6 +21,40 @@
                 </div>
             </div>
             <div class="card-footer">
+            <!--Show edit button iff I poste this post-->
+            <?php if($_SESSION['loggedUser']==(int)$eventData->msgFrom || $_SESSION['loggedUser']==0):?>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $postData->mid;?>">Edit Text</button>
+                <!--Show edit button iff I poste this post-->
+                <!--Modal POPUP-->
+                <!-- The Modal for comment-->
+                <button type="button" class="btn btn-outline-danger">
+                    <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$postData->mid;?>/<?php echo (int)$postData->msgFrom;?>">Delete</a>
+                </button>
+                <div class="modal" id="editModal<?php echo $postData->mid;?>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit the <?php echo strtolower($postData->msgSubject);?> you made</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form id="editForm<?php echo $postData->mid;?>" action="<?php echo BASEURL; ?>/userPost/changePostRequest" method="post" enctype="multipart/form-data">
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <input name="mid" formid="editForm<?php echo $postData->mid;?>" type="hidden" value="<?php echo $postData->mid;?>">
+                                    <p>Say Something Else: </p>
+                                    <input type="text" formid="editForm<?php echo $postData->mid;?>" name="msgText" value="">
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input class="btn btn-danger" type="reset" value="Clear Edit">
+                                    <input class="btn btn-success" type="submit" value="Submit">
+                                </div>
+                            </form>
+                        </div>                                
+                    </div>
+                </div>
+            <?php endif;?>
                 <h4>Outline your offer to complete the contract</h4>
                 <div class="btn-group">
                     <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
