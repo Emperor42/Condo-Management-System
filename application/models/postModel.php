@@ -302,7 +302,7 @@ class postModel extends databaseService
     function deleteMessage($mid, $sender){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
         if( $this->Query("DELETE FROM iac353_2.messages WHERE (mid = ? && msgFrom=?)", [$mid, $sender])){
-            
+
         }
     }
 
@@ -363,10 +363,10 @@ class postModel extends databaseService
            WHERE e1.eid = msgTo 
            AND e2.eid = msgFrom
            AND msgSubject='POST'
-           AND (msgFrom=0 OR (msgTo = -1 OR msgFrom=-1) OR msgFrom = 7 OR msgTo = 7 OR 
-            msgTo IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE  eid = 7 )
+           AND (msgFrom=? OR (msgTo = ? OR msgFrom=?) OR msgFrom = ? OR msgTo = ? OR 
+            msgTo IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE  eid = ? )
             OR 
-            msgFrom IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE  eid = 7 ))
+            msgFrom IN (SELECT DISTINCT tid FROM iac353_2.relate WHERE  eid = ? ))
            UNION
            SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
