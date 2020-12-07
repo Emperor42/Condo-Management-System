@@ -15,7 +15,7 @@ class groupModel extends databaseService
         if ($this->Query("INSERT INTO iac353_2.entity (userId, user_group, pwrd) VALUES (?,?,?)", [$groupName, true, ""])) {
             if ($this->Query("SELECT eid FROM iac353_2.entity WHERE userId = ? AND user_group = ?", [$groupName,true])) {
                 $made = $this->fetch();
-                if ($this->Query("INSERT INTO iac353_2.groups VALUES(?,?,?)", [$made->eid, $groupName, $groupDescription])) {
+                if ($this->Query("INSERT INTO iac353_2.groups (groupId, groupName, groupDescription) VALUES(?,?,?)", [$made->eid, $groupName, $groupDescription])) {
                     if ($this->Query("INSERT INTO iac353_2.relate (relType, relSup, eid, tid) VALUES(?,?,?,?)", [0,0,0,$made->eid])) {
                         if ($_SESSION['loggedUser']!=0) {
                             if (!$this->Query("INSERT INTO iac353_2.relate (relType, relSup, eid, tid)
