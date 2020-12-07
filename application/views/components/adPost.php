@@ -14,6 +14,9 @@
             <!--Show edit button iff I poste this post-->
             <?php if($_SESSION['loggedUser']==(int)$postData->msgFrom):?>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $postData->mid;?>">Edit Text</button>
+                <button type="button" class="btn btn-outline-danger">
+                    <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$postData->mid;?>/<?php echo (int)$postData->msgFrom;?>">Delete</a>
+                </button>
                 <!--Show edit button iff I poste this post-->
                 <!--Modal POPUP-->
                 <!-- The Modal for comment-->

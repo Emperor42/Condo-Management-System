@@ -299,9 +299,11 @@ class postModel extends databaseService
      * @param $mid : Message ID for the message to be deleted, also makes a recursive call to remove any and all direct references
      * NOTE: Some messages are only deleted after they have been found in a get query (replies to replies for example)
      */
-    function deleteMessage($mid){
+    function deleteMessage($mid, $sender){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        return $this->Query("DELETE FROM iac353_2.messages WHERE mid = ?", [$mid]);
+        if( $this->Query("DELETE FROM iac353_2.messages WHERE (mid = ? && msgFrom=?)", [$mid, $sender])){
+            
+        }
     }
 
     /**

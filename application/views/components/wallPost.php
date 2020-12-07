@@ -18,6 +18,9 @@
                 <!--Show edit button iff I poste this post-->
                 <!--Modal POPUP-->
                 <!-- The Modal for comment-->
+                <button type="button" class="btn btn-outline-danger">
+                    <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$postData->mid;?>/<?php echo (int)$postData->msgFrom;?>">Delete</a>
+                </button>
                 <div class="modal" id="editModal<?php echo $postData->mid;?>">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">

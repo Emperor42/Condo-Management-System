@@ -13,7 +13,7 @@ class BaseController
     {
 
         if (file_exists("../application/views/" . $viewName . ".php")) {
-
+            
             require_once "../application/views/$viewName.php";
 
         } else {
@@ -138,6 +138,7 @@ class BaseController
 
     public function redirect($path)
     {
+        $_SESSION['lastPage'] = $path;//set the last page
         header("location:" . BASEURL . "/" . $path);
        // die();
     }

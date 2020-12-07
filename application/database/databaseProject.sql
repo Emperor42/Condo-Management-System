@@ -23,6 +23,7 @@ PRIMARY KEY(eid)
 CREATE TABLE messages(
 mid int NOT NULL AUTO_INCREMENT,
 replyTO int,
+FOREIGN KEY (msgTo) REFERENCES messages(mid) ON DELETE CASCADE,
 msgTo int,
 FOREIGN KEY (msgTo) REFERENCES entity(eid) ON DELETE CASCADE,
 msgFrom int,
@@ -74,8 +75,7 @@ CREATE TABLE groups(
 groupId int NOT NULL,
 FOREIGN KEY (groupId) REFERENCES entity(eid) ON DELETE CASCADE,
 groupName varchar(255),
-groupDescription varchar(255),
-PRIMARY KEY(groupId)
+groupDescription varchar(255)
 );
 
 INSERT INTO entity (eid, userId, pwrd) VALUES (-1, 'PUBLIC', '');

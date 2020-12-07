@@ -32,6 +32,40 @@
                         <input class="btn btn-success" type="submit" value="Submit">
                     </form>
                 </div> 
+                <!--Show edit button iff I poste this post-->
+            <?php if($_SESSION['loggedUser']==(int)$eventData->msgFrom):?>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $eventData->mid;?>">Edit Text</button>
+                <button type="button" class="btn btn-outline-danger">
+                    <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$eventData->mid;?>/<?php echo (int)$eventData->msgFrom;?>">Delete</a>
+                </button>
+                <!--Show edit button iff I poste this post-->
+                <!--Modal POPUP-->
+                <!-- The Modal for comment-->
+                <div class="modal" id="editModal<?php echo $eventData->mid;?>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit the <?php echo strtolower($eventData->msgSubject);?> you made</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form id="editForm<?php echo $eventData->mid;?>" action="<?php echo BASEURL; ?>/userPost/changePostRequest" method="post" enctype="multipart/form-data">
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <input name="mid" formid="editForm<?php echo $eventData->mid;?>" type="hidden" value="<?php echo $eventData->mid;?>">
+                                    <p>Say Something Else: </p>
+                                    <input type="text" formid="editForm<?php echo $eventData->mid;?>" name="msgText" value="">
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input class="btn btn-danger" type="reset" value="Clear Edit">
+                                    <input class="btn btn-success" type="submit" value="Submit">
+                                </div>
+                            </form>
+                        </div>                                
+                    </div>
+                </div>
+            <?php endif;?>
             </div>
         </div>
     <?php endif;?>

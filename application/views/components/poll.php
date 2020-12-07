@@ -12,6 +12,40 @@
             </div>
             <div class="card-footer">
                 <div class="poll-footer">
+                <!--Show edit button iff I poste this post-->
+            <?php if($_SESSION['loggedUser']==(int)$pollData->msgFrom):?>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $pollData->mid;?>">Edit Text</button>
+                <button type="button" class="btn btn-outline-danger">
+                    <a href="<?php echo BASEURL; ?>/main/removeMessage/<?php echo (int)$pollData->mid;?>/<?php echo (int)$pollData->msgFrom;?>">Delete</a>
+                </button>
+                <!--Show edit button iff I poste this post-->
+                <!--Modal POPUP-->
+                <!-- The Modal for comment-->
+                <div class="modal" id="editModal<?php echo $pollData->mid;?>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit the <?php echo strtolower($pollData->msgSubject);?> you made</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form id="editForm<?php echo $pollData->mid;?>" action="<?php echo BASEURL; ?>/userPost/changePostRequest" method="post" enctype="multipart/form-data">
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <input name="mid" formid="editForm<?php echo $pollData->mid;?>" type="hidden" value="<?php echo $pollData->mid;?>">
+                                    <p>Say Something Else: </p>
+                                    <input type="text" formid="editForm<?php echo $pollData->mid;?>" name="msgText" value="">
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input class="btn btn-danger" type="reset" value="Clear Edit">
+                                    <input class="btn btn-success" type="submit" value="Submit">
+                                </div>
+                            </form>
+                        </div>                                
+                    </div>
+                </div>
+            <?php endif;?>
                     Total Vote Margin: <?php if((int)$pollData->votes>=0){ 
                         echo strval($pollData->votes)." For";
                     }else { 

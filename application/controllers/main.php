@@ -263,6 +263,14 @@ class main extends BaseController
     /**************************************************************/
     /*                    ACTION REQUESTS                         */
     /**************************************************************/
+    
+    public function removeMessage($mid, $sender){
+        if($_SESSION['loggedUser']==$sender){
+            $this->postModel->deleteMessage($mid, $sender);
+        }
+        $this->redirect('main/wall');
+    }
+    
     public function loginForm()
     {
         // Value validation happens at client side, so no need to check for blanks here
