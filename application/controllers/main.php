@@ -242,10 +242,12 @@ class main extends BaseController
             $s = $this->payModel->getAccountsTotal($ca);
             $i = $this->payModel->getInAccounts($ca);
             $o = $this->payModel->getOutAccounts($ca);
+            $b = $this->payModel->getBudgetAccounts($ca);
             $data[$ca]['name']=$core->groupName;
             $data[$ca]['summary']=$s;
             $data[$ca]['in']=$i;
             $data[$ca]['out']=$o;
+            $data[$ca]['bud']=$b;
         }
         $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
         if (!empty($tmp)){

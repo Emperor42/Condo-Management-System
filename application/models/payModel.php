@@ -157,6 +157,37 @@ class payModel extends databaseService
             return null;
         }
     }
+
+        function getBudgetAccounts($eid){
+            if ($this->Query("SELECT DISTINCT
+            p.pid AS   pid,
+            p.posted AS posted, 
+            p.payTo AS payeeAccount,
+            p.payFrom AS payorAccount,
+            e1.userId AS payeeName,
+            e2.userId AS payorName,
+            p.class AS paymentType,
+            p.outstanding AS outstanding,
+            p.total AS total,
+            p.memo as memo
+            FROM 
+            iac353_2.payment p,
+            iac353_2.entity e1,
+            iac353_2.entity e2
+            WHERE
+            p.class = 'BUDGET' 
+            AND
+            p.payTo = e1.eid 
+            AND 
+            p.payFrom = e2.eid
+            AND
+            e2.eid = ?
+            ORDER BY p.posted", [$eid])) {
+                return $this->fetchAll();
+            }else {
+                return null;
+            }
+        }
  
 
 }

@@ -35,6 +35,14 @@
             <!-- Close row -->
             <div class="row">
                 <div class="col-md-11">
+                    <h3>Yearly Budget(s)</h3>
+                    <?php include "components/budDataTable.php"; ?>
+                </div>
+                <!-- Close col-md-5 -->
+            </div>
+            <!-- Close row -->
+            <div class="row">
+                <div class="col-md-11">
                     <h3>Revenue In</h3>
                     <?php include "components/inDataTable.php"; ?>
                 </div>
@@ -48,7 +56,7 @@
                 </div>
                 <!-- Close col-md-5 -->
             </div>
-            <!-- Close row -->
+            
         </div>
     <?php endforeach;?>
 </div>
