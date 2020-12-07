@@ -23,7 +23,7 @@ PRIMARY KEY(eid)
 CREATE TABLE messages(
 mid int NOT NULL AUTO_INCREMENT,
 replyTO int,
-FOREIGN KEY (msgTo) REFERENCES messages(mid) ON DELETE CASCADE,
+FOREIGN KEY (replyTO) REFERENCES messages(mid) ON DELETE CASCADE,
 msgTo int,
 FOREIGN KEY (msgTo) REFERENCES entity(eid) ON DELETE CASCADE,
 msgFrom int,
@@ -33,6 +33,8 @@ msgText varchar(2550),
 msgAttach  varchar(2550),
 PRIMARY KEY(mid)
 );
+
+INSERT INTO messages (mid, replyTO) VALUES (-1, -1);
 
 #the property has an address and some other data
 CREATE TABLE property(
@@ -72,10 +74,12 @@ FOREIGN KEY (tid) REFERENCES entity(eid) ON DELETE CASCADE
 
 # Group table to store info about the group
 CREATE TABLE groups(
+gid INT AUTO_INCREMENT,
 groupId int NOT NULL,
 FOREIGN KEY (groupId) REFERENCES entity(eid) ON DELETE CASCADE,
 groupName varchar(255),
 groupDescription varchar(255)
+PRIMARY KEY(gid)
 );
 
 INSERT INTO entity (eid, userId, pwrd) VALUES (-1, 'PUBLIC', '');
