@@ -80,7 +80,7 @@ class payModel extends databaseService
     //flat payments (just the one table)
     function getAccountsTotal($eid){
         if ($this->Query("SELECT DISTINCT 
-        COUNT(*) AS totalPayments,
+        COUNT(p1.pid) AS totalPayments,
         SUM(p2.total) AS totalOwed,
         SUM(p2.outstanding) AS totalOwedOutstanding,
         SUM(p3.total) AS totalOwe,
