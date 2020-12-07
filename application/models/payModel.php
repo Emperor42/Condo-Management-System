@@ -81,10 +81,10 @@ class payModel extends databaseService
     function getAccountsTotal($eid){
         if ($this->Query("SELECT DISTINCT 
         COUNT(DISTINCT p1.pid) AS totalPayments,
-        SUM(p2.total) AS totalOwed,
-        SUM(p2.outstanding) AS totalOwedOutstanding,
-        SUM(p3.total) AS totalOwe,
-        SUM(p3.outstanding) AS totalOweOutstanding
+        SUM(DISTINCT p2.total) AS totalOwed,
+        SUM(DISTINCT p2.outstanding) AS totalOwedOutstanding,
+        SUM(DISTINCT p3.total) AS totalOwe,
+        SUM(DISTINCT p3.outstanding) AS totalOweOutstanding
         FROM 
         iac353_2.payment p1,
         iac353_2.payment p2,
