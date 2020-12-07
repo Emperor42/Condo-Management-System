@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!--Matthew Giancola (40019131)-->
     <a class="navbar-brand" href="<?php echo BASEURL; ?>/user/home">CON</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">

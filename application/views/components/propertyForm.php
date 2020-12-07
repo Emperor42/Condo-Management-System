@@ -1,4 +1,5 @@
 <?php if($_SESSION['loggedUser']==0):?>
+<!--Matthew Giancola (40019131)-->
     <div id="newProperty" class="postMain"> 
     <h3>Build Something</h3>
     <form action="<?php echo BASEURL; ?>/main/newProperty" method="post" 

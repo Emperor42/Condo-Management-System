@@ -1,4 +1,5 @@
 <?php if($_SESSION['loggedUser']==0):?>
+<!--Matthew Giancola (40019131)-->
     <div id="newPay" class="postMain"> 
     <h3>Pay Something</h3>
     <form action="<?php echo BASEURL; ?>/main/addPayment" method="post" 

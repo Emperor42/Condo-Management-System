@@ -2,6 +2,7 @@
 
 /**
  * This controller will deal anything to do with user's post (messages and whatnot)
+ * Matthew Giancola (40019131)
  */
 class userPost extends BaseController
 {

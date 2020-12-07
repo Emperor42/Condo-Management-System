@@ -1,6 +1,7 @@
 <?php
 
 //combines property and ownership and management AND PAYMENTS (TODO ADD PAYMENTS!)
+//Matthew Giancola (40019131)
 class condoModel extends databaseService
 {
 

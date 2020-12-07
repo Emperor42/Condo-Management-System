@@ -1,6 +1,7 @@
 <?php
 
-//payments and budgets 
+//payments and budgets
+//Matthew Giancola (40019131)
 class payModel extends databaseService
 {
 
