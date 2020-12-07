@@ -138,7 +138,7 @@ class BaseController
 
     public function redirect($path)
     {
-        $_SESSION['lastPage'] = $path;//set the last page
+        //$_SESSION['lastPage'] = $path;//set the last page
         header("location:" . BASEURL . "/" . $path);
        // die();
     }
