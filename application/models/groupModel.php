@@ -120,7 +120,7 @@ class groupModel extends databaseService
                                 INNER JOIN iac353_2.relate gm
                                 ON e.eid = gm.eid)
                                 WHERE gm.tid = ?", [$groupId])) {*/
-        if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType,r.relSup, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
+        if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType AS relType,r.relSup, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
         FROM iac353_2.entity e INNER JOIN iac353_2.relate r
         ON e.eid = r.eid WHERE r.tid = ? OR r.eid=?", [$groupId, $groupId])){
             return $this->fetchAll();
@@ -130,8 +130,7 @@ class groupModel extends databaseService
     function getUserGroups($groupId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription, t.userId AS ownerGroup
-        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r,iac353_2.relate ro, iac353_2.entity t WHERE (r.eid=? AND r.tid=g.groupId 
-        AND ro.eid = t.eid AND ro.relType<?)", [$groupId, 3])){
+        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r,iac353_2.relate ro, iac353_2.entity t WHERE (r.eid=? AND r.tid=g.groupId)", [$groupId])){
             return $this->fetchAll();
         }
     }
@@ -139,8 +138,7 @@ class groupModel extends databaseService
     function getAllUserGroups($groupId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription, t.userId AS ownerGroup
-        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r, iac353_2.relate ro, iac353_2.entity t 
-        WHERE ro.eid = t.eid AND ro.relType<?", [$groupId, 3])){
+        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r, iac353_2.relate ro, iac353_2.entity t ", [$groupId])){
             return $this->fetchAll();
         }
     }

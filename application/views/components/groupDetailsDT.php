@@ -4,6 +4,7 @@
     <tr>
         <th>Owner IDs</th>
         <th>Member ID</th>
+        <th>Membership Type</th>
         <th>Member Fist Name</th>
         <th>Member Last Name</th>
         <th>Member Email</th>
@@ -19,6 +20,7 @@
             <tr>
                 <td><?php echo $userData->ownerId; ?></td>
                 <td><?php echo $userData->userId; ?></td>
+                <td><?php echo $userData->relType; ?></td>
                 <td><?php echo $userData->firstName; ?></td>
                 <td><?php echo $userData->lastName; ?></td>
                 <td><?php echo $userData->email; ?></td>
