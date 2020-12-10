@@ -16,7 +16,6 @@
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-5">
             <?php include "components/flashMessage.php"; ?>
             <?php if((int)$_SESSION['loggedUser']>=0):?>
                 <div class="jumbotron jumbotron-fluid">
@@ -31,7 +30,6 @@
                         <?php include "components/propertyForm.php";?>
                         <?php include "components/payForm.php";?>
                     </div>
-                </div>
             <?php endif;?>
         </div>
         <!-- Close col-md-5 -->
