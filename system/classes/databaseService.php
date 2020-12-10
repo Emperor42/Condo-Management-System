@@ -103,11 +103,13 @@ class databaseService
         }
     }
 
+    //NOTE RETURNS FALSE IF YOU CAN DO THING
+    //TRUE IF YOU NEED TO REDIRECT
     function checkAccess($userId,$groupId, $access){
         if($groupId>=0){
-            return $this->hasSpecificAccess($userId,$groupId, $access);
+            return !$this->hasSpecificAccess($userId,$groupId, $access);
         } else {
-            return $this->hasGeneralAccess($userId, $access);
+            return !$this->hasGeneralAccess($userId, $access);
         }
     }
 
