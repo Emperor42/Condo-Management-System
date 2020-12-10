@@ -16,26 +16,19 @@
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">
-            <?php if((int)$_SESSION['loggedUser']>=0):?>
-                <div class="jumbotron jumbotron-fluid">
-                    User Profile:
-                    <div class="container">
-                        <?php include "components/userData.php";?>
-                    </div>
-                </div><br>
-                <?php endif;?>
-        </div>
-        
+        <?php if((int)$_SESSION['loggedUser']>=0):?>
+            <h3>User Profile:</h3>
+            <br>
+            <?php include "components/userData.php";?>
+        <?php endif;?>
         <!-- Close col-md-5 -->
-    </div>
-    <div class="row">
-    <div class="jumbotron jumbotron-fluid">
-                    We will display here what features are avaliable to the end user With Special Admin features below:
-                    <div class="container">
-                        <?php include "components/propertyForm.php";?>
-                        <?php include "components/payForm.php";?>
-                    </div>
+        <div class="jumbotron jumbotron-fluid">
+            We will display here what features are avaliable to the end user With Special Admin features below:
+            <div class="container">
+                <?php include "components/propertyForm.php";?>
+                <?php include "components/payForm.php";?>
             </div>
+        </div>
     </div>
     <!-- Close row -->
 </div>
