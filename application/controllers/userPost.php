@@ -7,6 +7,7 @@
 class userPost extends BaseController
 {
     private $postModel;
+    private $loginModel;
     //private $fileModel;
 
     public function __construct()
@@ -14,6 +15,7 @@ class userPost extends BaseController
         //Loads Base class constructor
         parent::__construct();
         $this->postModel = $this->model('postModel');
+        $this->loginModel = $this->model('loginModel');
         //$this->fileModel = $this->model('fileModel');
     }
 

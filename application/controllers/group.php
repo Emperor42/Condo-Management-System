@@ -8,6 +8,7 @@
     {
         private $groupModel;
         private $userModel;
+        private $loginModel;
 
         public function __construct()
         {
@@ -15,6 +16,7 @@
             parent::__construct();
             $this->groupModel = $this->model('groupModel');
             $this->userModel = $this->model('userModel');
+            $this->loginModel = $this->model('loginModel');
         }
 
         public function index()
@@ -40,6 +42,12 @@
                 }
                 $data['view'] = $this->groupModel->getUserGroups((int)$_SESSION['loggedUser']);
                 $data['join'] = $this->groupModel->getAllUserGroups((int)$_SESSION['loggedUser']);
+                
+                //checking permission
+                if($this->checkAccess($_SESSION['loggedUser'],-1, 300)){
+                    $this->redirect('user/home');
+                }
+                
                 $this->view('manageGroups',$data);
             } else {
                 $this->redirect('main/login');
@@ -57,6 +65,12 @@
             }else {
                 $_SESSION['gp']=1998;//default real high so that nothing happens
             }
+
+            //checking permission
+            if($this->checkAccess($_SESSION['loggedUser'],-1, 300)){
+                $this->redirect('user/home');
+            }
+
             $this->view('createGroup');
         }
 
@@ -70,8 +84,15 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $groupId = $_POST['gid'];
                 $user_id = (int)($this->userModel->getUser($_POST['uid'])->eid);
+
+                //checking permission
+                if($this->checkAccess($_SESSION['loggedUser'],$gid, 3)){
+                    $this->redirect('user/home');
+                }
+                
                 $this->addMemberToGroup($groupId, $user_id);
             }
+            
             $this->redirect('group/groupDetails/'.$gid);
         }
 
@@ -96,6 +117,10 @@
                 $_SESSION['sp']=1998;//default real high so that nothing happens
             }
             if ($_SESSION['sp']<4){
+                //checking permission
+                if($this->checkAccess($_SESSION['loggedUser'],$groupId, 3)){
+                    $this->redirect('user/home');
+                }
                 $this->view('groupDetails', $data, $gid);//guarentees that group id is present even if the group has no memebers
             }else {
                 $this->setFlash('failure','You dont have permission to access this!');

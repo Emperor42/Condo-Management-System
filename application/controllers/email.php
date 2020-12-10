@@ -8,6 +8,7 @@ class email extends BaseController
 {
     private $emailModel;
     private $userModel;
+    private $loginModel;
 
     public function __construct()
     {
@@ -15,6 +16,7 @@ class email extends BaseController
         parent::__construct();
         $this->emailModel = $this->model('emailModel');
         $this->userModel = $this->model('userModel');
+        $this->loginModel = $this->model('loginModel');
     }
 
     public function index()

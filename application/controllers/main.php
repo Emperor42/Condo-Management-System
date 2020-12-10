@@ -13,6 +13,7 @@ class main extends BaseController
     private $condoModel;
     private $groupModel;
     private $payModel;
+    private $loginModel;
 
     public function __construct()
     {
@@ -23,6 +24,7 @@ class main extends BaseController
         $this->condoModel = $this->model('condoModel');
         $this->groupModel = $this->model('groupModel');
         $this->payModel = $this->model('payModel');
+        $this->loginModel = $this->model('loginModel');
     }
 
     public function index()
@@ -140,6 +142,10 @@ class main extends BaseController
         }else {
             $_SESSION['gp']=1998;//default real high so that nothing happens
         }
+        //checking permission
+        if($this->checkAccess($_SESSION['loggedUser'],-1, 300)){
+            $this->redirect('user/home');
+        }
         $this->view('conversation', $data);
     }
 
@@ -158,6 +164,10 @@ class main extends BaseController
             $_SESSION['gp']=$tmp->m;
         }else {
             $_SESSION['gp']=1998;//default real high so that nothing happens
+        }
+        //checking permission
+        if($this->checkAccess($_SESSION['loggedUser'],$other, 30)){
+            $this->redirect('user/home');
         }
         $this->view('conversationGroup', $data);
     }

@@ -101,12 +101,6 @@ class groupModel extends databaseService
         }
     }
 
-
-    /**
-     * @param $ownerId
-     * @return bool
-     */
-
     /**
      * @param $ownerId : User id for the user to be deleted
      */
@@ -126,7 +120,7 @@ class groupModel extends databaseService
                                 INNER JOIN iac353_2.relate gm
                                 ON e.eid = gm.eid)
                                 WHERE gm.tid = ?", [$groupId])) {*/
-        if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
+        if($this->Query("SELECT DISTINCT r.tid AS groupId, r.relType,r.relSup, e.eid AS ownerId, e.userId, e.firstName, e.lastName, e.email 
         FROM iac353_2.entity e INNER JOIN iac353_2.relate r
         ON e.eid = r.eid WHERE r.tid = ? OR r.eid=?", [$groupId, $groupId])){
             return $this->fetchAll();
@@ -135,16 +129,19 @@ class groupModel extends databaseService
 
     function getUserGroups($groupId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription 
-        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r WHERE (r.eid=? AND r.tid=g.groupId)", [$groupId])){
+        if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription, t.userId 
+        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r,iac353_2.relate ro, iac353_2.entity t WHERE (r.eid=? AND r.tid=g.groupId 
+        AND r0.eid = t.eid AND r0.relType<?
+        )", [$groupId, 3])){
             return $this->fetchAll();
         }
     }
 
     function getAllUserGroups($groupId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription 
-        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r ", [$groupId])){
+        if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription, t.userId 
+        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r,iac353_2.relate ro, iac353_2.entity t 
+        WHERE r0.eid = t.eid AND r0.relType<?", [$groupId, 3])){
             return $this->fetchAll();
         }
     }

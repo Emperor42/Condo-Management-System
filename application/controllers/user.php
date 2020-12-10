@@ -10,6 +10,7 @@
 class user extends BaseController
 {
     private $userModel;
+    private $loginModel;
 
     /**
      * user default constructor
@@ -19,6 +20,7 @@ class user extends BaseController
         //Loads Base class constructor
         parent::__construct();
         $this->userModel = $this->model('userModel');
+        $this->loginModel = $this->model('loginModel');
     }
 
     public function index()
