@@ -81,16 +81,18 @@
             <div class="card-footer">
                 <?php echo $eventData->poster;?><br>
                 <div class="btn-group">
-                    <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
-                        <input name="eventGroup" type="hidden" value="-1">
-                        <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
-                        <input type="hidden" name="eventReply" value="<?php echo $eventData->mid;?>">
-                        <!--Visible inputs-->
-                        <input name="eventTime"  type="hidden" value="<?php echo $eventData->msgText;?>">
-                        <!--<input name="eventArea" type="text" value="">-->
-                        <hr class="rounded">
-                        <input class="btn btn-success" type="submit" value="Accept Offer">
-                    </form>
+                    <?php if($_SESSION['loggedUser']!=-1):?>
+                        <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
+                            <input name="eventGroup" type="hidden" value="-1">
+                            <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
+                            <input type="hidden" name="eventReply" value="<?php echo $eventData->mid;?>">
+                            <!--Visible inputs-->
+                            <input name="eventTime"  type="hidden" value="<?php echo $eventData->msgText;?>">
+                            <!--<input name="eventArea" type="text" value="">-->
+                            <hr class="rounded">
+                            <input class="btn btn-success" type="submit" value="Accept Offer">
+                        </form>
+                    <?endif;?>
                 </div> 
             </div>
         </div>
@@ -111,6 +113,7 @@
             <div class="card-footer">
             <?php echo $eventData->poster;?><br>
             <div class="btn-group">
+                <?php if($_SESSION['loggedUser']!=-1):?>
                     <form action="<?php echo BASEURL; ?>/main/addContractDetails" method="post">
                         <input name="eventGroup" type="hidden" value="-1">
                         <input name="eventStart" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
@@ -121,6 +124,7 @@
                         <hr class="rounded">
                         <input class="btn btn-success" type="submit" value="Contract Complete">
                     </form>
+                    <?php endif;?>
                 </div> 
             </div>
         </div>
