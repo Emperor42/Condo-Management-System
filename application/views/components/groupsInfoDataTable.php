@@ -5,6 +5,7 @@
         <th>Group ID</th>
         <th>Group Name</th>
         <th>Group Description</th>
+        <th>Group Owner</th>
         <th>Group Chat</th>
         <th>Edit</th>
         <th>Join</th>
@@ -20,6 +21,7 @@
                 <td><?php echo $userData->groupId; ?></td>
                 <td><?php echo $userData->groupName; ?></td>
                 <td><?php echo $userData->groupDescription; ?></td>
+                <td><?php echo $userData->ownerGroup; ?></td>
                 <td><a href="<?php echo BASEURL; ?>/main/conversationGroup/<?php echo $userData->groupId; ?>"
                        class="btn-editRemove btn-primary">Open</a></td>
                 <td><a href="<?php echo BASEURL; ?>/group/groupDetails/<?php echo $userData->groupId; ?>"
