@@ -105,9 +105,9 @@ class databaseService
 
     function checkAccess($userId,$groupId, $access){
         if($groupId>=0){
-            return hasSpecificAccess($userId,$groupId, $access);
+            return $this->hasSpecificAccess($userId,$groupId, $access);
         } else {
-            return hasGeneralAccess($userId, $access);
+            return $this->hasGeneralAccess($userId, $access);
         }
     }
 
