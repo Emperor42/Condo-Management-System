@@ -356,6 +356,15 @@ class postModel extends databaseService
             ", [])) {
                 return $this->fetchAll();
             }
+        } elseif ((int)$_SESSION['loggedUser']==-1){
+            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
+            e1.userId AS toName, e2.userId AS fromName
+           FROM iac353_2.messages, iac353_2.entity e1, iac353_2.entity e2 WHERE e1.eid = msgTo AND e2.eid = msgFrom 
+           AND (msgTo=? OR msgFrom = ?)
+             ORDER BY mid DESC
+            ", [(int)$_SESSION['loggedUser'],(int)$_SESSION['loggedUser']])) {
+                return $this->fetchAll();
+            }
         } else {
             if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach,
             e1.userId AS toName, e2.userId As fromName
