@@ -3,7 +3,8 @@
     <?php if($eventData->msgSubject=='CONTRACTS'):?>
         <div class="card">
             <div class="card-header">
-                <h1><?php echo $eventData->msgText;?></h1>
+                <h1><?php echo $eventData->msgText;?></h1><br>
+                <h4><?php echo $eventData->poster;?></h4>
             </div>
             <div class="card-body">
                 <!--Date-->
@@ -77,7 +78,7 @@
     <?php if($eventData->msgSubject=="CONTRACTSOFFER")://create a new post on the post to which its a comment?>
         <div id="cDate<?php echo $eventData->mid;?>" class="card">
             <div class="card-header">Work Offer</div>
-            <div class="card-body"><?php echo $eventData->msgText;?></div>
+            <div class="card-body"><?php echo $eventData->msgText;?><br><h4><?php echo $eventData->poster;?></h4></div>
             <div class="card-footer">
                 <?php echo $eventData->poster;?><br>
                 <div class="btn-group">
@@ -109,7 +110,7 @@
     <?php if($eventData->msgSubject=="CONTRACTSAWARD")://create a new post on the post to which its a comment?>
         <div id="cTime<?php echo $eventData->mid;?>" class="card">
             <div class="card-header">Time</div>
-            <div class="card-body"><?php echo $eventData->msgText;?></div>
+            <div class="card-body"><?php echo $eventData->msgText;?><br><h4><?php echo $eventData->poster;?></h4></div>
             <div class="card-footer">
             <?php echo $eventData->poster;?><br>
             <div class="btn-group">
@@ -141,7 +142,7 @@
     <?php if($eventData->msgSubject=="CONTRACTSCOMPLETE")://create a new post on the post to which its a comment?>  
         <div id="cArea<?php echo $eventData->mid;?>" class="card">
             <div class="card-header">Location</div>
-            <div class="card-body"><?php echo $eventData->msgText;?></div>
+            <div class="card-body"><?php echo $eventData->msgText;?><br><h4><?php echo $eventData->poster;?></h4></div>
             <div class="card-footer">
             <?php echo $eventData->poster;?><br>
             </div>
