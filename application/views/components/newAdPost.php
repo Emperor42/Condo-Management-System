@@ -8,7 +8,9 @@ enctype="multipart/form-data">
   <input name="msgFrom" id="newPostMsgFrom" type="hidden" value="<?php echo $_SESSION['loggedUser'];?>">
   <fieldset name="msgSubject" id="msgSubject" required>
     PUBLIC AD: <input type="radio" value="PAD" name="msgSubject">
-    CONMAN AD: <input type="radio" value="AD" name="msgSubject">
+    <?php if((int)$_SESSION['loggedUser']>=0):?>
+      CONMAN AD: <input type="radio" value="AD" name="msgSubject">
+    <?php endif;?>
   </fieldset>
   <label for="newPostMsgText">Say Something To The Group: </label>
   <input type="text" id="newPostMsgText" name="msgText" value="">

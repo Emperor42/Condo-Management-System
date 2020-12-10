@@ -32,7 +32,8 @@ class user extends BaseController
      * returns the user's home page (userHome View)
      */
     public function home(){
-        $this->view('UserHome');
+        $data = $this->userModel->getLoggedUserData();
+        $this->view('UserHome', $data);
     }
 
     /**

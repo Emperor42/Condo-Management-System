@@ -12,7 +12,11 @@
 
         <input type="phone" name="phone" class="form-control" placeholder="Phone..." required>
 
-        <input type="text" name="entityType" class="form-control" placeholder="User Type..." required>
+        User Type: 
+        <fieldset name="entityType"  required>
+            Full User: <input type="radio" value="0" name="entityType">
+            New Admin: <input type="radio" value="1" name="entityType">
+        </fieldset>
 
         <input type="password" name="pwrd" class="form-control" placeholder="Create new password..." required>
 

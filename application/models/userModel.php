@@ -68,6 +68,14 @@ class userModel extends databaseService
         }
     }
 
+    function getLoggedUserData(){
+        if(!empty($_SESSION['loggedUser'])){
+            if ($this->Query("SELECT * FROM entity WHERE eid = ?", [$_SESSION['loggedUser']])) {
+                return $this->fetchAll();
+            }
+        }
+    }
+
     /**
      * deletes a user with the specified userId from the entity table
      * @param $userId
