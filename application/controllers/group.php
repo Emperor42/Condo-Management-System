@@ -44,7 +44,7 @@
                 $data['join'] = $this->groupModel->getAllUserGroups((int)$_SESSION['loggedUser']);
                 
                 //checking permission
-                if($this->checkAccess($_SESSION['loggedUser'],-1, 300)){
+                if($this->loginModel->checkAccess($_SESSION['loggedUser'],-1, 300)){
                     $this->redirect('user/home');
                 }
                 
@@ -67,7 +67,7 @@
             }
 
             //checking permission
-            if($this->checkAccess($_SESSION['loggedUser'],-1, 300)){
+            if($this->loginModel->checkAccess($_SESSION['loggedUser'],-1, 300)){
                 $this->redirect('user/home');
             }
 
@@ -86,7 +86,7 @@
                 $user_id = (int)($this->userModel->getUser($_POST['uid'])->eid);
 
                 //checking permission
-                if($this->checkAccess($_SESSION['loggedUser'],$gid, 3)){
+                if($this->loginModel->checkAccess($_SESSION['loggedUser'],$gid, 3)){
                     $this->redirect('user/home');
                 }
                 
@@ -118,7 +118,7 @@
             }
             if ($_SESSION['sp']<4){
                 //checking permission
-                if($this->checkAccess($_SESSION['loggedUser'],$groupId, 3)){
+                if($this->loginModel->checkAccess($_SESSION['loggedUser'],$groupId, 3)){
                     $this->redirect('user/home');
                 }
                 $this->view('groupDetails', $data, $gid);//guarentees that group id is present even if the group has no memebers

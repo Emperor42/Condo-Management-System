@@ -143,7 +143,7 @@ class main extends BaseController
             $_SESSION['gp']=1998;//default real high so that nothing happens
         }
         //checking permission
-        if($this->checkAccess($_SESSION['loggedUser'],-1, 300)){
+        if($this->loginModel->checkAccess($_SESSION['loggedUser'],-1, 300)){
             $this->redirect('user/home');
         }
         $this->view('conversation', $data);
@@ -166,7 +166,7 @@ class main extends BaseController
             $_SESSION['gp']=1998;//default real high so that nothing happens
         }
         //checking permission
-        if($this->checkAccess($_SESSION['loggedUser'],$other, 30)){
+        if($this->loginModel->checkAccess($_SESSION['loggedUser'],$other, 30)){
             $this->redirect('user/home');
         }
         $this->view('conversationGroup', $data);
