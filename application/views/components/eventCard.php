@@ -76,12 +76,14 @@
             <div class="card-body"><?php echo $eventData->msgText;?></div>
             <div class="card-footer">
                 Total Votes: <?php echo $eventData->votes;?><br>
-                <?php if(!$eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
-                <?php endif;?>
-                <?php if($eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
-                <?php endif;?>
+                <?php if($_SESSION['loggedUser']!=-1):?>
+                    <?php if(!$eventData->voted):?>
+                        <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
+                    <?php endif;?>
+                    <?php if($eventData->voted):?>
+                        <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
+                    <?php endif;?>
+                <?php endif; ?>
             </div>
         </div>
         <script>
@@ -100,12 +102,14 @@
             <div class="card-body"><?php echo $eventData->msgText;?></div>
             <div class="card-footer">
                 Total Votes: <?php echo $eventData->votes;?><br>
-                <?php if(!$eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
-                <?php endif;?>
-                <?php if($eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
-                <?php endif;?>
+                <?php if($_SESSION['loggedUser']!=-1):?>
+                    <?php if(!$eventData->voted):?>
+                        <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
+                    <?php endif;?>
+                    <?php if($eventData->voted):?>
+                        <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
+                    <?php endif;?>
+                <?php endif; ?>
             </div>
         </div>
         <script>
@@ -124,12 +128,14 @@
             <div class="card-body"><?php echo $eventData->msgText;?></div>
             <div class="card-footer">
                 Total Votes: <?php echo $eventData->votes;?><br>
-                <?php if(!$eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
-                <?php endif;?>
-                <?php if($eventData->voted):?>
-                    <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
-                <?php endif;?>
+                <?php if($_SESSION['loggedUser']!=-1):?>
+                    <?php if(!$eventData->voted):?>
+                        <a href="<?php echo BASEURL; ?>/main/toggleVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-primary">Vote For Option</a>
+                    <?php endif;?>
+                    <?php if($eventData->voted):?>
+                        <a href="<?php echo BASEURL; ?>/main/revokeVote/<?php echo $eventData->mid;?>" class="btn-editRemove btn-warning">Revoke Vote</a>
+                    <?php endif;?>
+                <?php endif; ?>
             </div>
         </div>
         <script>
