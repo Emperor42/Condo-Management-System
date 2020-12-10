@@ -15,19 +15,17 @@
 <?php include "components/admin-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
-    <div class="row">
-        <?php if((int)$_SESSION['loggedUser']>=0):?>
-            <h3>User Profile:</h3>
-            <br>
-            <?php include "components/userData.php";?>
-        <?php endif;?>
-        <!-- Close col-md-5 -->
-        <div class="jumbotron jumbotron-fluid">
-            We will display here what features are avaliable to the end user With Special Admin features below:
-            <div class="container">
-                <?php include "components/propertyForm.php";?>
-                <?php include "components/payForm.php";?>
-            </div>
+    <?php if((int)$_SESSION['loggedUser']>=0):?>
+        <h3>User Profile:</h3>
+        <br>
+        <?php include "components/userData.php";?><br>
+    <?php endif;?>
+    <!-- Close col-md-5 -->
+    <div class="jumbotron jumbotron-fluid">
+        We will display here what features are avaliable to the end user With Special Admin features below:
+        <div class="container">
+            <?php include "components/propertyForm.php";?>
+            <?php include "components/payForm.php";?>
         </div>
     </div>
     <!-- Close row -->
