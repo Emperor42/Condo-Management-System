@@ -17,19 +17,21 @@
     <div class="row">
         <div class="col-md-5">
             <?php include "components/flashMessage.php"; ?>
-            <div class="jumbotron jumbotron-fluid">
-                We will display here what features are avaliable to the end user With Special Admin features below:
-                <div class="container">
-                    <?php include "components/userData.php"?>
+            <?php if((int)$_SESSION['loggedUser']>=0):?>
+                <div class="jumbotron jumbotron-fluid">
+                    User Profile:
+                    <div class="container">
+                        <?php include "components/userData.php";?>
+                    </div>
                 </div>
-            </div>
-            <div class="jumbotron jumbotron-fluid">
-                We will display here what features are avaliable to the end user With Special Admin features below:
-                <div class="container">
-                    <?php include "components/propertyForm.php"?>
-                    <?php include "components/payForm.php"?>
+                <div class="jumbotron jumbotron-fluid">
+                    We will display here what features are avaliable to the end user With Special Admin features below:
+                    <div class="container">
+                        <?php include "components/propertyForm.php";?>
+                        <?php include "components/payForm.php";?>
+                    </div>
                 </div>
-            </div>
+            <?php endif;?>
         </div>
         <!-- Close col-md-5 -->
     </div>
