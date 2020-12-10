@@ -46,12 +46,7 @@
                     </div>
                 </div>
             <?php endif;?>
-                    Total Vote Margin: <?php if((int)$pollData->votes>=0){ 
-                        echo strval($pollData->votes)." For";
-                    }else { 
-                        echo strval(-$pollData->votes)." Against";
-                    }
-                    ?><br>
+                    Total Vote Margin: <?php echo strval($pollData->votes)?><br>
                     <?php if(!$pollData->voted):?>
                         <a href="<?php echo BASEURL; ?>/main/yeaVote/<?php echo $pollData->mid;?>" class="btn-editRemove btn-success">Yea</a>
                         <a href="<?php echo BASEURL; ?>/main/nayVote/<?php echo $pollData->mid;?>" class="btn-editRemove btn-danger">Nay</a>
