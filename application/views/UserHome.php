@@ -16,7 +16,6 @@
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">
-            <?php include "components/flashMessage.php"; ?>
             <?php if((int)$_SESSION['loggedUser']>=0):?>
                 <div class="jumbotron jumbotron-fluid">
                     User Profile:
@@ -30,8 +29,9 @@
                         <?php include "components/propertyForm.php";?>
                         <?php include "components/payForm.php";?>
                     </div>
-            <?php endif;?>
+          
         </div>
+        <?php endif;?>
         <!-- Close col-md-5 -->
     </div>
     <!-- Close row -->
