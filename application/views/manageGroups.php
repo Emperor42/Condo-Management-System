@@ -32,7 +32,7 @@
             <a href="<?php echo BASEURL; ?>/group/createGroup"
                class="btn-editRemove btn-primary">Create Group</a>
             </h3>
-            <?php include "components/groupsTotalInfoDataTable.php"; ?>
+            <?php include "components/groupsTotalInfoDatatable.php"; ?>
         </div>
         <!-- Close col-md-5 -->
     </div>
