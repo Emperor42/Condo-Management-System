@@ -29,7 +29,7 @@
             <i class="far fa-address-book"></i>
         </div>
         <div>
-        <?php include "components/editHomeEdit.php"; ?>
+        <?php include "components/userHomeEdit.php"; ?>
         </div>
     </div>
 <?php endif;?>
