@@ -44,7 +44,7 @@
                 $data['join'] = $this->groupModel->getAllUserGroups((int)$_SESSION['loggedUser']);
                 
                 //checking permission
-                if($this->loginModel->checkAccess($_SESSION['loggedUser'],-1, 300)){
+                if($this->loginModel->checkAccess((int)$_SESSION['loggedUser'],-1, 300)){
                     $this->redirect('user/home');
                 }
                 
