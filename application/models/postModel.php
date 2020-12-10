@@ -526,7 +526,7 @@ class postModel extends databaseService
     function eventsForUser($userId)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
-        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.userId AS poster
+        if ($this->Query("SELECT DISTINCT m.mid, m.replyTo, m.msgTo, m.msgFrom, m.msgSubject, m.msgText, m.msgAttach, e.userId AS poster,
         IF( (m.mid=n.replyTO AND n.msgFrom = ? AND n.msgSubject LIKE 'VOTE%'),true, false) AS voted, 
         (SELECT DISTINCT COUNT(k.mid) FROM iac353_2.messages k WHERE k.replyTO=m.mid AND k.msgSubject LIKE 'VOTE%')
          AS votes FROM iac353_2.messages m, iac353_2.messages n,  iac353_2.entity e WHERE (m.msgSubject LIKE 'EVENTS%') AND (m.msgTo = ? OR m.msgFrom = ?
