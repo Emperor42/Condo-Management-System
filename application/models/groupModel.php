@@ -131,8 +131,7 @@ class groupModel extends databaseService
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription, t.userId AS ownerGroup
         FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r,iac353_2.relate ro, iac353_2.entity t WHERE (r.eid=? AND r.tid=g.groupId 
-        AND r0.eid = t.eid AND r0.relType<?
-        )", [$groupId, 3])){
+        AND ro.eid = t.eid AND ro.relType<?)", [$groupId, 3])){
             return $this->fetchAll();
         }
     }
@@ -140,8 +139,8 @@ class groupModel extends databaseService
     function getAllUserGroups($groupId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription, t.userId AS ownerGroup
-        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r,iac353_2.relate ro, iac353_2.entity t 
-        WHERE r0.eid = t.eid AND r0.relType<?", [$groupId, 3])){
+        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r, iac353_2.relate ro, iac353_2.entity t 
+        WHERE ro.eid = t.eid AND ro.relType<?", [$groupId, 3])){
             return $this->fetchAll();
         }
     }
