@@ -22,17 +22,20 @@
                     <div class="container">
                         <?php include "components/userData.php";?>
                     </div>
-                </div>
-                <div class="jumbotron jumbotron-fluid">
+                </div><br>
+                <?php endif;?>
+        </div>
+        
+        <!-- Close col-md-5 -->
+    </div>
+    <div class="row">
+    <div class="jumbotron jumbotron-fluid">
                     We will display here what features are avaliable to the end user With Special Admin features below:
                     <div class="container">
                         <?php include "components/propertyForm.php";?>
                         <?php include "components/payForm.php";?>
                     </div>
-          
-        </div>
-        <?php endif;?>
-        <!-- Close col-md-5 -->
+            </div>
     </div>
     <!-- Close row -->
 </div>
