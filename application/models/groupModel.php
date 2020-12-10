@@ -141,6 +141,14 @@ class groupModel extends databaseService
         }
     }
 
+    function getAllUserGroups($groupId){
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
+        if($this->Query("SELECT DISTINCT g.groupId AS groupId,g.groupName AS groupName, g.groupDescription AS groupDescription 
+        FROM (iac353_2.entity e INNER JOIN iac353_2.groups g ON e.eid = g.groupId), iac353_2.relate r ", [$groupId])){
+            return $this->fetchAll();
+        }
+    }
+
     function getDetails($groupId){
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
         if($this->Query("SELECT DISTINCT *

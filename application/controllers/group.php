@@ -38,7 +38,8 @@
                 }else {
                     $_SESSION['gp']=1998;//default real high so that nothing happens
                 }
-                $data = $this->groupModel->getUserGroups((int)$_SESSION['loggedUser']);
+                $data['view'] = $this->groupModel->getUserGroups((int)$_SESSION['loggedUser']);
+                $data['view'] = $this->groupModel->getAllUserGroups((int)$_SESSION['loggedUser']);
                 $this->view('manageGroups',$data);
             } else {
                 $this->redirect('main/login');

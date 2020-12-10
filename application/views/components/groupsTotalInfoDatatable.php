@@ -12,9 +12,9 @@
     </tr>
     </thead>
     <tbody>
-    <?php if (!empty($data['view'])): ?>
+    <?php if (!empty($data['join'])): ?>
 
-        <?php foreach ($data['view'] as $userData): ?>
+        <?php foreach ($data['join'] as $userData): ?>
 
             <tr>
                 <td><?php echo $userData->groupId; ?></td>
