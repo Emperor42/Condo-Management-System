@@ -5,10 +5,10 @@
         <th>Group ID</th>
         <th>Group Name</th>
         <th>Group Description</th>
-        <th>Group Chat</th>
+        <!--<th>Group Chat</th>-->
         <th>Edit</th>
         <th>Join</th>
-        <th>Delete</th>
+        <!--<th>Delete</th>-->
     </tr>
     </thead>
     <tbody>
@@ -20,14 +20,14 @@
                 <td><?php echo $userData->groupId; ?></td>
                 <td><?php echo $userData->groupName; ?></td>
                 <td><?php echo $userData->groupDescription; ?></td>
-                <td><a href="<?php echo BASEURL; ?>/main/conversationGroup/<?php echo $userData->groupId; ?>"
-                       class="btn-editRemove btn-primary">Open</a></td>
+                <!--<td><a href="<?php echo BASEURL; ?>/main/conversationGroup/<?php echo $userData->groupId; ?>"
+                       class="btn-editRemove btn-primary">Open</a></td>-->
                 <td><a href="<?php echo BASEURL; ?>/group/groupDetails/<?php echo $userData->groupId; ?>"
                        class="btn-editRemove btn-primary">Details</a></td>
                 <td><a href="<?php echo BASEURL; ?>/group/selfAddToGroup/<?php echo $userData->groupId; ?>"
                        class="btn-editRemove btn-primary">Request</a></td>
-                <td><a href="<?php echo BASEURL; ?>/group/deleteGroupRequest/<?php echo $userData->groupId; ?>"
-                       class="btn-editRemove btn-danger">Delete</a></td>
+                <!--<td><a href="<?php echo BASEURL; ?>/group/deleteGroupRequest/<?php echo $userData->groupId; ?>"
+                       class="btn-editRemove btn-danger">Delete</a></td>-->
 
             </tr>
 
