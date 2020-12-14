@@ -18,19 +18,21 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="card event-card">
-                        <div class="card-header">Create a new event</div>
+                        <div class="card-header"><h3 style="color: blue">Create a new event</h3></div>
                         <form action="<?php echo BASEURL; ?>/main/startEvent" method="post">
                             <div class="card-body">
-                                Post to group:
+                                <h4>Post to group:</h4>
                                 <fieldset name="eventGroup"  required>
                                     <?php foreach($data['top'] as $opt):?>
                                     <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventGroup">
+                                        <br>
                                     <?php endforeach;?>
                                 </fieldset>
-                                Post as:
+                                <h4> Post as:</h4>
                                 <fieldset name="eventStart"  required>
                                     <?php foreach($data['fop'] as $opt):?>
                                     <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventStart">
+                                        <br>
                                     <?php endforeach;?>
                                 </fieldset>
                                 <label for="newEvent">Headline for your event: </label>

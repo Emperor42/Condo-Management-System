@@ -16,22 +16,25 @@
     <div class="row">
         <div class="col-md-5">
             <div class="poll">
-                <div class="poll-header">Create a new poll</div>
+                <div class="poll-header"><h3 style="color: blue;">Create a new poll</h3></div>
                 <form action="<?php echo BASEURL; ?>/main/startPoll" method="post">
-                
+                    <br>
                     <div class="poll-body">
-                        Topic for the poll: 
+                        <h4>Topic for the poll: </h4>
                         <input type="text" name="eventNamed" value=""><br>
-                        Post to group:
+                        <br>
+                        <h4>Post to group: </h4>
                         <fieldset name="eventGroup"  required>
                             <?php foreach($data['top'] as $opt):?>
                             <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventGroup">
+                                <br>
                             <?php endforeach;?>
                         </fieldset><br>
-                        Post as:
+                        <h4> Post as:</h4>
                         <fieldset name="eventStart"  required>
                             <?php foreach($data['fop'] as $opt):?>
                             <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventStart">
+                                <br>
                             <?php endforeach;?>
                         </fieldset><br>
                     </div>

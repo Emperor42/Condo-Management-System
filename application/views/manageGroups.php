@@ -22,8 +22,10 @@
             </h3>
             <?php include "components/groupsInfoDataTable.php"; ?>
         </div>
-        <br><br>
+
+
         <div id='join' class="col-md-11">
+            <br>
             <h3>All CON Groups
             <a href="<?php echo BASEURL; ?>/group/createGroup"
                class="btn-editRemove btn-primary">Create Group</a>

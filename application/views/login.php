@@ -10,21 +10,24 @@
 </head>
 <body>
 <?php include "components/flashMessage.php"; ?>
-<div class=" justify-content-center container mt-5">
+<div class=" justify-content-center container mt-5" style="background-color: whitesmoke">
     <div class="row">
         <div class="col-md-5">
             <form class="form-group" action="<?php echo BASEURL; ?>/main/loginForm" method="post">
-            <h3>Condo associations members</h3>
+                <br>
+            <h2 style="color: navy ">Condo Association Members</h2>
+                <br>
             <div class="member login">
-              <label for="uname"><b>Username</b></label>
+              <label for="uname"><b><h4 style="color: blue">UserName</h4></b></label>
               <input class="form-control" type="text" placeholder="Enter Username" name="uname" required>
               <br>
-              <label for="psw"><b>Password</b></label>
+                <label for="psw"><b><h4 style="color: blue">Password </h4></b></label>
               <input class="form-control" type="password" placeholder="Enter Password" name="psw" required>
               <br>
               <button class="btn btn-primary" type="submit">Login</button>
               <button class="btn btn-warning" type="reset">Reset</button>
-              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Forgot Password?</button>
+
+              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">Forgot Password?</button>
             </div>
             <div class="container" style="background-color:#f1f1f1">
               <span class="psw"> </span>
@@ -32,7 +35,9 @@
           </form>
         </div>
         <!-- Close col-md-5 -->
-        <div class="col-md-5">
+        <div class="col-md-5" style="background-color: whitesmoke" align="right">
+            <br>
+
             <form class="form-group" action="<?php echo BASEURL; ?>/main/loginForm" method="post">
             <h3>Public Portal</h3>
             <div class="member login">

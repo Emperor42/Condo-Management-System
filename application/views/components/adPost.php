@@ -1,9 +1,10 @@
 <!--Matthew Giancola (40019131)-->
 <?php if(!empty($postData)):?>
-    <div id="message<?php echo $postData->mid;?>" class="card" style="width:400px">
-        
-        <div class="card-body">
-            <h4 class="card-title"><?php echo ($postData->msgSubject)." from ".($postData->name)." ".($postData->coname); ?></h4><!--This should convert the user id number into a name-->
+<br>
+    <div id="message<?php echo $postData->mid;?>" class="card" style="width:600px" >
+        <div class="card-body" style="background-color: lightgrey;">
+
+            <h4 style="color: steelblue" class="card-title"><?php echo"'". ($postData->msgSubject)."' from '".($postData->name)." ".($postData->coname)."'"; ?></h4><!--This should convert the user id number into a name-->
             <?php if($postData->msgAttach!=""):?>
             <img class="card-img-bottom" src="<?php echo $postData->msgAttach; ?>" alt="Card image">
             <?php endif; ?>

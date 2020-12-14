@@ -68,6 +68,9 @@ class userModel extends databaseService
         }
     }
 
+    /**
+     * @return fetch
+     */
     function getLoggedUserData(){
         if(!empty($_SESSION['loggedUser'])){
             if ($this->Query("SELECT * FROM entity WHERE eid = ?", [$_SESSION['loggedUser']])) {

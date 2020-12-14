@@ -10,7 +10,7 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <?php if($_SESSION['loggedUser']==0)://only let the ystem admin add or edit users?>
+            <?php if($_SESSION['loggedUser']==0)://only let the system admin add or edit users?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo BASEURL; ?>/user/register">New User</a>
                 </li>

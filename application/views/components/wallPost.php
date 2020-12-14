@@ -1,19 +1,21 @@
 <?php if(!empty($postData)):?>
 <!--Matthew Giancola (40019131)-->
-    <div id="message<?php echo $postData->mid;?>" class="card" style="width:400px">
+<br>
+    <div  id="message<?php echo $postData->mid;?>" class="card" style="width:600px" >
         
-        <div class="card-body">
-            <h4 class="card-title"><?php echo ($postData->fromName)."->".($postData->toName); ?></h4><!--This should convert the user id number into a name-->
+        <div class="card-body" style="background-color: lightgrey;"  >
+            <h4 class="card-title" style="color:steelblue;"><?php echo "'".($postData->fromName)."' has posted to '".($postData->toName)."'"; ?></h4><!--This should convert the user id number into a name-->
+
             <?php if($postData->msgAttach!=""):?>
             <img class="card-img-bottom" src="<?php echo $postData->msgAttach; ?>" alt="Card image">
             <?php endif; ?>
             <p class="card-text"><?php echo $postData->msgText;?></p>
-            <!-- Button to Open the Modal, uses mid to ensure that a uniue modal value is generated -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyModal<?php echo $postData->mid;?>">Comment</button>
+            <!-- Button to Open the Modal, uses mid to ensure that a unique modal value is generated -->
+            <button type="button"  class="btn-group-sm btn-primary" data-toggle="modal" data-target="#replyModal<?php echo $postData->mid;?>">Comment</button>
             <details class="card" id="m<?php echo $postData->mid?>Comments">
                 <summary>Show Comments...</summary>
             </details>
-            <!--Show edit button iff I poste this post-->
+            <!--Show edit button if I poste this post-->
             <?php if($_SESSION['loggedUser']==(int)$postData->msgFrom || $_SESSION['loggedUser']==0):?>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $postData->mid;?>">Edit Text</button>
                 <!--Show edit button iff I poste this post-->

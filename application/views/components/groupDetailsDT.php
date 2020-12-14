@@ -25,7 +25,7 @@
                 <td><?php echo $userData->lastName; ?></td>
                 <td><?php echo $userData->email; ?></td>
                 <td><a href="<?php echo BASEURL; ?>/main/conversation/<?php echo $userData->ownerId; ?>"
-                       class="btn-editRemove btn-primary">Private Message</a></td>
+                       class="btn-editRemove btn-primary">Message</a></td>
                 <td><a href="<?php echo BASEURL; ?>/group/deleteUserFromGroup/<?php echo $userData->groupId;?>/<?php echo $userData->ownerId;?>"
                        class="btn-editRemove btn-danger">Delete</a></td>
             </tr>

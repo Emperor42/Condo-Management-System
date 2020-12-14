@@ -1,0 +1,31 @@
+.container {
+    size: auto;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    overflow: scroll;
+    margin-top: 10px;
+    padding-left: 25%;
+}
+
+.containerBottom {
+    size: auto;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    overflow: scroll;
+    margin-top: 10px;
+    margin-left: 80px;
+}
+
+.containerChat {
+    background-color: #f1f1f1;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    width: 600px;
+}
+
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}

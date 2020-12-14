@@ -490,8 +490,9 @@ class postModel extends databaseService
     function conversationForUsers($userIdA, $userIdB)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
-        if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
-        FROM iac353_2.messages 
+        if ($this->Query("SELECT DISTINCT ent.firstName, mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach 
+        FROM iac353_2.messages msg
+         LEFT JOIN entity ent  ON ent.eid = msg.msgFrom
         WHERE msgSubject='PM' AND ((msgTo = ? AND msgFrom = ?)
         OR (msgTo = ? AND msgFrom = ?))
         ORDER BY mid ASC", [$userIdA, $userIdB, $userIdB, $userIdA])) {
@@ -508,9 +509,12 @@ class postModel extends databaseService
     function conversationForGroup($user, $group)
     {
         if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 6)){return false;}
+
         if ($this->Query("SELECT DISTINCT * FROM iac353_2.relate 
-        WHERE (tid=? AND eid=?) OR (tid=? AND eid=?)", [$group,$user,$user, $group])){
-            if ($this->Query("SELECT DISTINCT mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM iac353_2.messages 
+            WHERE (tid=? AND eid=?) OR (tid=? AND eid=?)", [$group,$user,$user, $group])){
+
+            if ($this->Query("SELECT DISTINCT ent.firstName, mid, replyTo, msgTo, msgFrom, msgSubject, msgText, msgAttach FROM iac353_2.messages msg
+            LEFT JOIN entity ent  ON ent.eid = msg.msgFrom
             WHERE msgSubject='PM' AND ((msgTo = ?)
             OR (msgFrom = ?))
             ORDER BY mid ASC", [$group, $group])) {

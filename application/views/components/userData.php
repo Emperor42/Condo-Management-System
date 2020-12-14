@@ -30,7 +30,7 @@
         </div>
         <div>
         <details class = "card">
-        <summay>Edit your information...</summary>
+        <summary>Edit your information...</summary>
             <form method="post">
             <h3>Editing User: <?php echo $data->userId; ?></h3>
             <div class="form-group">

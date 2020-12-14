@@ -2,13 +2,13 @@
 <!--Matthew Giancola (40019131)-->
     <thead>
     <tr>
-        <th>Payment Number</th>/
-        <th>Payment Class</th>/
-        <th>Time & Date Posted</th>/
-        <th>Payee Number</th>/
-        <th>Payor Number</th>/
-        <th>Payee Contact</th>/
-        <th>Payor Contact</th>/
+        <th>Payment Number</th>
+        <th>Payment Class</th>
+        <th>Time & Date Posted</th>
+        <th>Payee Number</th>
+        <th>Payer Number</th>
+        <th>Payee Contact</th>
+        <th>Payer Contact</th>
         <th>Payment Total</th>
         <th>Outstanding Payment</th>
         <th>Memo</th>

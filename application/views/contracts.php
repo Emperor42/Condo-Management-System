@@ -16,22 +16,24 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="card event-card">
-                        <div class="card-header">Create a new contract</div>
+                        <div class="card-header"><h3 style="color: blue;">Create a New Contract</h3></div>
                         <form action="<?php echo BASEURL; ?>/main/startContract" method="post">
                             <div class="card-body">
-                                Post to group:
+                                <h4> Post to group: </h4>
                                 <fieldset name="eventGroup"  required>
                                     <?php foreach($data['top'] as $opt):?>
                                     <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventGroup">
+                                    <br>
                                     <?php endforeach;?>
                                 </fieldset><br>
-                                Post as:
+                                <h4> Post as: </h4>
                                 <fieldset name="eventStart"  required>
                                     <?php foreach($data['fop'] as $opt):?>
                                     <?php echo $opt->userId;?>: <input type="radio" value="<?php echo $opt->eid;?>" name="eventStart">
+                                   <br>
                                     <?php endforeach;?>
                                 </fieldset><br>
-                                <label for="newEvent">Explain for your contract: </label>
+                                <label for="newEvent">Explaination for your contract: </label>
                                 <input id="newEvent" type="text" name="eventNamed" value="">
                             </div>
                             <div class="card-footer">
