@@ -101,6 +101,7 @@ class payModel extends databaseService
     function getInAccounts($eid){
         if ($this->Query("SELECT DISTINCT
         p.pid AS   pid, 
+        p.posted AS posted, 
         p.payTo AS payeeAccount,
         p.payFrom AS payorAccount,
         e1.userId AS payeeName,
