@@ -8,6 +8,7 @@ Project Setup
   * Configure a new connection in mysql giving it below config:
     * Default Database: CONMANSYSTEM
     * root password:  database
+  * NOTE: Detailed instructions included in Report under "INSTALLATION GUIDE"
 
 
 Entity Classes
@@ -44,4 +45,22 @@ NOTES:
 -ALL THE ACTIVE BRANHCES ARE MERGED INTO DEVELOP TRY NOT TO REVERT CHANGES ULESS WE ARE IN A MEETING SO AS TO NOT FREAK ANYONE OUT WITH MISSING FILES 
 
 POST-DEMO NOTES:
--Changed what a user can see and handled a few bugs shown in the demo
+- Changed what a user can see and handled a few bugs shown in the demo
+- Beautified elements on frontend
+
+RUNNING THE PROJECT
+===================
+website: https://iac353.encs.concordia.ca/public/
+* Username: iac353_2
+* Password: nM8E8j
+
+IMPORTANT USERS
+===============
+* Public user: no need for password, click on public portal on login page
+* members:
+  * usernames: dgovi, khadijasubtain, emperor42, tiffany910
+  * They all have the same password: password
+* ADMIN:
+  * username: admin
+  * password: admin
+* NOTE: THIS INFORMATION IS ALSO PROVIDED IN THE REPORT
