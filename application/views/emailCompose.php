@@ -11,6 +11,7 @@
     <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
+<?php include "components/nav.php";?>
 <?php include "components/email-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
@@ -28,6 +29,18 @@
 <?php linkJS('assets/js/dataTable.load.js'); ?>
 <?php linkJS('assets/js/jquery.dataTables.min.js'); ?>
 <?php linkJS('assets/js/dataTables.bootstrap4.min.js'); ?>
+
+<script>
+    setTimeout(function() {
+        let alert = document.querySelector(".alert-success");
+        alert.remove();
+    }, 3000);
+
+    setTimeout(function() {
+        let alert = document.querySelector(".alert-warning");
+        alert.style.display = 'none';
+    }, 3000);
+</script>
 
 </body>
 </html>

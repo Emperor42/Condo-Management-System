@@ -13,7 +13,7 @@ class BaseController
     {
 
         if (file_exists("../application/views/" . $viewName . ".php")) {
-
+            
             require_once "../application/views/$viewName.php";
 
         } else {
@@ -76,8 +76,7 @@ class BaseController
     // Get session
     public function getSession($sessionName)
     {
-
-        if (!empty($sessionName)) {
+        if (!empty($sessionName) && !empty($_SESSION[$sessionName])) {
             return $_SESSION[$sessionName];
         }
 
@@ -87,13 +86,19 @@ class BaseController
     public function unsetSession($sessionName)
     {
 
-        if (!empty($sessionName)) {
+        if ($this->issetSession($sessionName)) {
 
             unset($_SESSION[$sessionName]);
 
         }
 
     }
+
+    //isset session
+    public function issetSession($sessionName){
+        return (!empty($sessionName) && isset($_SESSION[$sessionName]));
+    }
+
 
     // Destroy whole sessions
     public function destroy()

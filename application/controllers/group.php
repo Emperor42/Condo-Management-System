@@ -1,4 +1,4 @@
-    <?php
+<?php
     /*Khadija SUBTAIN-40040952*/
     /*Matthew GIANCOLA-40019131*/
     /**
@@ -8,6 +8,7 @@
     {
         private $groupModel;
         private $userModel;
+        private $loginModel;
 
         public function __construct()
         {
@@ -15,6 +16,7 @@
             parent::__construct();
             $this->groupModel = $this->model('groupModel');
             $this->userModel = $this->model('userModel');
+            $this->loginModel = $this->model('loginModel');
         }
 
         public function index()
@@ -32,7 +34,20 @@
         {
             //switch to the login page if he loggedUser is not set
             if (isset($_SESSION['loggedUser'])){
-                $data = $this->getGroups((int)$_SESSION['loggedUser']);
+                $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+                if (!empty($tmp)){
+                    $_SESSION['gp']=$tmp->m;
+                }else {
+                    $_SESSION['gp']=1998;//default real high so that nothing happens
+                }
+                $data['view'] = $this->groupModel->getUserGroups((int)$_SESSION['loggedUser']);
+                $data['join'] = $this->groupModel->getAllUserGroups((int)$_SESSION['loggedUser']);
+                
+                //checking permission
+                if($this->loginModel->checkAccess((int)$_SESSION['loggedUser'],-1, 300)){
+                    $this->redirect('user/home');
+                }
+                
                 $this->view('manageGroups',$data);
             } else {
                 $this->redirect('main/login');
@@ -44,6 +59,18 @@
          */
         public function createGroup()
         {
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+
+            //checking permission
+            if($this->loginModel->checkAccess($_SESSION['loggedUser'],-1, 300)){
+                $this->redirect('user/home');
+            }
+
             $this->view('createGroup');
         }
 
@@ -56,9 +83,16 @@
             //$this->view('userListForGroup', $data);
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $groupId = $_POST['gid'];
-                $user_id = $_POST['uid'];
+                $user_id = (int)($this->userModel->getUser($_POST['uid'])->eid);
+
+                //checking permission
+                if($this->loginModel->checkAccess($_SESSION['loggedUser'],$gid, 3)){
+                    $this->redirect('user/home');
+                }
+                
                 $this->addMemberToGroup($groupId, $user_id);
             }
+            
             $this->redirect('group/groupDetails/'.$gid);
         }
 
@@ -70,7 +104,28 @@
         {
             $data = $this->groupModel->getGroupDetails($groupId);
             $gid = $groupId;
-            $this->view('groupDetails', $data, $gid);//guarentees that group id is present even if the group has no memebers
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+            $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<4){
+                //checking permission
+                if($this->loginModel->checkAccess($_SESSION['loggedUser'],$groupId, 3)){
+                    $this->redirect('user/home');
+                }
+                $this->view('groupDetails', $data, $gid);//guarentees that group id is present even if the group has no memebers
+            }else {
+                $this->setFlash('failure','You dont have permission to access this!');
+                $this->redirect('/user/home');
+            }
         }
 
 
@@ -84,7 +139,24 @@
             if(isset($_SESSION['loggedUser'])){
                 $ownerId = (int)$_SESSION['loggedUser'];
                 $data = $this->groupModel->getGroupList($ownerId);
+                $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+                $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<2){
                 $this->view('EditGroups',$data);
+            }else {
+                $this->setFlash('failure','You dont have permission to access this!');
+                $this->redirect('/user/home');
+            }
             } else {
                 $this->redirect('main/login');
             }
@@ -114,12 +186,28 @@
          */
         public function deleteGroupRequest($groupId)
         {
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+            $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<2){
             $this->groupModel->deleteGroup($groupId)
                 ?
                 $this->setFlash('success', 'Group [' . $groupId . "] deleted successfully!")
                 :
                 $this->setFlash('failure', "Problem deleting group [" . $groupId . "] ");
-
+            }else {
+                $this->setFlash('failure','You dont have permission to access this!');
+                $this->redirect('/user/home');
+            }
             $this->redirect('group/manageGroups');
         }
 
@@ -132,13 +220,33 @@
         public function addMemberToGroup($groupId, $user_id){
             if(isset($_SESSION['loggedUser'])){
                 //$gid, $userId
-                if($this->groupModel->checkNonMemberUser($groupId) != $user_id){
+                $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+                $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<2){
+                if($this->groupModel->checkNonMemberUser($groupId, $user_id)){
                     $this->groupModel->insertUserToGroup($groupId,$user_id);
                     $this->setFlash('success', "User is added." );
                     $this->redirect('group/manageGroups');
                 } else {
-                    $this->redirect('main/login');
+                    $this->setFlash('failure', "User is a member." );
                 }
+            }else {
+                $this->setFlash('failure','You dont have permission to access this!');
+                $this->redirect('/user/home');
+            }
+            }
+            else {
+                $this->redirect('main/login');
             }
             //$gid, $userId
         }
@@ -149,6 +257,12 @@
          */
         public function createGroupRequest()
         {
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            /*if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }*/
             // Value validation happens at client side, so no need to check for blanks here
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -162,6 +276,7 @@
 
                 $this->redirect('group/manageGroups');
             }
+        
 
         }
 
@@ -170,10 +285,15 @@
          */
         public function selfAddToGroup($groupId){
             if(isset($_SESSION['loggedUser'])){
-                $ownerId = (int)$_SESSION['loggedUser'];
-                $this->groupModel->insertUserToGroup($groupId,$ownerId);
-                $this->setFlash('success', 'A request to add yourself has been made to the group!');
-                $this->redirect('group/manageGroups');
+                $ownerId = $_SESSION['loggedUser'];
+                if ($this->groupModel->checkNonMemberUser($groupId, $ownerId)){
+                    $this->groupModel->insertUserToGroup($groupId,$ownerId);
+                    $this->setFlash('success', 'A request to add yourself has been made to the group!');
+                    $this->redirect('group/manageGroups');
+                }else {
+                    $this->setFlash('failure', 'YOu are already a member of thr group!');
+                    $this->redirect('group/manageGroups');
+                }
             } else {
                 $this->redirect('main/login');
             }
@@ -191,7 +311,19 @@
             /*Check if the owner is also an admin.
             If he/she is an admin, then return all groups, else
             return only groups which the owner owns*/
-
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+                $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<5){
             $user = $this->userModel->getUser($ownerId);
             $user = (Array)$user;
             //echo $user["entityType"]; //uc
@@ -207,6 +339,11 @@
                 
                 //print_r($this->groupModel->getGroupList($ownerId));
             }
+        }else {
+            $this->setFlash('failure','You dont have permission to access this!');
+            $this->redirect('/user/home');
+        }
+            
         }
 
         /**
@@ -215,6 +352,19 @@
          */
         public function addOwnerOfGroup($ownerId)
         {
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+                $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<2){
             $dataRow = $this->groupModel->insertGroupOwner($ownerId);
             $data = [
                 'data'=>$dataRow,
@@ -223,6 +373,10 @@
                 'qualityError' => ''
             ];
             $this->view('AddedOwner', $data);
+        }else {
+            $this->setFlash('failure','You dont have permission to access this!');
+            $this->redirect('/user/home');
+        }
         }
 
         /**
@@ -235,13 +389,34 @@
          */
         public function addUserToGroup($gid, $userId)
         {
-            if($this->groupModel->insertUserToGroup($gid, $userId)){
-                $this->setFlash('success', 'User added successfully to group' );
-            } else {
-                $this->setFlash('failure', 'User has not been added to group' );
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+                $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<2){
+            if ($this->groupModel->checkNonMemberUser($groupId, $ownerId)){
+                if($this->groupModel->insertUserToGroup($gid, $userId)){
+                    $this->setFlash('success', 'User added successfully to group' );
+                } else {
+                    $this->setFlash('failure', 'User has not been added to group' );
+                }
+            }else {
+                $this->setFlash('failure', 'User is already a member of thr group!' );
             }
             //$this->view('AddedUser', $data);
             $this->redirect('group/groupDetails/'.$gid);
+        }else {
+            $this->setFlash('failure','You dont have permission to access this!');
+            $this->redirect('/user/home');
+        }
         }
 
         /**
@@ -252,12 +427,29 @@
          */
         public function deleteUserFromGroup($ownerId,$userId)
         {
+            $tmp = $this->userModel->generalPermission($_SESSION['loggedUser']);
+            if (!empty($tmp)){
+                $_SESSION['gp']=$tmp->m;
+            }else {
+                $_SESSION['gp']=1998;//default real high so that nothing happens
+            }
+                $tmp = $this->userModel->specificPermission($_SESSION['loggedUser'], $groupId);
+            if (!empty($tmp)){
+                $_SESSION['sp']=$tmp->m;
+            }else {
+                $_SESSION['sp']=1998;//default real high so that nothing happens
+            }
+            if ($_SESSION['sp']<3){
             if ($this->groupModel->deleteUserFromGroup($ownerId, $userId)){
                 $this->setFlash('success', 'User deleted successfully from group' );
             } else {
                 $this->setFlash('failure', 'Problem deleting user from group');
             }
                 $this->redirect('group/groupDetails/'.$ownerId);//custom redirect based on group
+            }else {
+                $this->setFlash('failure','You dont have permission to access this!');
+                $this->redirect('/user/home');
+            }
         }
     }
 

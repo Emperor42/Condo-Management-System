@@ -1,6 +1,6 @@
 #Matthew GIANCOLA-40019131
 #Khadija SUBTAIN-40040952
-CREATE database CONMANSYSTEM;
+#Daniel GAUVIN-40061905
 #an entity can be a user or group of some type
 #must be validated in the front end if it needs a password
 
@@ -22,15 +22,18 @@ PRIMARY KEY(eid)
 CREATE TABLE messages(
 mid int NOT NULL AUTO_INCREMENT,
 replyTO int,
+FOREIGN KEY (replyTO) REFERENCES messages(mid) ON DELETE CASCADE,
 msgTo int,
 FOREIGN KEY (msgTo) REFERENCES entity(eid) ON DELETE CASCADE,
 msgFrom int,
 FOREIGN KEY (msgFrom) REFERENCES entity(eid) ON DELETE CASCADE,
 msgSubject varchar(255),
 msgText varchar(2550),
-msgAttach varchar(2250),
+msgAttach  varchar(2550),
 PRIMARY KEY(mid)
 );
+
+INSERT INTO messages (mid, replyTO) VALUES (-1, -1);
 
 #the property has an address and some other data
 CREATE TABLE property(
@@ -70,11 +73,12 @@ FOREIGN KEY (tid) REFERENCES entity(eid) ON DELETE CASCADE
 
 # Group table to store info about the group
 CREATE TABLE groups(
+gid INT AUTO_INCREMENT,
 groupId int NOT NULL,
 FOREIGN KEY (groupId) REFERENCES entity(eid) ON DELETE CASCADE,
 groupName varchar(255),
-groupDescription varchar(255),
-PRIMARY KEY(groupId)
+groupDescription varchar(255)
+PRIMARY KEY(gid)
 );
 
 INSERT INTO entity (eid, userId, pwrd) VALUES (-1, 'PUBLIC', '');
@@ -82,16 +86,29 @@ INSERT INTO entity (eid, userId, pwrd) VALUES (0, 'admin', 'admin');
 
 #TODO triggers and refernce keys
 CREATE TABLE email(
-eid int NOT NULL AUTO_INCREMENT,
+emailId int NOT NULL AUTO_INCREMENT,
 fromEid int NOT NULL,
 toEid int NOT NULL,
 subject varchar(256),
 body varchar(1000),
 emailStatus varchar(256),
-createDate DATE,
+createDate DATETIME,
 outboxDelete int NOT NULL,
 inboxDelete int NOT NULL,
-PRIMARY KEY(eid)
+PRIMARY KEY(emailId)
 );
-INSERT INTO email (eid, fromEid, toEid, subject, body, emailStatus, createDate, outboxDelete ,inboxDelete)
- VALUES (null,1, 3, 'Re: Income Tax Spam', 'Your SIN has been compormized','New', current_date,0,0);
+
+#simple payment table to store information regarding payments for various things (planed transfers of money)
+CREATE TABLE payment(
+    pid INT AUTO_INCREMENT,
+    payTo int,
+    FOREIGN KEY (payTo) REFERENCES entity(eid),
+    payFrom int,
+    FOREIGN KEY (payFrom) REFERENCES entity(eid),
+    total int NOT NULL, 
+    outstanding int NOT NULL,
+    class VARCHAR(255),
+    memo VARCHAR(255),
+    posted TIMESTAMP NOT NULL,
+    PRIMARY KEY (pid)
+)

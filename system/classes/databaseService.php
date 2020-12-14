@@ -16,6 +16,8 @@ class databaseService
     public function __construct()
     {
 
+        date_default_timezone_set('America/Toronto');
+
         try {
             $this->con = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database, $this->user, $this->password);
             $this->con ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -58,6 +60,10 @@ class databaseService
         return $this->preparedStmt->rowCount();
     }
 
+    public function last(){
+        return $this->conn->lastInsertId();
+    }
+
     /**
      * @return fetch all rows from last executed query
      */
@@ -73,4 +79,39 @@ class databaseService
     {
         return $this->preparedStmt->fetch(PDO::FETCH_OBJ);
     }
+
+    //access checking for all the models
+    function hasGeneralAccess($userId, $access){
+        if($access>100){return true;}
+        if($this->Query("SELECT DISTINCT MIN(relType) AS m FROM relate WHERE eid=? AND relType<?", [$userId, $access])){
+            //$tmp =  $this->fetch();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function hasSpecificAccess($userId,$groupId, $access){
+        //check if its for yourself
+        if($userId==$groupId){return true;}
+        //access if over 100 
+        if($access>100){return true;}
+        if($this->Query("SELECT DISTINCT MIN(relType) AS m FROM relate WHERE eid=? AND tid=? AND relType<?", [$userId, $groupId, $access])){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    //NOTE RETURNS FALSE IF YOU CAN DO THING
+    //TRUE IF YOU NEED TO REDIRECT
+    function checkAccess($userId,$groupId, $access){
+        if($groupId>=0){
+            return !$this->hasSpecificAccess($userId,$groupId, $access);
+        } else {
+            return !$this->hasGeneralAccess($userId, $access);
+        }
+    }
+
+
 }

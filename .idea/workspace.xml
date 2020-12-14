@@ -24,20 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2cc47766-1266-4d2d-8eb5-b74b3dccaee2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/createGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/createGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/group.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/group.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/welcome.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/welcome.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/condoModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/condoModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/groupModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/groupModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/CreateUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/CreateUser.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/EditOrRemove.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/EditOrRemove.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/EditUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/EditUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/eventVotePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/eventVotePage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,15 +31,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -73,6 +57,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -87,18 +72,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\comp353CONsystem\application\views\components" />
-      <recent name="C:\xampp\htdocs\comp353CONsystem\application\views" />
-      <recent name="C:\Users\PC\Documents\GitHub\htdocs\comp353CONsystem" />
-      <recent name="C:\Users\PC\Documents\GitHub\htdocs\comp353CONsystem\public" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\comp353CONsystem\system\classes" />
       <recent name="C:\xampp\htdocs\comp353CONsystem\application\controllers" />
       <recent name="C:\Users\PC\Documents\GitHub\htdocs\comp353CONsystem\system" />
       <recent name="C:\Users\PC\Documents\GitHub\htdocs\comp353CONsystem\system\classes" />
       <recent name="C:\Users\PC\Documents\GitHub\comp353CONsystem\application\database" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\comp353CONsystem\application\views\components" />
+      <recent name="C:\xampp\htdocs\comp353CONsystem\application\views" />
+      <recent name="C:\Users\PC\Documents\GitHub\htdocs\comp353CONsystem" />
+      <recent name="C:\Users\PC\Documents\GitHub\htdocs\comp353CONsystem\public" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.register.php">
@@ -115,7 +100,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -135,6 +120,10 @@
       <workItem from="1603919671297" duration="8871000" />
       <workItem from="1604097281132" duration="26404000" />
       <workItem from="1605034282858" duration="15000" />
+      <workItem from="1606368235215" duration="900000" />
+      <workItem from="1606369203132" duration="107000" />
+      <workItem from="1607106819294" duration="156000" />
+      <workItem from="1607107030870" duration="33000" />
     </task>
     <servers />
   </component>
@@ -146,13 +135,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -170,10 +158,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="124" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1604113839527" />
-    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603897959111">
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606608554793">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1603897959111" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1606608554793" />
     <state x="489" y="148" key="FileChooserDialogImpl" timestamp="1605034298169">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -243,10 +231,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="438" y="87" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1603907792367" />
-    <state x="537" y="297" key="NewPhpFileDialog" timestamp="1604182597609">
+    <state x="537" y="297" key="NewPhpFileDialog" timestamp="1606797535083">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="537" y="297" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1604182597609" />
+    <state x="537" y="297" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1606797535083" />
     <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1603859681072" />
     <state x="246" y="18" key="SettingsEditor" timestamp="1603919260147">
       <screen x="0" y="0" width="1366" height="728" />
@@ -261,5 +249,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1603918197197" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1606796257642">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1606796257642" />
   </component>
 </project>

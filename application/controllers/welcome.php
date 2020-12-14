@@ -1,5 +1,5 @@
 <?php
-
+//Daniel GAUVIN-40061905
 
 /**
  * Class welcome contorls what the user sees when
@@ -16,6 +16,7 @@ class welcome extends BaseController
         if(!isset($_SESSION['loggedUser'])){
             $this->redirect('main/login');
         } else{
+            
             $this->redirect('main/wall');
         }
     }

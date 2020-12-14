@@ -11,13 +11,14 @@
     <?php linkCSS("assets/css/dataTables.bootstrap4.min.css"); ?>
 </head>
 <body>
+<?php include "components/nav.php";?>
 <?php include "components/email-nav.php"; ?>
 <?php include "components/flashMessage.php"; ?>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-11">
             <h3>Outbox</h3>
-            <?php include "components/email_Datatable.php"; ?>
+            <?php $inout = "out"; include "components/email_Datatable.php"; ?>
         </div>
         <!-- Close col-md-5 -->
     </div>

@@ -1,5 +1,8 @@
 <?php
-/*Khadija SUBTAIN-40040952*/
+/*
+ * Khadija SUBTAIN-40040952
+ * Daniel Gauvin- 40061905
+*/
 
 /**
  * This controller will deal anything to do with user
@@ -7,6 +10,7 @@
 class user extends BaseController
 {
     private $userModel;
+    private $loginModel;
 
     /**
      * user default constructor
@@ -16,6 +20,7 @@ class user extends BaseController
         //Loads Base class constructor
         parent::__construct();
         $this->userModel = $this->model('userModel');
+        $this->loginModel = $this->model('loginModel');
     }
 
     public function index()
@@ -29,7 +34,8 @@ class user extends BaseController
      * returns the user's home page (userHome View)
      */
     public function home(){
-        $this->view('UserHome');
+        $data = $this->userModel->getLoggedUserData();
+        $this->view('UserHome', $data);
     }
 
     /**

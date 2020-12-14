@@ -1,6 +1,7 @@
 <?php
 
-//combines property and ownership and management
+//combines property and ownership and management AND PAYMENTS (TODO ADD PAYMENTS!)
+//Matthew Giancola (40019131)
 class condoModel extends databaseService
 {
 
@@ -10,12 +11,19 @@ class condoModel extends databaseService
      */
     function insertProperty($place)
     {
-        if ($this->Query("INSERT INTO property (property.address)
-        VALUES(?)", [$place])) {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
+        if ($this->Query("INSERT INTO iac353_2.property (property.address) VALUES(?)", [$place])) {
             return true;
         } else {
             return false;
         }
+    }
+
+    function getPropertyByAddress($place){
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
+        if ($this->Query("SELECT pid FROM iac353_2.property WHERE property.address=?", [$place])) {
+            return $this->fetch();
+        } 
     }
 
      /**
@@ -24,7 +32,8 @@ class condoModel extends databaseService
      */
     function insertOwner($place, $owner,$share)
     {
-        if ($this->Query("INSERT INTO own (eid, pid, myShare)
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 3)){return false;}
+        if ($this->Query("INSERT INTO iac353_2.own (eid, pid, myShare)
         VALUES(?,?,?)", [$owner, $place, $share])) {
             return true;
         } else {
@@ -38,7 +47,8 @@ class condoModel extends databaseService
      */
     function insertManager($place, $owner)
     {
-        if ($this->Query("INSERT INTO manager (eid, pid)
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
+        if ($this->Query("INSERT INTO iac353_2.manager (eid, pid)
         VALUES(?,?)", [$owner, $place])) {
             return true;
         } else {
@@ -59,12 +69,37 @@ class condoModel extends databaseService
      * @param $password
      * @return bool
      */
-    function updatePropertyOwner($userId, $property, $share)
+    function updatePropertyOwner($place, $owner, $share)
     {
-        if ($this->Query("UPDATE own SET
-        firstName = ?
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 3)){return false;}
+        if ($this->Query("UPDATE iac353_2.own SET
+        eid = ?, share = ?
+        WHERE pid = ?", [$owner, $share, $place])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        WHERE userId = ?", [$firstName, $lastName, $age, $email, $phone, $entityType, $userGroup, $password, $userId])) {
+        /**
+     * updates the own table by updating the property owner
+     * @param $userId
+     * @param $firstName
+     * @param $lastName
+     * @param $age
+     * @param $email
+     * @param $phone
+     * @param $entityType
+     * @param $userGroup
+     * @param $password
+     * @return bool
+     */
+    function updatePropertyManager($place, $owner)
+    {
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
+        if ($this->Query("UPDATE iac353_2.own SET
+        eid = ?
+        WHERE pid = ?", [$owner, $share, $place])) {
             return true;
         } else {
             return false;
@@ -76,7 +111,8 @@ class condoModel extends databaseService
      * @param $userId : User id for the user to be deleted
      */
     function deleteProperty($userId){
-        return $this->Query("DELETE FROM property WHERE pid = ?", [$userId]);
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 2)){return false;}
+        return $this->Query("DELETE FROM iac353_2.property WHERE pid = ?", [$userId]);
     }
 
     /**
@@ -85,9 +121,29 @@ class condoModel extends databaseService
      */
     function getOwnedProperties($eid)
     {
-        if ($this->Query("SELECT property.address own.share FROM property INNER JOIN own 
-        WHERE property.pid=own.pid 
-        AND ?=own.eid", [$eid])) {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$eid, 5)){return false;}
+        if ($this->Query("SELECT DISTINCT
+        p.pid AS pid, 
+        p.address AS address,
+        g.groupName AS manage,
+        e.userId AS owner,
+        o.myShare AS shares
+        FROM 
+        iac353_2.property p,
+        iac353_2.own o,
+        iac353_2.manager m, 
+        iac353_2.entity e,
+        iac353_2.groups g
+        WHERE
+        o.pid = p.pid 
+        AND 
+        p.pid = m.pid
+        AND
+        m.eid = g.groupId
+        AND
+        o.eid = e.eid
+        AND
+        o.eid = ?", [$eid])) {
             return $this->fetchAll();
         }
     }
@@ -98,8 +154,55 @@ class condoModel extends databaseService
      */
     function getManagedProperties($gid)
     {
-        if ($this->Query("SELECT property.address FROM property INNER JOIN manage WHERE property.pid=manage.pid 
-        AND ?=manage.eid", [$gid])) {
+        if(!$this->hasSpecificAccess($_SESSION['loggedUser'],$gid, 5)){return false;}
+        if ($this->Query("SELECT DISTINCT
+        p.pid AS pid, 
+        p.address AS address,
+        g.groupName AS manage,
+        e.userId AS owner,
+        o.myShare AS shares
+        FROM 
+        iac353_2.property p,
+        iac353_2.own o,
+        iac353_2.manager m, 
+        iac353_2.entity e,
+        iac353_2.groups g
+        WHERE
+        o.pid = p.pid 
+        AND 
+        p.pid = m.pid
+        AND
+        m.eid = g.groupId
+        AND
+        o.eid = e.eid
+        AND
+        m.eid = ?", [$gid])) {
+            return $this->fetchAll();
+        }
+    }
+
+    function getClaimedProperties(){
+        if(!$this->hasGeneralAccess($_SESSION['loggedUser'], 1998)){return false;}
+        if ($this->Query("SELECT DISTINCT
+        p.pid AS pid, 
+        p.address AS address,
+        g.groupName AS manage,
+        e.userId AS owner,
+        o.myShare AS shares
+        FROM 
+        iac353_2.property p,
+        iac353_2.own o,
+        iac353_2.manager m, 
+        iac353_2.entity e,
+        iac353_2.groups g
+        WHERE
+        o.pid = p.pid 
+        AND 
+        p.pid = m.pid
+        AND
+        m.eid = g.groupId
+        AND
+        o.eid = e.eid", [])) {
             return $this->fetchAll();
         }
     }
