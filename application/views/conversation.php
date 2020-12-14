@@ -13,7 +13,7 @@
 </head>
 <body>
 <?php include "components/nav.php"; ?>
-<?php linkCSS("public/assets/css/privateMessages.css") ?>
+<?php linkCSS("assets/css/privateMessages.css") ?>
 
 <div class="container">
     <h3 class=" text-center">Messaging</h3>

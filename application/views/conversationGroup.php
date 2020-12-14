@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php include "components/nav.php"; ?>
-<?php linkCSS("public/assets/css/chatStyle.css") ?>
+<?php linkCSS("assets/css/chatStyle.css") ?>
 
 <h3 style="text-align: center; margin-top: 5px">Group Chat</h3>
 <div id="scrollDiv" class="container " style="background-color: white">
